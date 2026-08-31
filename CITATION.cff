@@ -14,8 +14,8 @@ license: MIT
 url: "https://github.com/AlexKutepov/bartini-plus"
 abstract: >-
   Open reconstruction of R. O. di Bartini's dimensional argument for n=6,
-  analysis of 3+3 geometry, and a stochastic extension (Bartini+) with
-  nonlinear Pólya-urn lock-in of one observed time. Numerical tests L0–L3.
-  Hypothesis posed by Alexander Kutepov; mathematics and simulations
-  produced jointly with LLMs. Does not claim a proof that the Universe is
-  six-dimensional.
+  analysis of 3+3 geometry, a stochastic extension (Bartini+), field reduction
+  via n in S^2 and Frobenius, and theorems T1–T7 (including a no-go on mass
+  from hidden times). Numerical tests L0–L3. Hypothesis posed by Alexander
+  Kutepov; mathematics and simulations produced jointly with LLMs. Does not
+  claim a proof that the Universe is six-dimensional. See docs/*/FOR_RESEARCHERS.md.

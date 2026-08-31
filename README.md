@@ -4,13 +4,19 @@
 
 Открытое исследование шестимерной конструкции Р. О. ди Бартини (\(3+3\)) и стохастической надстройки: случайный выбор тикающего часа, запирание на одном времени, численная проверка L0–L3.
 
+**Для исследователей / For researchers / 给研究者** — что сделано, что доказано, чего нет, как воспроизвести, что не цитировать:
+
+- [Русский](docs/ru/FOR_RESEARCHERS.md)
+- [English](docs/en/FOR_RESEARCHERS.md)
+- [中文](docs/zh/FOR_RESEARCHERS.md)
+
 Полные доказательства и вся цепочка рассуждений:
 
-| Язык | Текст |
-|---|---|
-| Русский | [docs/ru/PROOF.md](docs/ru/PROOF.md) |
-| English | [docs/en/PROOF.md](docs/en/PROOF.md) |
-| 中文 | [docs/zh/PROOF.md](docs/zh/PROOF.md) |
+| Язык | Бартини / Бартини+ | Четыре шага | Дыры |
+|---|---|---|---|
+| Русский | [docs/ru/PROOF.md](docs/ru/PROOF.md) | [docs/ru/FOUR_STEPS.md](docs/ru/FOUR_STEPS.md) | [docs/ru/CLOSE_GAPS.md](docs/ru/CLOSE_GAPS.md) |
+| English | [docs/en/PROOF.md](docs/en/PROOF.md) | [docs/en/FOUR_STEPS.md](docs/en/FOUR_STEPS.md) | [docs/en/CLOSE_GAPS.md](docs/en/CLOSE_GAPS.md) |
+| 中文 | [docs/zh/PROOF.md](docs/zh/PROOF.md) | [docs/zh/FOUR_STEPS.md](docs/zh/FOUR_STEPS.md) | [docs/zh/CLOSE_GAPS.md](docs/zh/CLOSE_GAPS.md) |
 
 Авторы: [AUTHORS.md](AUTHORS.md). Лицензия: [MIT](LICENSE).
 
@@ -26,9 +32,14 @@
 4. Когерентное затухание \(\Gamma\approx\frac12\mathrm{Var}(c)\,k^2\Delta t\) (ошибка относительно точной формулы: \(2.9\%\)).
 5. В клеточном автомате устойчивые структуры живут после запирания и только при «жизненном» правиле-победителе.
 
+6. Мера Бартини тождественна \(1/\mathrm{Area}(S^n)\); \(e^{-\pi x^2}\) — фурье-самодуальный гауссиан (\(L^2\)-ошибка \(2\cdot10^{-15}\)). При \(n=6\) сигнатура \((3,3)\) максимизирует объём светового конуса (\(16\pi^2\) против \(4\pi^3\) у \(2+4\)).
+7. Поле \(n:M\to S^2\) запирает случайные данные без урны (2D: \(12/12\)). Проекция \(n\cdot\partial_t\) делает волновой оператор гиперболическим и снимает тахионный знак.
+
 **Не доказано.**
 
-Вселенная физически шестимерна. Бартини вывел фундаментальные константы. Каждый миг случайно выбирается одно из \(t_1,t_2,t_3\).
+Вселенная физически шестимерна. Принцип меры — закон природы. Масса частиц из скрытых времён (T3: запрещено). Отличимый от ОТО и ещё живой числовой прогноз.
+
+Доказана редукция: Фробениус съедает голдстоуны; \(g_{\mathrm{phys}}\) имеет ранг 4 и сигнатуру \((3,1)\); \(\partial_\perp\) — калибровка; духи лишнего времени снимаются. Цена — неотличимость среза от 4D ОТО.
 
 ---
 
@@ -56,9 +67,11 @@ Full English text: [docs/en/PROOF.md](docs/en/PROOF.md).
 
 ```bash
 node bartini_plus/experiments.mjs
+node bartini_plus/four_steps.mjs
+node bartini_plus/close_gaps.mjs
 ```
 
-Результат: `results/bartini_plus.json`. Python-модули в `bartini_plus/` — параллельная запись урны и Life; рабочий прогон — JavaScript (Node).
+Результаты: `results/bartini_plus.json`, `results/four_steps.json`, `results/close_gaps.json`. Python-модули в `bartini_plus/` — параллельная запись урны и Life; рабочий прогон — JavaScript (Node).
 
 ---
 

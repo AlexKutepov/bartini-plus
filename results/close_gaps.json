@@ -1,0 +1,269 @@
+{
+  "verdicts": {
+    "hidden_time_KK_is_tachyon": true,
+    "positive_mass_requires_space_sign": true,
+    "gphys_rank_4": true,
+    "gphys_signature_3_1": true,
+    "kernel_is_2": true,
+    "projected_H_positive": true,
+    "unprojected_not_bounded": true,
+    "unprojected_indefinite_IP": true,
+    "projected_definite_IP": true
+  },
+  "mass": {
+    "rows": [
+      {
+        "s_perp": -1,
+        "k_perp2": 0,
+        "m2": 0,
+        "perp_is_time": true,
+        "tachyon": false,
+        "zero": true,
+        "positive_mass": false
+      },
+      {
+        "s_perp": -1,
+        "k_perp2": 0.25,
+        "m2": -0.25,
+        "perp_is_time": true,
+        "tachyon": true,
+        "zero": false,
+        "positive_mass": false
+      },
+      {
+        "s_perp": -1,
+        "k_perp2": 1,
+        "m2": -1,
+        "perp_is_time": true,
+        "tachyon": true,
+        "zero": false,
+        "positive_mass": false
+      },
+      {
+        "s_perp": -1,
+        "k_perp2": 4,
+        "m2": -4,
+        "perp_is_time": true,
+        "tachyon": true,
+        "zero": false,
+        "positive_mass": false
+      },
+      {
+        "s_perp": 1,
+        "k_perp2": 0,
+        "m2": 0,
+        "perp_is_time": false,
+        "tachyon": false,
+        "zero": true,
+        "positive_mass": false
+      },
+      {
+        "s_perp": 1,
+        "k_perp2": 0.25,
+        "m2": 0.25,
+        "perp_is_time": false,
+        "tachyon": false,
+        "zero": false,
+        "positive_mass": true
+      },
+      {
+        "s_perp": 1,
+        "k_perp2": 1,
+        "m2": 1,
+        "perp_is_time": false,
+        "tachyon": false,
+        "zero": false,
+        "positive_mass": true
+      },
+      {
+        "s_perp": 1,
+        "k_perp2": 4,
+        "m2": 4,
+        "perp_is_time": false,
+        "tachyon": false,
+        "zero": false,
+        "positive_mass": true
+      }
+    ],
+    "theorem_time_like_hidden_gives_m2_negative": true,
+    "theorem_m2_positive_flips_time_to_space": true
+  },
+  "metric": {
+    "n": [
+      1,
+      0,
+      0
+    ],
+    "gphys": [
+      [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        -1,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ],
+    "eigenvalues": [
+      1,
+      1,
+      1,
+      0,
+      0,
+      -1
+    ],
+    "rank": 4,
+    "signature": "3+1",
+    "kernel_dim": 2,
+    "ctc_in_physical_metric": false,
+    "reason": "Ядро g_phys — скрытые времена. Их компактификация не даёт CTC в g_phys."
+  },
+  "dof": {
+    "raw": {
+      "n_on_S2": 2,
+      "so3_broken_to_so2": true,
+      "goldstones_naive": 2
+    },
+    "frobenius": {
+      "condition": "n ∧ dn = 0 в T³",
+      "n_is_gradient": "n = dτ / |dτ|",
+      "scalars": 1,
+      "after_time_reparam": 0,
+      "leftover": "хронон χ=δτ, калибровка χ=0 фиксирует T",
+      "physical_goldstones": 0
+    },
+    "gaugeSO3": {
+      "gauge_bosons": 3,
+      "eaten": 2,
+      "leftover_u1": 1,
+      "problem": "остаётся безмассовый U(1) в плоскости времени"
+    },
+    "chosen": "frobenius+diffs"
+  },
+  "ham": {
+    "projected_H_always_positive": true,
+    "modes": [
+      {
+        "k": 0.3,
+        "H_projected": 0.545,
+        "positive": true
+      },
+      {
+        "k": 1,
+        "H_projected": 1,
+        "positive": true
+      },
+      {
+        "k": 2,
+        "H_projected": 2.5,
+        "positive": true
+      }
+    ],
+    "unprojected": [
+      {
+        "k": 1,
+        "w2": 0,
+        "omega1_sq": 1,
+        "bounded_below_as_oscillator": true,
+        "ghost_or_tachyon": false
+      },
+      {
+        "k": 1,
+        "w2": 0.5,
+        "omega1_sq": 0.75,
+        "bounded_below_as_oscillator": true,
+        "ghost_or_tachyon": false
+      },
+      {
+        "k": 1,
+        "w2": 2,
+        "omega1_sq": -3,
+        "bounded_below_as_oscillator": false,
+        "ghost_or_tachyon": true
+      }
+    ],
+    "unprojected_has_unbounded": true
+  },
+  "ip": {
+    "projected_inner_product_definite": true,
+    "unprojected_indefinite": true,
+    "samples": [
+      {
+        "w2": 0,
+        "w3": 0,
+        "KleinGordon_sign_vs_t1": 1,
+        "indefinite": false
+      },
+      {
+        "w2": 0,
+        "w3": 1.2,
+        "KleinGordon_sign_vs_t1": -1,
+        "indefinite": true
+      },
+      {
+        "w2": 0.4,
+        "w3": 0,
+        "KleinGordon_sign_vs_t1": 1,
+        "indefinite": false
+      },
+      {
+        "w2": 0.4,
+        "w3": 1.2,
+        "KleinGordon_sign_vs_t1": -1,
+        "indefinite": true
+      },
+      {
+        "w2": 1.5,
+        "w3": 0,
+        "KleinGordon_sign_vs_t1": -1,
+        "indefinite": true
+      },
+      {
+        "w2": 1.5,
+        "w3": 1.2,
+        "KleinGordon_sign_vs_t1": -1,
+        "indefinite": true
+      }
+    ]
+  }
+}
