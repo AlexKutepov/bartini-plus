@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+title: "Bartini+: stochastic time selection in 3+3 geometry"
+message: "Cite this repository if you use the proofs or the code."
+type: software
+authors:
+  - family-names: Kutepov
+    given-names: Alexander
+    alias: AlexKutepov
+    email: 56788720+AlexKutepov@users.noreply.github.com
+  - name: "Large language models (Cursor research chain, 2026)"
+    alias: LLM
+date-released: "2026-08-31"
+license: MIT
+url: "https://github.com/AlexKutepov/bartini-plus"
+abstract: >-
+  Open reconstruction of R. O. di Bartini's dimensional argument for n=6,
+  analysis of 3+3 geometry, and a stochastic extension (Bartini+) with
+  nonlinear Pólya-urn lock-in of one observed time. Numerical tests L0–L3.
+  Hypothesis posed by Alexander Kutepov; mathematics and simulations
+  produced jointly with LLMs. Does not claim a proof that the Universe is
+  six-dimensional.
