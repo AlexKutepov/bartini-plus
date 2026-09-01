@@ -18,6 +18,8 @@
 | English | [docs/en/PROOF.md](docs/en/PROOF.md) | [docs/en/FOUR_STEPS.md](docs/en/FOUR_STEPS.md) | [docs/en/CLOSE_GAPS.md](docs/en/CLOSE_GAPS.md) |
 | 中文 | [docs/zh/PROOF.md](docs/zh/PROOF.md) | [docs/zh/FOUR_STEPS.md](docs/zh/FOUR_STEPS.md) | [docs/zh/CLOSE_GAPS.md](docs/zh/CLOSE_GAPS.md) |
 
+Стресс-тест аксиомы P5: [теорема о монополии, критическое время и шум](docs/ru/P5_STRESS.md).
+
 Авторы: [AUTHORS.md](AUTHORS.md). Лицензия: [MIT](LICENSE).
 
 ---
@@ -69,9 +71,10 @@ Full English text: [docs/en/PROOF.md](docs/en/PROOF.md).
 node bartini_plus/experiments.mjs
 node bartini_plus/four_steps.mjs
 node bartini_plus/close_gaps.mjs
+node bartini_plus/p5_stress.mjs
 ```
 
-Результаты: `results/bartini_plus.json`, `results/four_steps.json`, `results/close_gaps.json`. Python-модули в `bartini_plus/` — параллельная запись урны и Life; рабочий прогон — JavaScript (Node).
+Результаты: `results/bartini_plus.json`, `results/four_steps.json`, `results/close_gaps.json`, `results/p5_stress.json`. Python-модули в `bartini_plus/` — параллельная запись урны и Life; рабочий прогон — JavaScript (Node).
 
 ---
 

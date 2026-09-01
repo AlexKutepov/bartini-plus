@@ -1,0 +1,1097 @@
+{
+  "checks": {
+    "variational_solution_is_p5": true,
+    "mean_field_theta_below_1_returns_to_symmetry": true,
+    "mean_field_theta_above_1_goes_to_vertex": true,
+    "deterministic_exact_symmetry_is_exception": true,
+    "critical_log_time_is_linear_in_inverse_epsilon": true,
+    "critical_slope_matches_asymptotic": true,
+    "finite_initial_perturbations_reach_threshold": true,
+    "bounded_logit_noise_delays_threshold": true,
+    "persistent_exploration_keeps_loser_ticks": true,
+    "exploration_symmetric_local_stability_boundary_is_one_minus_inverse_theta": true
+  },
+  "conclusions": {
+    "theta_c_for_exact_p5_monopoly": 1,
+    "exact_monopoly_for_theta_gt_1_without_persistent_noise": true,
+    "exact_symmetric_start_blocks_deterministic_mean_field_lock": true,
+    "exact_symmetric_start_blocks_stochastic_lock": false,
+    "p5_is_entropy_regularized_log_score_maximizer": true,
+    "p5_follows_from_3_plus_3_geometry": false,
+    "mean_field_lock_time_scales_as_inverse_theta_minus_one": false,
+    "mean_field_log_lock_time_scales_as_inverse_theta_minus_one": true,
+    "universal_exact_stochastic_lock_time_law_obtained": false,
+    "arbitrary_persistent_noise_preserves_exact_lock": false,
+    "persistent_exploration_preserves_exact_lock": false,
+    "bounded_logit_noise_result_is_finite_horizon_only": true
+  },
+  "definitions": {
+    "clocks": 3,
+    "threshold_lock_probability": 0.95,
+    "exact_lock": "После конечного случайного шага все последующие тики принадлежат одному часу.",
+    "threshold_lock": "Первое достижение max(p) >= 0.95; это не доказательство точного lock."
+  },
+  "variational": {
+    "counts": [
+      4,
+      7,
+      11
+    ],
+    "theta": 1.7,
+    "maximizer": [
+      0.10902547545636843,
+      0.28228816593137285,
+      0.6086863586122586
+    ],
+    "kkt_values": [
+      3.572874118181824,
+      3.572874118181824,
+      3.572874118181825
+    ],
+    "max_kkt_spread": 8.881784197001252e-16,
+    "hessian_diagonal": [
+      -9.172168209440152,
+      -3.5424793550967,
+      -1.6428822263733587
+    ]
+  },
+  "rubin_criterion": {
+    "weight": "w(n)=n^theta",
+    "reciprocal_series": "sum_n 1/w(n)=sum_n n^(-theta)",
+    "converges_iff": "theta>1",
+    "consequence": "При theta>1 сильная монополия почти наверное; при theta<=1 каждый цвет выбирается бесконечно часто."
+  },
+  "mean_field": {
+    "equation": "dx_i/ds=x_i^theta/sum_j(x_j^theta)-x_i, s=log N",
+    "symmetric_tangent_eigenvalue": "theta-1",
+    "perturbed_start": [
+      {
+        "theta": 0.8,
+        "exploration": 0,
+        "initial": [
+          0.34,
+          0.33,
+          0.33
+        ],
+        "log_time": 100,
+        "x_final": [
+          0.33333333334702037,
+          0.3333333333264898,
+          0.3333333333264898
+        ],
+        "p_final": [
+          0.33333333334428294,
+          0.3333333333278585,
+          0.3333333333278585
+        ],
+        "dT_final": 2.9999999999999996
+      },
+      {
+        "theta": 1,
+        "exploration": 0,
+        "initial": [
+          0.34,
+          0.33,
+          0.33
+        ],
+        "log_time": 100,
+        "x_final": [
+          0.34,
+          0.33,
+          0.33
+        ],
+        "p_final": [
+          0.34,
+          0.33,
+          0.33
+        ],
+        "dT_final": 2.9994001199760048
+      },
+      {
+        "theta": 1.2,
+        "exploration": 0,
+        "initial": [
+          0.34,
+          0.33,
+          0.33
+        ],
+        "log_time": 100,
+        "x_final": [
+          1,
+          1.6423178386632377e-33,
+          1.6423178386632377e-33
+        ],
+        "p_final": [
+          1,
+          4.555632181523031e-40,
+          4.555632181523031e-40
+        ],
+        "dT_final": 1
+      },
+      {
+        "theta": 2,
+        "exploration": 0,
+        "initial": [
+          0.34,
+          0.33,
+          0.33
+        ],
+        "log_time": 100,
+        "x_final": [
+          1,
+          4.173925280005769e-43,
+          4.173925280005769e-43
+        ],
+        "p_final": [
+          1,
+          1.7421652243071238e-85,
+          1.7421652243071238e-85
+        ],
+        "dT_final": 1
+      }
+    ],
+    "exact_symmetric_start": {
+      "theta": 2,
+      "exploration": 0,
+      "initial": [
+        0.3333333333333333,
+        0.3333333333333333,
+        0.3333333333333333
+      ],
+      "log_time": 100,
+      "x_final": [
+        0.3333333333333333,
+        0.3333333333333333,
+        0.3333333333333333
+      ],
+      "p_final": [
+        0.3333333333333333,
+        0.3333333333333333,
+        0.3333333333333333
+      ],
+      "dT_final": 3
+    }
+  },
+  "critical_dynamics": {
+    "initial_share": [
+      0.34,
+      0.33,
+      0.33
+    ],
+    "initial_total_count": 100,
+    "records": [
+      {
+        "theta": 1.01,
+        "epsilon": 0.010000000000000009,
+        "y0": 0.02985296314968113,
+        "y_lock": 3.601570455174638,
+        "log_time": 480.04969498936634,
+        "log10_total_count": 210.4829335732209,
+        "epsilon_times_log_time": 4.800496949893668
+      },
+      {
+        "theta": 1.015,
+        "epsilon": 0.014999999999999902,
+        "y0": 0.02985296314968113,
+        "y_lock": 3.583828728794468,
+        "log_time": 319.9537812735863,
+        "log10_total_count": 140.9541616711985,
+        "epsilon_times_log_time": 4.799306719103763
+      },
+      {
+        "theta": 1.02,
+        "epsilon": 0.020000000000000018,
+        "y0": 0.02985296314968113,
+        "y_lock": 3.5662609409082204,
+        "log_time": 239.904418028373,
+        "log10_total_count": 106.18916493393338,
+        "epsilon_times_log_time": 4.798088360567464
+      },
+      {
+        "theta": 1.03,
+        "epsilon": 0.030000000000000027,
+        "y0": 0.02985296314968113,
+        "y_lock": 3.5316370482780433,
+        "log_time": 159.85229280766654,
+        "log10_total_count": 71.42296868595244,
+        "epsilon_times_log_time": 4.79556878423
+      },
+      {
+        "theta": 1.05,
+        "epsilon": 0.050000000000000044,
+        "y0": 0.02985296314968113,
+        "y_lock": 3.464367771167985,
+        "log_time": 95.80417524441037,
+        "log10_total_count": 43.607224651939546,
+        "epsilon_times_log_time": 4.790208762220523
+      },
+      {
+        "theta": 1.08,
+        "epsilon": 0.08000000000000007,
+        "y0": 0.02985296314968113,
+        "y_lock": 3.3681353330799855,
+        "log_time": 59.76763805805984,
+        "log10_total_count": 27.95675540500617,
+        "epsilon_times_log_time": 4.781411044644791
+      },
+      {
+        "theta": 1.12,
+        "epsilon": 0.1200000000000001,
+        "y0": 0.02985296314968113,
+        "y_lock": 3.247844785469986,
+        "log_time": 39.73655815255353,
+        "log10_total_count": 19.25736793548167,
+        "epsilon_times_log_time": 4.768386978306427
+      },
+      {
+        "theta": 1.2,
+        "epsilon": 0.19999999999999996,
+        "y0": 0.02985296314968113,
+        "y_lock": 3.0313217997719875,
+        "log_time": 23.69273470276916,
+        "log10_total_count": 12.289623942610326,
+        "epsilon_times_log_time": 4.738546940553832
+      }
+    ],
+    "fit_log_time_vs_inverse_epsilon": {
+      "slope": 4.80295154132417,
+      "intercept": -0.24442455801289498,
+      "r2": 0.9999999998659644
+    },
+    "asymptotic_slope_theory": 4.802791494814056,
+    "stochastic_first_passage": [
+      {
+        "theta": 1.05,
+        "initial_counts": [
+          1,
+          1,
+          1
+        ],
+        "initial_probability": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "n_runs": 24,
+        "max_steps": 100000,
+        "logit_sigma": 0,
+        "exploration": 0,
+        "hit_fraction": 0.20833333333333334,
+        "median_with_censoring": null,
+        "median_conditional_on_hit": 323,
+        "p90_with_censoring": null,
+        "winner_counts_at_hit": [
+          1,
+          3,
+          1
+        ]
+      },
+      {
+        "theta": 1.1,
+        "initial_counts": [
+          1,
+          1,
+          1
+        ],
+        "initial_probability": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "n_runs": 24,
+        "max_steps": 100000,
+        "logit_sigma": 0,
+        "exploration": 0,
+        "hit_fraction": 0.25,
+        "median_with_censoring": null,
+        "median_conditional_on_hit": 5277.5,
+        "p90_with_censoring": null,
+        "winner_counts_at_hit": [
+          2,
+          1,
+          3
+        ]
+      },
+      {
+        "theta": 1.15,
+        "initial_counts": [
+          1,
+          1,
+          1
+        ],
+        "initial_probability": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "n_runs": 32,
+        "max_steps": 100000,
+        "logit_sigma": 0,
+        "exploration": 0,
+        "hit_fraction": 0.34375,
+        "median_with_censoring": null,
+        "median_conditional_on_hit": 320,
+        "p90_with_censoring": null,
+        "winner_counts_at_hit": [
+          3,
+          6,
+          2
+        ]
+      },
+      {
+        "theta": 1.2,
+        "initial_counts": [
+          1,
+          1,
+          1
+        ],
+        "initial_probability": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "n_runs": 48,
+        "max_steps": 100000,
+        "logit_sigma": 0,
+        "exploration": 0,
+        "hit_fraction": 0.625,
+        "median_with_censoring": 5012,
+        "median_conditional_on_hit": 1011.5,
+        "p90_with_censoring": null,
+        "winner_counts_at_hit": [
+          13,
+          5,
+          12
+        ]
+      },
+      {
+        "theta": 1.3,
+        "initial_counts": [
+          1,
+          1,
+          1
+        ],
+        "initial_probability": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "n_runs": 64,
+        "max_steps": 50000,
+        "logit_sigma": 0,
+        "exploration": 0,
+        "hit_fraction": 0.90625,
+        "median_with_censoring": 362,
+        "median_conditional_on_hit": 300,
+        "p90_with_censoring": 32721,
+        "winner_counts_at_hit": [
+          23,
+          16,
+          19
+        ]
+      },
+      {
+        "theta": 1.5,
+        "initial_counts": [
+          1,
+          1,
+          1
+        ],
+        "initial_probability": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "n_runs": 64,
+        "max_steps": 20000,
+        "logit_sigma": 0,
+        "exploration": 0,
+        "hit_fraction": 0.921875,
+        "median_with_censoring": 54,
+        "median_conditional_on_hit": 49,
+        "p90_with_censoring": 3832,
+        "winner_counts_at_hit": [
+          13,
+          21,
+          25
+        ]
+      },
+      {
+        "theta": 2,
+        "initial_counts": [
+          1,
+          1,
+          1
+        ],
+        "initial_probability": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "n_runs": 64,
+        "max_steps": 5000,
+        "logit_sigma": 0,
+        "exploration": 0,
+        "hit_fraction": 1,
+        "median_with_censoring": 10,
+        "median_conditional_on_hit": 10,
+        "p90_with_censoring": 63,
+        "winner_counts_at_hit": [
+          17,
+          23,
+          24
+        ]
+      }
+    ]
+  },
+  "initial_condition_robustness": [
+    {
+      "theta": 2,
+      "initial_counts": [
+        25.24939048299253,
+        24.875304758503734,
+        24.875304758503734
+      ],
+      "initial_probability": [
+        0.3400000000000001,
+        0.33,
+        0.33
+      ],
+      "steps": 15000,
+      "n_runs": 96,
+      "logit_sigma": 0,
+      "exploration": 0,
+      "threshold_hit_fraction": 0.9479166666666666,
+      "threshold_hit_median": 1593,
+      "final_winner_counts": [
+        31,
+        25,
+        40
+      ],
+      "initial_leader_wins_fraction": 0.3229166666666667,
+      "final_p_max_mean": 0.9915802317877956,
+      "final_dT_mean": 1.0186410598395421,
+      "tail_loser_rate_mean": 0.009975694444444445,
+      "every_color_selected_in_tail_fraction": 0.3229166666666667
+    },
+    {
+      "theta": 2,
+      "initial_counts": [
+        62.39442297349201,
+        6.302788513253987,
+        6.302788513253987
+      ],
+      "initial_probability": [
+        0.98,
+        0.01,
+        0.01
+      ],
+      "steps": 15000,
+      "n_runs": 96,
+      "logit_sigma": 0,
+      "exploration": 0,
+      "threshold_hit_fraction": 1,
+      "threshold_hit_median": 0,
+      "final_winner_counts": [
+        96,
+        0,
+        0
+      ],
+      "initial_leader_wins_fraction": 1,
+      "final_p_max_mean": 0.9999995561707603,
+      "final_dT_mean": 1.0000008876589905,
+      "tail_loser_rate_mean": 0,
+      "every_color_selected_in_tail_fraction": 0
+    }
+  ],
+  "noise": {
+    "bounded_logit": [
+      {
+        "theta": 2,
+        "initial_counts": [
+          25,
+          25,
+          25
+        ],
+        "initial_probability": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "n_runs": 96,
+        "max_steps": 30000,
+        "logit_sigma": 0,
+        "exploration": 0,
+        "hit_fraction": 0.9479166666666666,
+        "median_with_censoring": 1262,
+        "median_conditional_on_hit": 1229,
+        "p90_with_censoring": 12064,
+        "winner_counts_at_hit": [
+          31,
+          37,
+          23
+        ]
+      },
+      {
+        "theta": 2,
+        "initial_counts": [
+          25,
+          25,
+          25
+        ],
+        "initial_probability": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "n_runs": 96,
+        "max_steps": 30000,
+        "logit_sigma": 0.5,
+        "exploration": 0,
+        "hit_fraction": 0.9479166666666666,
+        "median_with_censoring": 1965,
+        "median_conditional_on_hit": 1957,
+        "p90_with_censoring": 14251,
+        "winner_counts_at_hit": [
+          28,
+          28,
+          35
+        ]
+      },
+      {
+        "theta": 2,
+        "initial_counts": [
+          25,
+          25,
+          25
+        ],
+        "initial_probability": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "n_runs": 96,
+        "max_steps": 30000,
+        "logit_sigma": 1,
+        "exploration": 0,
+        "hit_fraction": 0.90625,
+        "median_with_censoring": 2630,
+        "median_conditional_on_hit": 2264,
+        "p90_with_censoring": 29062,
+        "winner_counts_at_hit": [
+          35,
+          26,
+          26
+        ]
+      },
+      {
+        "theta": 2,
+        "initial_counts": [
+          25,
+          25,
+          25
+        ],
+        "initial_probability": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "n_runs": 96,
+        "max_steps": 30000,
+        "logit_sigma": 2,
+        "exploration": 0,
+        "hit_fraction": 0.375,
+        "median_with_censoring": null,
+        "median_conditional_on_hit": 12790.5,
+        "p90_with_censoring": null,
+        "winner_counts_at_hit": [
+          16,
+          12,
+          8
+        ]
+      }
+    ],
+    "persistent_exploration": {
+      "rule": "p_tilde=(1-mu)p+mu/3",
+      "exact_monopoly_for_any_mu_gt_0": false,
+      "reason": "p_tilde_i>=mu/3, поэтому каждый час тикает бесконечно часто почти наверное.",
+      "symmetric_local_stability_boundary_theta_2": 0.5,
+      "asymmetric_saddle_node_theta_2": 0.5147186257614287,
+      "theta_2_fixed_points": [
+        {
+          "exploration": 0.45,
+          "symmetric_share": 0.3333333333333333,
+          "asymmetric_winner_shares": [
+            0.6,
+            0.24999999999999997
+          ]
+        },
+        {
+          "exploration": 0.5,
+          "symmetric_share": 0.3333333333333333,
+          "asymmetric_winner_shares": [
+            0.5,
+            0.3333333333333333
+          ]
+        },
+        {
+          "exploration": 0.51,
+          "symmetric_share": 0.3333333333333333,
+          "asymmetric_winner_shares": [
+            0.46216990566028304,
+            0.36783009433971703
+          ]
+        },
+        {
+          "exploration": 0.5147186257614287,
+          "symmetric_share": 0.3333333333333333,
+          "asymmetric_winner_shares": [
+            0.4142135845864348,
+            0.4142135401597556
+          ]
+        },
+        {
+          "exploration": 0.52,
+          "symmetric_share": 0.3333333333333333,
+          "asymmetric_winner_shares": []
+        }
+      ],
+      "finite_runs": [
+        {
+          "theta": 2,
+          "initial_counts": [
+            25,
+            25,
+            25
+          ],
+          "initial_probability": [
+            0.3333333333333333,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "steps": 30000,
+          "n_runs": 16,
+          "logit_sigma": 0,
+          "exploration": 0,
+          "threshold_hit_fraction": 1,
+          "threshold_hit_median": 2118,
+          "final_winner_counts": [
+            5,
+            3,
+            8
+          ],
+          "initial_leader_wins_fraction": null,
+          "final_p_max_mean": 0.9973353983878951,
+          "final_dT_mean": 1.0053990187561823,
+          "tail_loser_rate_mean": 0.0033437500000000004,
+          "every_color_selected_in_tail_fraction": 0.375
+        },
+        {
+          "theta": 2,
+          "initial_counts": [
+            25,
+            25,
+            25
+          ],
+          "initial_probability": [
+            0.3333333333333333,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "steps": 30000,
+          "n_runs": 16,
+          "logit_sigma": 0,
+          "exploration": 0.01,
+          "threshold_hit_fraction": 0.9375,
+          "threshold_hit_median": 2244,
+          "final_winner_counts": [
+            6,
+            5,
+            5
+          ],
+          "initial_leader_wins_fraction": null,
+          "final_p_max_mean": 0.9824559418509913,
+          "final_dT_mean": 1.0380625630263498,
+          "tail_loser_rate_mean": 0.019364583333333338,
+          "every_color_selected_in_tail_fraction": 1
+        },
+        {
+          "theta": 2,
+          "initial_counts": [
+            25,
+            25,
+            25
+          ],
+          "initial_probability": [
+            0.3333333333333333,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "steps": 30000,
+          "n_runs": 16,
+          "logit_sigma": 0,
+          "exploration": 0.05,
+          "threshold_hit_fraction": 0.9375,
+          "threshold_hit_median": 4224,
+          "final_winner_counts": [
+            7,
+            6,
+            3
+          ],
+          "initial_leader_wins_fraction": null,
+          "final_p_max_mean": 0.9608577755797993,
+          "final_dT_mean": 1.082672908925703,
+          "tail_loser_rate_mean": 0.03928125,
+          "every_color_selected_in_tail_fraction": 1
+        },
+        {
+          "theta": 2,
+          "initial_counts": [
+            25,
+            25,
+            25
+          ],
+          "initial_probability": [
+            0.3333333333333333,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "steps": 30000,
+          "n_runs": 16,
+          "logit_sigma": 0,
+          "exploration": 0.1,
+          "threshold_hit_fraction": 0,
+          "threshold_hit_median": null,
+          "final_winner_counts": [
+            6,
+            7,
+            3
+          ],
+          "initial_leader_wins_fraction": null,
+          "final_p_max_mean": 0.8971223932670624,
+          "final_dT_mean": 1.2335726569865453,
+          "tail_loser_rate_mean": 0.10306250000000002,
+          "every_color_selected_in_tail_fraction": 1
+        },
+        {
+          "theta": 2,
+          "initial_counts": [
+            25,
+            25,
+            25
+          ],
+          "initial_probability": [
+            0.3333333333333333,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "steps": 30000,
+          "n_runs": 16,
+          "logit_sigma": 0,
+          "exploration": 0.25,
+          "threshold_hit_fraction": 0,
+          "threshold_hit_median": null,
+          "final_winner_counts": [
+            4,
+            9,
+            3
+          ],
+          "initial_leader_wins_fraction": null,
+          "final_p_max_mean": 0.7052979015467562,
+          "final_dT_mean": 1.8334689642173962,
+          "tail_loser_rate_mean": 0.2991250000000001,
+          "every_color_selected_in_tail_fraction": 1
+        },
+        {
+          "theta": 2,
+          "initial_counts": [
+            25,
+            25,
+            25
+          ],
+          "initial_probability": [
+            0.33333333333333337,
+            0.33333333333333337,
+            0.33333333333333337
+          ],
+          "steps": 30000,
+          "n_runs": 16,
+          "logit_sigma": 0,
+          "exploration": 0.45,
+          "threshold_hit_fraction": 0,
+          "threshold_hit_median": null,
+          "final_winner_counts": [
+            5,
+            3,
+            8
+          ],
+          "initial_leader_wins_fraction": null,
+          "final_p_max_mean": 0.4351256326497704,
+          "final_dT_mean": 2.827382889966565,
+          "tail_loser_rate_mean": 0.5668333333333333,
+          "every_color_selected_in_tail_fraction": 1
+        },
+        {
+          "theta": 2,
+          "initial_counts": [
+            25,
+            25,
+            25
+          ],
+          "initial_probability": [
+            0.3333333333333333,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "steps": 30000,
+          "n_runs": 16,
+          "logit_sigma": 0,
+          "exploration": 0.55,
+          "threshold_hit_fraction": 0,
+          "threshold_hit_median": null,
+          "final_winner_counts": [
+            4,
+            9,
+            3
+          ],
+          "initial_leader_wins_fraction": null,
+          "final_p_max_mean": 0.37693120502883143,
+          "final_dT_mean": 2.9640173601912765,
+          "tail_loser_rate_mean": 0.6202395833333334,
+          "every_color_selected_in_tail_fraction": 1
+        },
+        {
+          "theta": 2,
+          "initial_counts": [
+            25,
+            25,
+            25
+          ],
+          "initial_probability": [
+            0.3333333333333333,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "steps": 30000,
+          "n_runs": 16,
+          "logit_sigma": 0,
+          "exploration": 0.75,
+          "threshold_hit_fraction": 0,
+          "threshold_hit_median": null,
+          "final_winner_counts": [
+            6,
+            7,
+            3
+          ],
+          "initial_leader_wins_fraction": null,
+          "final_p_max_mean": 0.33650110416160317,
+          "final_dT_mean": 2.9997439614378365,
+          "tail_loser_rate_mean": 0.6630833333333334,
+          "every_color_selected_in_tail_fraction": 1
+        }
+      ],
+      "mean_field": [
+        {
+          "theta": 2,
+          "exploration": 0,
+          "initial": [
+            0.34,
+            0.33,
+            0.33
+          ],
+          "log_time": 300,
+          "x_final": [
+            1,
+            5.776280794935541e-130,
+            5.776280794935541e-130
+          ],
+          "p_final": [
+            1,
+            3.3365419821941164e-259,
+            3.3365419821941164e-259
+          ],
+          "dT_final": 1,
+          "symmetric_tangent_eigenvalue": 1,
+          "probability_floor": 0,
+          "ideal_vertex_p_max_ceiling": 1,
+          "ideal_vertex_dT_floor": 1
+        },
+        {
+          "theta": 2,
+          "exploration": 0.01,
+          "initial": [
+            0.34,
+            0.33,
+            0.33
+          ],
+          "log_time": 300,
+          "x_final": [
+            0.9933108861352535,
+            0.003344556932373216,
+            0.003344556932373216
+          ],
+          "p_final": [
+            0.9933108861352535,
+            0.003344556932373194,
+            0.003344556932373194
+          ],
+          "dT_final": 1.0134906874054679,
+          "symmetric_tangent_eigenvalue": 0.98,
+          "probability_floor": 0.0033333333333333335,
+          "ideal_vertex_p_max_ceiling": 0.9933333333333333,
+          "ideal_vertex_dT_floor": 1.0134450374974664
+        },
+        {
+          "theta": 2,
+          "exploration": 0.05,
+          "initial": [
+            0.34,
+            0.33,
+            0.33
+          ],
+          "log_time": 300,
+          "x_final": [
+            0.9660815109163425,
+            0.01695924454182879,
+            0.01695924454182879
+          ],
+          "p_final": [
+            0.9660815109163428,
+            0.016959244541828615,
+            0.016959244541828615
+          ],
+          "dT_final": 1.0707913920178849,
+          "symmetric_tangent_eigenvalue": 0.8999999999999999,
+          "probability_floor": 0.016666666666666666,
+          "ideal_vertex_p_max_ceiling": 0.9666666666666667,
+          "ideal_vertex_dT_floor": 1.0695187165775402
+        },
+        {
+          "theta": 2,
+          "exploration": 0.1,
+          "initial": [
+            0.34,
+            0.33,
+            0.33
+          ],
+          "log_time": 300,
+          "x_final": [
+            0.9308573860699176,
+            0.034571306965041175,
+            0.034571306965041175
+          ],
+          "p_final": [
+            0.9308573860699183,
+            0.03457130696504083,
+            0.03457130696504083
+          ],
+          "dT_final": 1.1508992006630538,
+          "symmetric_tangent_eigenvalue": 0.8,
+          "probability_floor": 0.03333333333333333,
+          "ideal_vertex_p_max_ceiling": 0.9333333333333333,
+          "ideal_vertex_dT_floor": 1.1450381679389312
+        },
+        {
+          "theta": 2,
+          "exploration": 0.25,
+          "initial": [
+            0.34,
+            0.33,
+            0.33
+          ],
+          "log_time": 300,
+          "x_final": [
+            0.8143334893882286,
+            0.09283325530588568,
+            0.09283325530588568
+          ],
+          "p_final": [
+            0.81433348938823,
+            0.09283325530588499,
+            0.09283325530588499
+          ],
+          "dT_final": 1.4697775697045827,
+          "symmetric_tangent_eigenvalue": 0.5,
+          "probability_floor": 0.08333333333333333,
+          "ideal_vertex_p_max_ceiling": 0.8333333333333334,
+          "ideal_vertex_dT_floor": 1.4117647058823528
+        },
+        {
+          "theta": 2,
+          "exploration": 0.45,
+          "initial": [
+            0.34,
+            0.33,
+            0.33
+          ],
+          "log_time": 300,
+          "x_final": [
+            0.5999999999999912,
+            0.2000000000000044,
+            0.2000000000000044
+          ],
+          "p_final": [
+            0.599999999999994,
+            0.200000000000003,
+            0.200000000000003
+          ],
+          "dT_final": 2.272727272727298,
+          "symmetric_tangent_eigenvalue": 0.10000000000000009,
+          "probability_floor": 0.15,
+          "ideal_vertex_p_max_ceiling": 0.7,
+          "ideal_vertex_dT_floor": 1.869158878504673
+        },
+        {
+          "theta": 2,
+          "exploration": 0.55,
+          "initial": [
+            0.34,
+            0.33,
+            0.33
+          ],
+          "log_time": 300,
+          "x_final": [
+            0.33333333333336146,
+            0.3333333333333192,
+            0.3333333333333192
+          ],
+          "p_final": [
+            0.3333333333333587,
+            0.33333333333332066,
+            0.33333333333332066
+          ],
+          "dT_final": 2.9999999999999996,
+          "symmetric_tangent_eigenvalue": -0.10000000000000009,
+          "probability_floor": 0.18333333333333335,
+          "ideal_vertex_p_max_ceiling": 0.6333333333333333,
+          "ideal_vertex_dT_floor": 2.135231316725979
+        },
+        {
+          "theta": 2,
+          "exploration": 0.75,
+          "initial": [
+            0.34,
+            0.33,
+            0.33
+          ],
+          "log_time": 300,
+          "x_final": [
+            0.3333333333333389,
+            0.33333333333333054,
+            0.33333333333333054
+          ],
+          "p_final": [
+            0.33333333333333615,
+            0.3333333333333319,
+            0.3333333333333319
+          ],
+          "dT_final": 3,
+          "symmetric_tangent_eigenvalue": -0.5,
+          "probability_floor": 0.25,
+          "ideal_vertex_p_max_ceiling": 0.5,
+          "ideal_vertex_dT_floor": 2.6666666666666665
+        }
+      ]
+    }
+  }
+}
