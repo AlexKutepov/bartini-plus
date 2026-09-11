@@ -1,0 +1,320 @@
+{
+  "verdicts": {
+    "T8_dirichlet_natural_Planck_lock_killed": true,
+    "T8_dirichlet_eps_max_below_1e_14": true,
+    "T8_dirichlet_binding_is_GW170817": true,
+    "T8_best_tuned_eps_max_below_1e_4": true,
+    "T8_no_coarse_pattern_survives_eps_1": true,
+    "T8_generic_sliver_alive_at_eps_1": true,
+    "T8_sliver_needs_c14_over_c1_below_1e_8": true,
+    "T8_GUT_lock_killed_even_tuned": true,
+    "T8_5e10_lock_survives_dirichlet": true,
+    "T9_planck_bound_weaker_than_T8": true,
+    "live_number_exists": true
+  },
+  "T8": {
+    "bounds_used": {
+      "gw_speed_upper": 7e-16,
+      "gw_speed_lower": -3e-15,
+      "cherenkov_s2_min": 0.999999999999999,
+      "alpha1_abs": 0.00004,
+      "alpha2_abs": 1.6e-9,
+      "bbn_G_ratio_abs": 0.13,
+      "planck_G_eta2": 0.000001
+    },
+    "map": "c_i = κ_i (E_lock/M_Pl)²; M_Pl = 2.435e18 GeV (reduced); κ_i ∈ {-1,0,1}",
+    "map_bartini": "6D энергия Дирихле η^{AB}∂_A n·∂_B n при ∂⊥=0 (T4) даёт на срезе только c1-структуру g^{ab}∇_a u_m ∇_b u^m. c2, c3, c4 = 0. Свободы для сокращений нет.",
+    "generic_aether_sliver": {
+      "construction": "c13 = 0 (точно), c4 = -c1(1-δ), c2 ∈ [1e-4, 0.3]",
+      "rows": [
+        {
+          "eps": 1,
+          "pass": true,
+          "delta_c14_over_c1": 3.1622776601683795e-9,
+          "c2": 0.00009999999999999999,
+          "c13_over_c1_required": 7e-16,
+          "observables": {
+            "c13": 0,
+            "c14": 3.162277661949986e-9,
+            "c123": 0.00009999999999998899,
+            "s2sq": 1,
+            "s1sq": 316227765.8386773,
+            "s0sq": 31618.033828789925,
+            "alpha1": -1.2649110647799944e-8,
+            "alpha2": -1.581088823471347e-9,
+            "gRatio": 0.9998500209157237
+          }
+        },
+        {
+          "eps": 0.01,
+          "pass": true,
+          "delta_c14_over_c1": 3.162277660168379e-7,
+          "c2": 0.00009999999999999999,
+          "c13_over_c1_required": 7e-14,
+          "observables": {
+            "c13": 0,
+            "c14": 3.1622776602152625e-9,
+            "c123": 0.0000999999999999994,
+            "s2sq": 1,
+            "s1sq": 3162277.6601214963,
+            "s0sq": 31618.03384613785,
+            "alpha1": -1.2649110643463135e-8,
+            "alpha2": -1.5810888239085385e-9,
+            "gRatio": 0.9998500209157237
+          }
+        },
+        {
+          "eps": 0.00001,
+          "pass": true,
+          "delta_c14_over_c1": 0.00031622776601683794,
+          "c2": 0.00009999999999999999,
+          "c13_over_c1_required": 7e-11,
+          "observables": {
+            "c13": 0,
+            "c14": 3.1622776601678286e-9,
+            "c123": 0.00009999999999999999,
+            "s2sq": 1,
+            "s1sq": 3162.27766016893,
+            "s0sq": 31618.033846612303,
+            "alpha1": -1.264911064067053e-8,
+            "alpha2": -1.581088822583444e-9,
+            "gRatio": 0.9998500209157237
+          }
+        },
+        {
+          "eps": 1e-10,
+          "pass": true,
+          "delta_c14_over_c1": 0.1,
+          "c2": 0.00009999999999999999,
+          "c13_over_c1_required": 0.000007,
+          "observables": {
+            "c13": 0,
+            "c14": 1.0000000000000004e-11,
+            "c123": 0.00009999999999999999,
+            "s2sq": 1,
+            "s1sq": 9.999999999999996,
+            "s0sq": 9998500.224916257,
+            "alpha1": -4.0000000000000004e-11,
+            "alpha2": -4.9999994999249966e-12,
+            "gRatio": 0.9998500224916261
+          }
+        }
+      ],
+      "meaning": "Общий Эйнштейн–эфир при ε=O(1) жив только при двух сокращениях: |c13|/c1 ≲ 1e-15 и c14/c1 ≲ 1e-9. В отображении Бартини+ они недостижимы."
+    },
+    "dirichlet_only": {
+      "pattern": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "eps_max": 1.584893192461247e-15,
+      "binding": [
+        "GW170817"
+      ],
+      "E_lock_max_GeV": 96939096029.78067,
+      "observables_at_eps_max": {
+        "c13": 1.584893192461247e-15,
+        "c14": 1.584893192461247e-15,
+        "c123": 1.584893192461247e-15,
+        "s2sq": 1.0000000000000016,
+        "s1sq": 1.0000000000000007,
+        "s0sq": 0.9999999999999999,
+        "alpha1": 0,
+        "alpha2": -1.5848931924612482e-15,
+        "gRatio": 0.9999999999999982
+      }
+    },
+    "best_tuned": {
+      "pattern": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "eps_max": 1.584893192461247e-15,
+      "binding": [
+        "GW170817"
+      ],
+      "E_lock_max_GeV": 96939096029.78067,
+      "observables_at_eps_max": {
+        "c13": 1.584893192461247e-15,
+        "c14": 1.584893192461247e-15,
+        "c123": 1.584893192461247e-15,
+        "s2sq": 1.0000000000000016,
+        "s1sq": 1.0000000000000007,
+        "s0sq": 0.9999999999999999,
+        "alpha1": 0,
+        "alpha2": -1.5848931924612482e-15,
+        "gRatio": 0.9999999999999982
+      }
+    },
+    "n_patterns": 80,
+    "n_viable_patterns": 6,
+    "n_patterns_dead_at_all_eps": 74,
+    "top_patterns": [
+      {
+        "pattern": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "eps_max": 1.584893192461247e-15,
+        "binding": [
+          "GW170817"
+        ],
+        "E_lock_max_GeV": 96939096029.78067
+      },
+      {
+        "pattern": [
+          1,
+          1,
+          0,
+          0
+        ],
+        "eps_max": 1.584893192461247e-15,
+        "binding": [
+          "GW170817"
+        ],
+        "E_lock_max_GeV": 96939096029.78067
+      },
+      {
+        "pattern": [
+          1,
+          -1,
+          1,
+          0
+        ],
+        "eps_max": 7.943282347243504e-16,
+        "binding": [
+          "GW170817"
+        ],
+        "E_lock_max_GeV": 68627624376.29242
+      },
+      {
+        "pattern": [
+          1,
+          0,
+          1,
+          0
+        ],
+        "eps_max": 7.943282347243504e-16,
+        "binding": [
+          "GW170817"
+        ],
+        "E_lock_max_GeV": 68627624376.29242
+      },
+      {
+        "pattern": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "eps_max": 7.943282347243504e-16,
+        "binding": [
+          "GW170817"
+        ],
+        "E_lock_max_GeV": 68627624376.29242
+      },
+      {
+        "pattern": [
+          1,
+          1,
+          -1,
+          0
+        ],
+        "eps_max": 5.011872336273166e-16,
+        "binding": [
+          "cherenkov_spin0"
+        ],
+        "E_lock_max_GeV": 54512859724.14148
+      }
+    ],
+    "natural_cases": [
+      {
+        "name": "E_lock = M_Pl",
+        "E_GeV": 2435000000000000000,
+        "eps": 1,
+        "dirichlet_fails": [
+          "spin2_wrong_sign_c13"
+        ],
+        "best_pattern_fails": [
+          "spin2_wrong_sign_c13"
+        ],
+        "dirichlet_cgw_minus_1": null
+      },
+      {
+        "name": "E_lock = 1e16 GeV (GUT)",
+        "E_GeV": 10000000000000000,
+        "eps": 0.000016865610598349702,
+        "dirichlet_fails": [
+          "GW170817",
+          "alpha2"
+        ],
+        "best_pattern_fails": [
+          "GW170817",
+          "alpha2"
+        ],
+        "dirichlet_cgw_minus_1": 0.000008432911968947465
+      },
+      {
+        "name": "E_lock = 5e10 GeV",
+        "E_GeV": 50000000000,
+        "eps": 4.2164026495874246e-16,
+        "dirichlet_fails": [],
+        "best_pattern_fails": [],
+        "dirichlet_cgw_minus_1": 2.220446049250313e-16
+      },
+      {
+        "name": "E_lock = 1e3 GeV (TeV)",
+        "E_GeV": 1000,
+        "eps": 1.6865610598349698e-31,
+        "dirichlet_fails": [],
+        "best_pattern_fails": [],
+        "dirichlet_cgw_minus_1": 0
+      }
+    ],
+    "note_T2": "При f=E_lock≠0 хронон физичен (хронометрическая гравитация: β=c13, λ=c2, α=c14). T2 точна только при f=0."
+  },
+  "T9": {
+    "defect": "глобальный монополь π₂(S²)=ℤ, метрика с дефицитом телесного угла Δ=8πGη²",
+    "applies_only_if": "Фробениус снят (в секторе T2 ёжиков нет)",
+    "rows": [
+      {
+        "eta_GeV": 2435000000000000000,
+        "G_eta2": 0.039788735772973836,
+        "solid_angle_deficit": 1,
+        "passes_planck": false
+      },
+      {
+        "eta_GeV": 100000000000000000,
+        "G_eta2": 0.00006710613237476033,
+        "solid_angle_deficit": 0.0016865610598349697,
+        "passes_planck": false
+      },
+      {
+        "eta_GeV": 10000000000000000,
+        "G_eta2": 6.710613237476035e-7,
+        "solid_angle_deficit": 0.000016865610598349702,
+        "passes_planck": true
+      },
+      {
+        "eta_GeV": 1000000000000000,
+        "G_eta2": 6.7106132374760335e-9,
+        "solid_angle_deficit": 1.68656105983497e-7,
+        "passes_planck": true
+      },
+      {
+        "eta_GeV": 100000000000,
+        "G_eta2": 6.710613237476033e-17,
+        "solid_angle_deficit": 1.6865610598349698e-15,
+        "passes_planck": true
+      }
+    ],
+    "eta_max_GeV_from_planck": 12207279697452972,
+    "weaker_than_T8": true
+  }
+}

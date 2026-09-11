@@ -1,0 +1,193 @@
+{
+  "verdicts": {
+    "M1_maxent_plus_fourier_is_pi": true,
+    "M1_window_contains_pi": true,
+    "M1_outside_window_argmin_not_6": true,
+    "M1_inside_window_argmin_is_6": true,
+    "M1_hermite4_self_dual": true,
+    "M1_mix_positive_and_self_dual": true,
+    "M1_self_duality_alone_moves_nstar": true,
+    "M1_mix_changes_variance": true,
+    "M1_gauss_maxent_at_fixed_variance": true,
+    "M2_LD_equals_C1": true,
+    "M2_c1_only_residual_small": true,
+    "M2_longitudinal_has_C2": true,
+    "M2_transverse_C2_small": true,
+    "M2_longitudinal_still_LD_is_C1": true,
+    "M2_c13_not_cancelled": true,
+    "M3_E6_is_6": true,
+    "M3_E4_is_4": true,
+    "M3_absbox_UV_near_6": true,
+    "M3_physical_ds_is_4_not_6": true
+  },
+  "M1": {
+    "maxent": {
+      "constraint": "max −∫f log f при ∫f=1, ∫x²f=σ² ⇒ f∝e^{−x²/(2σ²)}",
+      "fourier_self_dual_fixes": "σ²=1/(2π) ⇒ a=1/(2σ²)=π",
+      "sigma2": 0.15915494309189535,
+      "a": 3.141592653589793,
+      "a_is_pi": true
+    },
+    "gaussian_window": {
+      "a_lo": 2.7611654181941563,
+      "a_hi": 3.259493234522008,
+      "pi": 3.141592653589793,
+      "contains_pi": true,
+      "scan": [
+        {
+          "a": 2,
+          "integer_argmin_5_7": 5,
+          "in_window": false
+        },
+        {
+          "a": 2.7335537640122145,
+          "integer_argmin_5_7": 5,
+          "in_window": false
+        },
+        {
+          "a": 2.788777072376098,
+          "integer_argmin_5_7": 6,
+          "in_window": true
+        },
+        {
+          "a": 3.141592653589793,
+          "integer_argmin_5_7": 6,
+          "in_window": true
+        },
+        {
+          "a": 3.226898302176788,
+          "integer_argmin_5_7": 6,
+          "in_window": true
+        },
+        {
+          "a": 3.292088166867228,
+          "integer_argmin_5_7": 7,
+          "in_window": false
+        },
+        {
+          "a": 4,
+          "integer_argmin_5_7": 7,
+          "in_window": false
+        }
+      ]
+    },
+    "hermite": {
+      "note": "F[ψ_n]=(−i)^n ψ_n. Собственное +1 при n≡0 (mod 4): не только гауссиан.",
+      "ft_rel_L2_gauss": 1.3206317754775334e-15,
+      "ft_rel_L2_hermite4": 1.553832249558857e-15,
+      "mix_eps": 0.02,
+      "mix_min": 4.642397171284112e-19,
+      "mix_stays_positive": true,
+      "ft_rel_L2_mix": 1.7346050314961052e-15,
+      "nstar_gauss": 6.249999999999985,
+      "nstar_mix": 2.299999999999999,
+      "nstar_shift": -3.949999999999986,
+      "integer_min_gauss": 6,
+      "integer_min_mix": 2,
+      "stats_gauss": {
+        "z": 0.9999999999999989,
+        "variance": 0.15915494309189523,
+        "entropy": 0.5
+      },
+      "stats_mix": {
+        "z": 1.239999999999998,
+        "variance": 0.405588403363216,
+        "entropy": 0.873246868585533
+      },
+      "entropy_mix_at_gauss_variance": 0.4055165445945965,
+      "gauss_entropy_is_maxent": true
+    }
+  },
+  "M2": {
+    "identification": "n=(ε1,ε2,√(1−ε²)) ∈ S² ↦ u=(ε1,ε2,0,√(1−ε²)), η=diag(1,1,1,−1)",
+    "identity": "L_D = C1 = η^{ab}η_{mn}∂_a u^m ∂_b u^n. C2,C3,C4 — другие свёртки, в Дирихле не входят.",
+    "random_mean": {
+      "LD_over_C1": 1.0070711983653327,
+      "residual_c1_only": 0.00701611766838479,
+      "C2_over_LD": 0.44379502712966556,
+      "C4_over_LD": 0.27168851525650106
+    },
+    "modes": {
+      "transverse": {
+        "LD_over_C1": 1.0016064298450487,
+        "C2_over_LD": 0,
+        "C3_over_LD": 0,
+        "C4_over_LD": 0,
+        "residual_c1_only": 0.0016038533671326276
+      },
+      "longitudinal": {
+        "LD_over_C1": 1.0016064298450487,
+        "C2_over_LD": 0.9991980733164179,
+        "C3_over_LD": 0.9991980733164179,
+        "C4_over_LD": 0.0015961507519189895,
+        "residual_c1_only": 0.0016038533671326274
+      },
+      "temporal": {
+        "LD_over_C1": 1.001606429845047,
+        "C2_over_LD": -0.0008019266835686409,
+        "C3_over_LD": -0.0008019266835686409,
+        "C4_over_LD": -0.996799995880913,
+        "residual_c1_only": 0.0016038533671311388
+      }
+    },
+    "c13_equals_c1": true,
+    "n_configs": 12,
+    "grid": "8^4",
+    "note": "c13=c1≠0: 6D Дирихле не производит щель c13=0, нужную общему эфиру при ε=O(1)."
+  },
+  "M3": {
+    "definition": "d_s(s)=−2 d log P(s) / d log s,  P(s)=Tr e^{−s ω²}",
+    "euclid6": {
+      "ds_UV": 6.000000000000059,
+      "ds_IR": 6.000000000000007,
+      "analytic": 6
+    },
+    "euclid4": {
+      "ds_UV": 4.000000000000039,
+      "ds_IR": 3.9999999999999853,
+      "analytic": 4
+    },
+    "projected_physical": {
+      "operator": "Δ_{3,1} after T4–T5",
+      "ds": 4
+    },
+    "abs_box33": {
+      "operator": "ω²=|k_space²−k_time²|",
+      "curve": [
+        {
+          "s": 0.03162277660168379,
+          "ds": 5.999999999999998,
+          "P0": 20274081503.284676
+        },
+        {
+          "s": 0.07071067811865477,
+          "ds": 6.000000000000005,
+          "P0": 1297541216.2102168
+        },
+        {
+          "s": 0.14142135623730953,
+          "ds": 5.9999999999999964,
+          "P0": 162192652.02627707
+        },
+        {
+          "s": 0.31622776601683794,
+          "ds": 6.000000000000003,
+          "P0": 20274081.503284637
+        },
+        {
+          "s": 0.7071067811865476,
+          "ds": 6.000000000000001,
+          "P0": 1297541.2162102174
+        },
+        {
+          "s": 1.4142135623730951,
+          "ds": 5.999999999999996,
+          "P0": 162192.65202627715
+        }
+      ],
+      "ds_UV": 5.999999999999998,
+      "ds_mid": 6.000000000000003
+    },
+    "cdt_tension": "d_s^UV=6 есть у нередуцированного 6D оператора. Физический оператор после T4–T5 четырёхмерен, d_s=4. Напряжение с CDT (d_s^UV≈2) не есть прогноз редуцированной теории и не подтверждает Бартини."
+  }
+}

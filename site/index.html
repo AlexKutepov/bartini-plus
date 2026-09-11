@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Бартини+</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css">
+<style>
+:root { --bg:#f6f1e7; --paper:#fffdf8; --ink:#1c1916; --muted:#5c564e; --line:#d8cfc0; --acc:#6b2d12; }
+* { box-sizing: border-box; }
+html, body { margin:0; height:100%; background:var(--bg); color:var(--ink);
+  font: 16px/1.6 "Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif; }
+.app { display:grid; grid-template-columns: 260px 1fr; min-height:100%; }
+nav { background:#2a241f; color:#f3ebe1; padding:20px 16px 40px; overflow:auto; }
+nav h1 { font-size:14px; letter-spacing:.04em; text-transform:uppercase; margin:0 0 12px; font-weight:600; }
+nav a { color:#f3ebe1; text-decoration:none; display:block; padding:5px 8px; border-radius:4px; font-size:13px; }
+nav a:hover, nav a.active { background:#3d342c; }
+nav .g { margin-top:16px; font-size:11px; color:#b5a898; text-transform:uppercase; letter-spacing:.08em; }
+main { padding:32px 40px 80px; overflow:auto; }
+article { max-width: 46rem; background:var(--paper); padding:40px 48px; border:1px solid var(--line);
+  box-shadow: 0 1px 0 #fff inset, 0 12px 40px rgba(40,30,20,.06); }
+h1,h2,h3,h4 { font-weight:650; line-height:1.25; }
+h1 { font-size:1.7rem; margin:0 0 1rem; }
+h2 { font-size:1.25rem; margin:2rem 0 .7rem; border-bottom:1px solid var(--line); padding-bottom:.3rem; }
+h3 { font-size:1.05rem; margin:1.4rem 0 .4rem; }
+p { margin:.7rem 0; }
+code, pre { font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-size:.86em; }
+code { background:#efe7da; padding:.1em .35em; }
+pre { background:#2a241f; color:#f3ebe1; padding:12px 14px; overflow:auto; }
+pre code { background:none; color:inherit; padding:0; }
+.table-wrap { overflow-x:auto; margin:1rem 0; }
+table { border-collapse:collapse; width:100%; font-size:.92rem; }
+th, td { border:1px solid var(--line); padding:.4rem .55rem; vertical-align:top; }
+th { background:#efe7da; text-align:left; }
+hr { border:0; border-top:1px solid var(--line); margin:1.6rem 0; }
+.eq { margin:1.1rem 0; overflow-x:auto; }
+a { color:var(--acc); }
+@media (max-width: 860px) {
+  .app { grid-template-columns: 1fr; }
+  nav { position:sticky; top:0; z-index:2; max-height:40vh; }
+  main { padding:16px; }
+  article { padding:20px 16px; }
+}
+</style>
+</head>
+<body>
+<div class="app">
+<nav>
+<h1>Бартини+</h1>
+<div class="g">Repo</div><a href="#readme" data-id="readme">Бартини+ / Bartini+ / 巴尔蒂尼+</a><a href="#authors" data-id="authors">Авторы / Authors / 作者</a><div class="g">Русский</div><a href="#ru-researchers" data-id="ru-researchers">Записка для исследователей</a><a href="#ru-proof" data-id="ru-proof">Доказательства и рассуждения: Бартини и Бартини+</a><a href="#ru-steps" data-id="ru-steps">Четыре шага: мера, сигнатура, поле n, Эйнштейн / no-go</a><a href="#ru-gaps" data-id="ru-gaps">Закрытие дыр: теоремы и один запрет</a><a href="#ru-tighten" data-id="ru-tighten">M1–M3: ужесточение, не грим</a><div class="g">English</div><a href="#en-researchers" data-id="en-researchers">Note for researchers</a><a href="#en-proof" data-id="en-proof">Proofs and reasoning: Bartini and Bartini+</a><a href="#en-steps" data-id="en-steps">Four steps: measure, signature, field n, Einstein / no-go</a><a href="#en-gaps" data-id="en-gaps">Closing the gaps: theorems and one prohibition</a><a href="#en-tighten" data-id="en-tighten">M1–M3: tightening, not costume</a><div class="g">中文</div><a href="#zh-researchers" data-id="zh-researchers">给研究者的说明</a><a href="#zh-proof" data-id="zh-proof">证明与推理：巴尔蒂尼与巴尔蒂尼+</a><a href="#zh-steps" data-id="zh-steps">四步：测度、签名、场 n、爱因斯坦 / no-go</a><a href="#zh-gaps" data-id="zh-gaps">填洞：定理与一条禁令</a><a href="#zh-tighten" data-id="zh-tighten">M1–M3：收紧，不是化妆</a>
+</nav>
+<main><article id="readme" class="page"><h1>Бартини+ / Bartini+ / 巴尔蒂尼+</h1>
+<p><strong>Гипотезу формулировал и проверял Александр Кутепов (<a href="https://github.com/AlexKutepov">@AlexKutepov</a>) совместно с языковыми моделями (LLM).</strong></p>
+<p>Открытое исследование шестимерной конструкции Р. О. ди Бартини (<span class="eq-i">$3+3$</span>) и стохастической надстройки: случайный выбор тикающего часа, запирание на одном времени, численная проверка L0–L3.</p>
+<p>Читать с формулами: открыть <a href="site/index.html"><code>site/index.html</code></a> (KaTeX). Пересборка: <code>node tools/docs_build.mjs</code>. В исходниках формулы в <code><span class="eq-i">$...$</span></code> / <code><div class="eq">$$...$$</div></code> — так их понимает GitHub.</p>
+<p><strong>Для исследователей / For researchers / 给研究者</strong> — что сделано, что доказано, чего нет, как воспроизвести, что не цитировать:</p>
+<ul><li><a href="docs/ru/FOR_RESEARCHERS.md">Русский</a></li><li><a href="docs/en/FOR_RESEARCHERS.md">English</a></li><li><a href="docs/zh/FOR_RESEARCHERS.md">中文</a></li></ul>
+<p>Полные доказательства и вся цепочка рассуждений:</p>
+<div class="table-wrap"><table><thead><tr><th>Язык</th><th>Бартини / Бартини+</th><th>Четыре шага</th><th>Дыры</th><th>Ужесточение</th></tr></thead><tbody><tr><td>Русский</td><td><a href="docs/ru/PROOF.md">docs/ru/PROOF.md</a></td><td><a href="docs/ru/FOUR_STEPS.md">docs/ru/FOUR_STEPS.md</a></td><td><a href="docs/ru/CLOSE_GAPS.md">docs/ru/CLOSE_GAPS.md</a></td><td><a href="docs/ru/MATH_TIGHTEN.md">docs/ru/MATH_TIGHTEN.md</a></td></tr><tr><td>English</td><td><a href="docs/en/PROOF.md">docs/en/PROOF.md</a></td><td><a href="docs/en/FOUR_STEPS.md">docs/en/FOUR_STEPS.md</a></td><td><a href="docs/en/CLOSE_GAPS.md">docs/en/CLOSE_GAPS.md</a></td><td><a href="docs/en/MATH_TIGHTEN.md">docs/en/MATH_TIGHTEN.md</a></td></tr><tr><td>中文</td><td><a href="docs/zh/PROOF.md">docs/zh/PROOF.md</a></td><td><a href="docs/zh/FOUR_STEPS.md">docs/zh/FOUR_STEPS.md</a></td><td><a href="docs/zh/CLOSE_GAPS.md">docs/zh/CLOSE_GAPS.md</a></td><td><a href="docs/zh/MATH_TIGHTEN.md">docs/zh/MATH_TIGHTEN.md</a></td></tr></tbody></table></div>
+<p>Стресс-тест аксиомы P5: <a href="docs/ru/P5_STRESS.md">теорема о монополии, критическое время и шум</a>.</p>
+<p>Авторы: <a href="AUTHORS.md">AUTHORS.md</a>. Лицензия: <a href="LICENSE">MIT</a>.</p>
+<hr>
+<h2>Что доказано, что нет</h2>
+<p><strong>Доказано (условно, внутри модели).</strong></p>
+<ol><li>При функции Бартини <span class="eq-i">$m(n)=\Gamma(\frac{n+1}{2})/(2\pi^{(n+1)/2})$</span> непрерывный минимум <span class="eq-i">$n_*\approx 6.2569$</span>; среди целых локальный минимум — <span class="eq-i">$n=6$</span>.</li><li>Метрика сигнатуры <span class="eq-i">$(3,3)$</span> математически допустима; <span class="eq-i">$3+1$</span> есть её срез, не автоматическое следствие.</li><li>Нелинейная урна <span class="eq-i">$p_\alpha\propto n_\alpha^\theta$</span> при <span class="eq-i">$\theta>1$</span> запирает одно наблюдаемое время (<span class="eq-i">$d_T:3\to 1$</span>).</li><li>Когерентное затухание <span class="eq-i">$\Gamma\approx\frac12\mathrm{Var}(c)\,k^2\Delta t$</span> (ошибка относительно точной формулы: <span class="eq-i">$2.9\%$</span>).</li><li>В клеточном автомате устойчивые структуры живут после запирания и только при «жизненном» правиле-победителе.</li></ol>
+<ol><li>Мера Бартини тождественна <span class="eq-i">$1/\mathrm{Area}(S^n)$</span>; <span class="eq-i">$e^{-\pi x^2}$</span> — фурье-самодуальный гауссиан (<span class="eq-i">$L^2$</span>-ошибка <span class="eq-i">$2\cdot10^{-15}$</span>). При <span class="eq-i">$n=6$</span> сигнатура <span class="eq-i">$(3,3)$</span> максимизирует объём светового конуса (<span class="eq-i">$16\pi^2$</span> против <span class="eq-i">$4\pi^3$</span> у <span class="eq-i">$2+4$</span>). M1: <span class="eq-i">$a=\pi$</span> из maxent + унитарного Фурье; самодуальность без maxent <span class="eq-i">$n=6$</span> не даёт (Эрмит <span class="eq-i">$4k$</span> сдвигает <span class="eq-i">$n_*$</span>).</li><li>Поле <span class="eq-i">$n:M\to S^2$</span> запирает случайные данные без урны (2D: <span class="eq-i">$12/12$</span>). Проекция <span class="eq-i">$n\cdot\partial_t$</span> делает волновой оператор гиперболическим и снимает тахионный знак.</li></ol>
+<p><strong>Не доказано.</strong></p>
+<p>Вселенная физически шестимерна. Принцип меры — закон природы. Масса частиц из скрытых времён (T3: запрещено). Отличимый от ОТО и ещё живой числовой прогноз.</p>
+<p>Доказана редукция: Фробениус съедает голдстоуны; <span class="eq-i">$g_{\mathrm{phys}}$</span> имеет ранг 4 и сигнатуру <span class="eq-i">$(3,1)$</span>; <span class="eq-i">$\partial_\perp$</span> — калибровка; духи лишнего времени снимаются. Цена — неотличимость среза от 4D ОТО.</p>
+<p><strong>Проверяемость (T8–T9).</strong> При ненулевой жёсткости оси времени Бартини+ отображается в Эйнштейн–эфир с одним коэффициентом <span class="eq-i">$c_1=(E_{\mathrm{lock}}/M_{\mathrm{Pl}})^2$</span>. GW170817 даёт <span class="eq-i">$E_{\mathrm{lock}}\le9.7\cdot10^{10}$</span> ГэВ; планковский масштаб исключён. Число живое и отрицательное. M2: Дирихле на срезе есть <span class="eq-i">$c_1$</span> и только <span class="eq-i">$c_1$</span>. M3: физический <span class="eq-i">$d_s=4$</span>, не 6.</p>
+<hr>
+<h2>What is proven, what is not</h2>
+<p><strong>Proven (conditionally, inside the model).</strong> The Bartini integral has a local integer minimum at <span class="eq-i">$n=6$</span>. A <span class="eq-i">$(3,3)$</span> metric exists; <span class="eq-i">$3+1$</span> is a slice, not an automatic consequence. A nonlinear urn with <span class="eq-i">$\theta>1$</span> locks onto one observed time. Coherent decay matches <span class="eq-i">$\Gamma\approx\frac12\mathrm{Var}(c)\,k^2\Delta t$</span> to <span class="eq-i">$2.9\%$</span>. Life-like structures survive after lock-in only under a life-supporting winning rule.</p>
+<p><strong>Not proven.</strong> That the Universe is physically six-dimensional. That Bartini derived the constants. That one of <span class="eq-i">$t_1,t_2,t_3$</span> is randomly chosen at every instant of the locked world.</p>
+<p><strong>Testability (T8–T9).</strong> With nonzero time-axis stiffness Bartini+ maps onto Einstein-aether with a single coefficient <span class="eq-i">$c_1=(E_{\mathrm{lock}}/M_{\mathrm{Pl}})^2$</span>; GW170817 bounds <span class="eq-i">$E_{\mathrm{lock}}\le9.7\cdot10^{10}$</span> GeV and excludes the Planck scale.</p>
+<p>Full English text: <a href="docs/en/PROOF.md">docs/en/PROOF.md</a>.</p>
+<hr>
+<h2>已证明与未证明</h2>
+<p><strong>已证明（在模型内部、有条件）。</strong> 巴尔蒂尼积分的整数局部极小在 <span class="eq-i">$n=6$</span>。<span class="eq-i">$(3,3)$</span> 度量存在；<span class="eq-i">$3+1$</span> 是切片，不是自动推论。<span class="eq-i">$\theta>1$</span> 的非线性瓮会锁到单一可观测时间。相干衰减与 <span class="eq-i">$\Gamma\approx\frac12\mathrm{Var}(c)\,k^2\Delta t$</span> 相对误差 <span class="eq-i">$2.9\%$</span>。类生命结构仅在锁定之后、且赢家规则支持生命时稳定。</p>
+<p><strong>未证明。</strong> 宇宙在物理上是六维的。巴尔蒂尼推出了基本常数。已锁定世界的每一个瞬间都在 <span class="eq-i">$t_1,t_2,t_3$</span> 中随机选一个。</p>
+<p><strong>可检验性（T8–T9）。</strong> 时间轴刚度非零时，巴尔蒂尼+ 映射为单系数 <span class="eq-i">$c_1=(E_{\mathrm{lock}}/M_{\mathrm{Pl}})^2$</span> 的 Einstein-aether；GW170817 给出 <span class="eq-i">$E_{\mathrm{lock}}\le9.7\cdot10^{10}$</span> GeV，排除普朗克尺度。</p>
+<p>全文：<a href="docs/zh/PROOF.md">docs/zh/PROOF.md</a>。</p>
+<hr>
+<h2>Запуск / Run / 运行</h2>
+<pre><code class="lang-bash">node bartini_plus/experiments.mjs
+node bartini_plus/four_steps.mjs
+node bartini_plus/close_gaps.mjs
+node bartini_plus/p5_stress.mjs
+node bartini_plus/aether_bounds.mjs
+node bartini_plus/n_times.mjs
+node bartini_plus/math_tighten.mjs</code></pre>
+<p>Результаты: <code>results/bartini_plus.json</code>, <code>results/four_steps.json</code>, <code>results/close_gaps.json</code>, <code>results/p5_stress.json</code>, <code>results/aether_bounds.json</code>, <code>results/n_times.json</code>, <code>results/math_tighten.json</code>. Python-модули в <code>bartini_plus/</code> — параллельная запись урны и Life; рабочий прогон — JavaScript (Node).</p>
+<hr>
+<h2>Цитирование</h2>
+<p>А. Кутепов и языковые модели. <em>Бартини+: стохастический выбор времени в геометрии <span class="eq-i">$3+3$</span></em>. 2026. https://github.com/AlexKutepov/bartini-plus</p></article>
+<article id="authors" class="page" hidden><h1>Авторы / Authors / 作者</h1>
+<h2>Гипотеза и постановка задачи</h2>
+<p><strong>Александр Кутепов</strong> (<a href="https://github.com/AlexKutepov">@AlexKutepov</a>)</p>
+<p>Сформулировал гипотезу стохастического выбора наблюдаемого времени в геометрии Бартини <span class="eq-i">$3+3$</span>: каждый тик выбирается один из часов, вероятности эволюционируют, наш <span class="eq-i">$3+1$</span>-мир есть динамически запирающееся сечение. Поставил задачу достроить гипотезу до проверяемой теории и проверить её моделированием (в том числе клеточным автоматом).</p>
+<h2>Математическая реконструкция, аксиоматика, численная проверка</h2>
+<p>Выполнены <strong>совместно</strong> Александром Кутеповым и языковыми моделями (LLM) в исследовательской цепочке 2026 года:</p>
+<ul><li>реконструкция вывода <span class="eq-i">$n\approx 6$</span> из интеграла Бартини;</li><li>геометрия сигнатуры <span class="eq-i">$(3,3)$</span>, геодезические, проекции на <span class="eq-i">$3+1$</span>;</li><li>разбор массы, сверхсветовых проекций, ультрагиперболического уравнения, задачи Коши;</li><li>аксиомы Бартини+ (урна Пойа / возрастающая отдача);</li><li>аналитические предсказания <span class="eq-i">$\Gamma\propto k^2$</span>, <span class="eq-i">$d_T:3\to 1$</span>, запирание;</li><li>численный прогон L0–L3 и исправление меры затухания (<span class="eq-i">$|\langle\psi\rangle|$</span>, множитель <span class="eq-i">$1/2$</span>);</li><li>четыре шага (мера, сигнатура, поле <span class="eq-i">$n$</span>, Эйнштейн);</li><li>теоремы T1–T7: Фробениус, запрет массы из скрытого времени, <span class="eq-i">$g_{\mathrm{phys}}$</span>, записка для исследователей.</li></ul>
+<p>Модели, участвовавшие в рассуждениях и коде: языковые модели среды Cursor (в том числе Grok) и предшествующие модели той же исследовательской беседы. Конкретные веса и версии моделей в цепочке менялись; ответственность за публикацию и формулировку гипотезы несёт Александр Кутепов.</p>
+<h2>Исторический источник</h2>
+<p>Роберто Орос ди Бартини (Роберт Людвигович Бартини), 1897–1974. Работы о соотношениях между физическими величинами и <span class="eq-i">$(3+3)$</span>-мерной структуре. Бартини+ — надстройка 2026 года, не текст Бартини.</p>
+<h2>Чего авторы не утверждают</h2>
+<p>Шестимерность физической Вселенной <strong>не доказана</strong>. Доказано: экстремум выбранной <span class="eq-i">$m(n)$</span> при целом <span class="eq-i">$n=6$</span>; согласованная редукция <span class="eq-i">$3+3\to 3+1$</span> (T1–T6); численные следствия Бартини+ (L0–L3). Запрещено: <span class="eq-i">$m^2>0$</span> из скрытого времени (T3). Не получено: живой прогноз, отличный от ОТО (T7). Подробная карта для коллег: <a href="docs/en/FOR_RESEARCHERS.md">docs/en/FOR_RESEARCHERS.md</a>.</p></article>
+<article id="ru-researchers" class="page" hidden><h1>Записка для исследователей</h1>
+<p><strong>Проект:</strong> Бартини+ — реконструкция программы <span class="eq-i">$3+3$</span> Р. О. ди Бартини, стохастическая надстройка, полевая редукция, явный список теорем и запретов. <strong>Авторы:</strong> Александр Кутепов (<a href="https://github.com/AlexKutepov">@AlexKutepov</a>) и языковые модели в исследовательской цепочке Cursor, 2026. Кутепов сформулировал гипотезу и несёт ответственность за публикацию. Реконструкции, доказательства и код выполнены совместно с LLM. <strong>Репозиторий:</strong> https://github.com/AlexKutepov/bartini-plus <strong>Лицензия:</strong> MIT <strong>Цитирование:</strong> <code>CITATION.cff</code></p>
+<p>Это карта. Доказательства — в файлах в конце. Читать сначала, если работу собираются использовать, опровергать или продолжать.</p>
+<hr>
+<h2>Что это</h2>
+<p>Открытая воспроизводимая попытка разделить четыре слоя, которые в популярных изложениях Бартини смешаны:</p>
+<ol><li><strong>Исторический Бартини</strong> — таблицы <span class="eq-i">$L^a T^b$</span>, интеграл в духе 1965 года с минимумом около <span class="eq-i">$n=6$</span>, постулат <span class="eq-i">$M_6=M_3^{\mathrm{space}}\times M_3^{\mathrm{time}}$</span>.</li><li><strong>Геометрия сигнатуры <span class="eq-i">$(3,3)$</span></strong> — плоская метрика, геодезические, проекции на одно время, ультрагиперболические волны, задача Коши, знак массы.</li><li><strong>Бартини+</strong> — <em>новый</em> стохастический механизм (нелинейная урна Пойа), выбирающий один тикающий час. В текстах Бартини этого нет.</li><li><strong>Редукция без урны</strong> — поле <span class="eq-i">$n\in S^2$</span> во временной 3-плоскости, затем Фробениус и вырожденная физическая метрика ранга 4.</li></ol>
+<p>Цепочка, которая смыкается *математически*:</p>
+<p><div class="eq">$$\text{фурье-самодуальный гауссиан}\to n=6\to\max(\text{объём конуса})\to(3,3)\to\text{поле }n\text{ / хронон}\to\text{Эйнштейн на срезе}.$$</div></p>
+<p>В природу она <strong>не</strong> входит, пока принцип меры не закон и нет отличимого живого прогноза. Мы этого не утверждаем.</p>
+<hr>
+<h2>Что сделано, по порядку</h2>
+<ol><li>Восстановлен интеграл <span class="eq-i">$m(n)=\Gamma(\frac{n+1}{2})/(2\pi^{(n+1)/2})$</span>, решено <span class="eq-i">$\psi(\frac{n+1}{2})=\ln\pi$</span>. Итог: <span class="eq-i">$n_*=6.25694641$</span>, целый локальный минимум <span class="eq-i">$n=6$</span>.</li><li>Записана плоская метрика <span class="eq-i">$(3,3)$</span>. Показано: <span class="eq-i">$3+1$</span>-наблюдатель есть <em>срез</em>, не следствие. Скрытые времена дают <span class="eq-i">$v_{\mathrm{obs}}\ge c$</span> при одном координатном времени, <span class="eq-i">$m_{\mathrm{eff}}^2\le 0$</span> в 6-импульсе, некорректную задачу Коши для ультрагиперболического оператора.</li><li>Аксиомы Бартини+ (мета-шаг, один час на тик, <span class="eq-i">$p\propto n^\theta$</span>). Запирание при <span class="eq-i">$\theta>1$</span>, <span class="eq-i">$d_T:3\to 1$</span>, когерентное затухание <span class="eq-i">$\Gamma\approx\frac12\mathrm{Var}(c)\,k^2\Delta t$</span>. Множитель <span class="eq-i">$\frac12$</span> поправляет оценку Кубо.</li><li>Численные тесты <strong>L0–L3</strong> (<code>experiments.mjs</code>). Десять заранее зафиксированных вердиктов пройдены. Энергия волны при скачках <span class="eq-i">$c$</span> качается; верная мера — <span class="eq-i">$|\langle\psi\rangle|$</span>.</li><li>Стресс-тест <strong>P5</strong> (<code>p5_stress.mjs</code>): критерий Рубина даёт точную границу <span class="eq-i">$\theta_c=1$</span>; <span class="eq-i">$\log\tau_{\rm lock}\sim C/(\theta-1)$</span> в mean-field; постоянный exploration-шум уничтожает точную монополию.</li><li>Замена произвольного <span class="eq-i">$e^{-\pi x^2}$</span> на фурье-самодуальность и тождество <span class="eq-i">$m(n)=1/\mathrm{Area}(S^n)$</span>. Другие <span class="eq-i">$a\neq\pi$</span> не дают шесть. Среди разбиений 6 максимум конуса — <span class="eq-i">$(3,3)$</span>; отношение к <span class="eq-i">$(2+4)$</span> равно <span class="eq-i">$4/\pi$</span>.</li><li>Замена урны энергией Дирихле <span class="eq-i">$n:M\to S^2$</span> и тепловым потоком. Случайные данные запираются, когда топология позволяет.</li><li>Закрытие дыр <strong>T1–T7</strong> (<code>close_gaps.mjs</code>): голдстоуны калибровочны при Фробениусе; KK-масса из скрытого времени запрещена; <span class="eq-i">$\partial_\perp=0$</span> — калибровка; спектр <span class="eq-i">$g_{\mathrm{phys}}=(1,1,1,-1,0,0)$</span>; спроектированный <span class="eq-i">$H>0$</span>. Живого числа, отличного от ОТО, нет.</li><li>Проверяемость <strong>T8–T9</strong> (<code>aether_bounds.mjs</code>): снятие Фробениуса при жёсткости <span class="eq-i">$f=E_{\mathrm{lock}}$</span> отображает Бартини+ в Эйнштейн–эфир с одним коэффициентом <span class="eq-i">$c_1=(E_{\mathrm{lock}}/M_{\mathrm{Pl}})^2$</span>. GW170817 даёт <span class="eq-i">$E_{\mathrm{lock}}\le9.7\cdot10^{10}$</span> ГэВ; планковский lock исключён. Дефекты оси времени (T9) ограничены Planck слабее: <span class="eq-i">$\eta\lesssim10^{16}$</span> ГэВ.</li><li>Ужесточение <strong>M1–M3</strong> (<code>math_tighten.mjs</code>): maxent + унитарный Фурье фиксирует <span class="eq-i">$a=\pi$</span>; самодуальность одна сдвигает <span class="eq-i">$n_*$</span> (Эрмит <span class="eq-i">$4k$</span>). Дирихле на срезе есть <span class="eq-i">$c_1$</span> и только <span class="eq-i">$c_1$</span>. Физический <span class="eq-i">$d_s=4$</span>; УФ-шестёрка — нередуцированный оператор, не прогноз среза.</li></ol>
+<hr>
+<h2>Что доказано</h2>
+<div class="table-wrap"><table><thead><tr><th>Утверждение</th><th>Статус</th><th>Где</th></tr></thead><tbody><tr><td><span class="eq-i">$m(n)=1/\mathrm{Area}(S^n)$</span></td><td>тождество, ошибка <span class="eq-i">$<10^{-15}$</span></td><td>four_steps</td></tr><tr><td><span class="eq-i">$e^{-\pi x^2}=\mathcal F[e^{-\pi x^2}]$</span></td><td><span class="eq-i">$L^2$</span>-ошибка <span class="eq-i">$1.93\cdot10^{-15}$</span></td><td>four_steps</td></tr><tr><td><span class="eq-i">$n_*=6.25694641$</span>, целый min = 6</td><td>теорема для этой <span class="eq-i">$m$</span></td><td>PROOF, four_steps</td></tr><tr><td>Другие <span class="eq-i">$a$</span> сдвигают <span class="eq-i">$n_*$</span></td><td>сосчитано</td><td>four_steps</td></tr><tr><td><span class="eq-i">$(3,3)$</span> max объёма конуса при <span class="eq-i">$p+q=6$</span></td><td>теорема, <span class="eq-i">$4/\pi$</span></td><td>FOUR_STEPS</td></tr><tr><td>Метрика <span class="eq-i">$(3,3)$</span> есть; <span class="eq-i">$3+1$</span> — срез</td><td>геометрия</td><td>PROOF</td></tr><tr><td>Лишние времена не дают <span class="eq-i">$3+1$</span> сами</td><td>список no-go</td><td>PROOF</td></tr><tr><td>Урна <span class="eq-i">$\theta>1$</span> запирает один час</td><td>теория + L1</td><td>experiments</td></tr><tr><td><span class="eq-i">$\Gamma$</span> совпадает с <span class="eq-i">$\frac12\mathrm{Var}(c)k^2\Delta t$</span> до <span class="eq-i">$2.9\%$</span></td><td>L0</td><td>experiments</td></tr><tr><td>Life устойчива только после lock + life-rule</td><td>L3</td><td>experiments</td></tr><tr><td><strong>T1</strong> <span class="eq-i">$(4,2)$</span> запрещён <em>внутри той же цепи</em></td><td>согласованность</td><td>CLOSE_GAPS</td></tr><tr><td><strong>T2</strong> Фробениус + диффео <span class="eq-i">$\Rightarrow$</span> 0 голдстоунов</td><td>счёт DoF</td><td>CLOSE_GAPS</td></tr><tr><td><strong>T3</strong> <span class="eq-i">$m^2>0$</span> из скрытого <em>времени</em> невозможно</td><td>таблица знаков</td><td>close_gaps.json</td></tr><tr><td><strong>T4</strong> <span class="eq-i">$\partial_\perp=0$</span> — калибровка</td><td>симметрия</td><td>CLOSE_GAPS</td></tr><tr><td><strong>T5</strong> <span class="eq-i">$g_{\mathrm{phys}}$</span> ранг 4, сигнатура <span class="eq-i">$(3,1)$</span>, без CTC</td><td>спектр</td><td>close_gaps</td></tr><tr><td><strong>T6</strong> <span class="eq-i">$H>0$</span>, духов лишнего времени нет</td><td>гамильтониан</td><td>close_gaps</td></tr><tr><td><strong>T7</strong> живое число <span class="eq-i">$\neq$</span> ОТО при <span class="eq-i">$f=0$</span></td><td><strong>не получено</strong></td><td>CLOSE_GAPS</td></tr><tr><td><strong>T8</strong> <span class="eq-i">$f\ne0$</span>: <span class="eq-i">$E_{\mathrm{lock}}\le9.7\cdot10^{10}$</span> ГэВ, <span class="eq-i">$M_{\mathrm{Pl}}$</span> исключён</td><td>граница GW170817</td><td>aether_bounds</td></tr><tr><td><strong>T9</strong> дефекты оси времени <span class="eq-i">$\eta\lesssim10^{16}$</span> ГэВ</td><td>слабее T8</td><td>aether_bounds</td></tr><tr><td><strong>M1</strong> maxent+<span class="eq-i">$\mathcal F\Rightarrow a=\pi$</span>; Эрмит <span class="eq-i">$4k$</span> сдвигает <span class="eq-i">$n_*$</span></td><td>теорема + запрет</td><td>math_tighten</td></tr><tr><td><strong>M2</strong> <span class="eq-i">$L_D=C_1$</span>, <span class="eq-i">$(c_i)=(\kappa,0,0,0)$</span></td><td>квадратичная лемма</td><td>math_tighten</td></tr><tr><td><strong>M3</strong> физический <span class="eq-i">$d_s=4$</span>, не 6</td><td>тепловое ядро</td><td>math_tighten</td></tr></tbody></table></div>
+<hr>
+<h2>Чего мы не доказали (так нас не цитировать)</h2>
+<ul><li>Что физическая Вселенная шестимерна.</li><li>Что Бартини вывел <span class="eq-i">$\alpha$</span>, <span class="eq-i">$G$</span>, <span class="eq-i">$\hbar$</span> или отношения масс из размерностей.</li><li>Что каждый миг запертого мира случайно выбирается одно из <span class="eq-i">$t_1,t_2,t_3$</span>. После lock тикает один час.</li><li>Что фурье-самодуальность / максимум меры направлений — закон природы. M1 именует пару maxent + унитарность <span class="eq-i">$\mathcal F$</span>. Самодуальность без maxent <span class="eq-i">$n=6$</span> не даёт (Эрмит <span class="eq-i">$4k$</span>). Снимите maxent — падают и 6, и <span class="eq-i">$3+3$</span>.</li><li>Что массы частиц берутся из лишних времён. <strong>T3 это запрещает.</strong></li><li>Новый лабораторный эффект, которого нет в ОТО/СТО/СМ и который ещё не убит тестами Лоренца. T8 даёт число, но отрицательное: верхнюю границу на <span class="eq-i">$E_{\mathrm{lock}}$</span>, не обнаружение.</li></ul>
+<p>После T2–T6 срез — обычная <span class="eq-i">$3+1$</span> ОТО (самое большее хронон до калибровки). Это цена согласованной редукции. При ненулевой жёсткости оси времени (T8) хронон физичен и уже ограничен GW170817.</p>
+<hr>
+<h2>Что наше и что Бартини</h2>
+<div class="table-wrap"><table><thead><tr><th>Пункт</th><th>Исторический Бартини</th><th>Этот репозиторий</th></tr></thead><tbody><tr><td>Матрица <span class="eq-i">$L,T$</span></td><td>да</td><td>реконструкция, пределы указаны</td></tr><tr><td>Интеграл / <span class="eq-i">$n\approx 6$</span></td><td>да (линия 1965, OCR хрупкий)</td><td>воспроизведено</td></tr><tr><td>Разбиение <span class="eq-i">$3+3$</span></td><td>постулат</td><td>выведено <em>если</em> держат принцип меры</td></tr><tr><td>Стохастический час / урна</td><td>нет</td><td>Бартини+, затем снята</td></tr><tr><td>Поле <span class="eq-i">$n$</span>, Фробениус, <span class="eq-i">$g_{\mathrm{phys}}$</span></td><td>нет</td><td>2026</td></tr><tr><td>«Многомирие каждый тик»</td><td>поздняя фольклорная надстройка</td><td>отвергнуто</td></tr></tbody></table></div>
+<p>Утверждения вида «Бартини вычислил все константы» считать неподтверждёнными, пока нет первоисточника, входов и числа свободных параметров. Такой вывод в использованных материалах мы не нашли.</p>
+<hr>
+<h2>Как воспроизвести</h2>
+<p>Нужен Node.js.</p>
+<pre><code class="lang-bash">node bartini_plus/experiments.mjs
+node bartini_plus/four_steps.mjs
+node bartini_plus/close_gaps.mjs
+node bartini_plus/p5_stress.mjs
+node bartini_plus/aether_bounds.mjs
+node bartini_plus/math_tighten.mjs</code></pre>
+<p>Семена в скриптах фиксированы. Проверки сохранены в <code>results/*.json</code>; основные прогоны также печатают вердикты в stdout. Смена <span class="eq-i">$c_\alpha$</span>, <span class="eq-i">$\theta$</span> или соглашения Фурье <em>обязана</em> сдвинуть <span class="eq-i">$n_*$</span> и <span class="eq-i">$\Gamma$</span>.</p>
+<hr>
+<h2>Если продолжать</h2>
+<p>Меняет статус только:</p>
+<ol><li>Вывод maxent размерностного веса из уже принятой физики (не из вкуса к энтропии). M1 только назвал пару; почему природа максимизирует эту энтропию — не выведено.</li><li>Живой прогноз, живущий при границах <span class="eq-i">$\sim 10^{-15}$</span> и не уничтоженный инфляцией. T8 показывает, что при жёсткости из энергии Дирихле такой прогноз уже ограничен: <span class="eq-i">$E_{\mathrm{lock}}\lesssim10^{11}$</span> ГэВ. Нужен механизм, дающий <span class="eq-i">$c_{13}=0$</span> симметрией, а не подгонкой.</li><li>Первоисточники Бартини. Другой показатель гауссиана убивает совпадение с <span class="eq-i">$n_*$</span>.</li></ol>
+<p>Не «улучшать» теорию, меняя знак кинетики скрытых времён, чтобы получить <span class="eq-i">$m^2>0$</span>. Это T3: тогда они не времена.</p>
+<hr>
+<h2>Карта файлов</h2>
+<div class="table-wrap"><table><thead><tr><th>Файл</th><th>Содержание</th></tr></thead><tbody><tr><td><a href="PROOF.md">PROOF</a></td><td>Полная цепь от Бартини до L0–L3</td></tr><tr><td><a href="P5_STRESS.md">P5_STRESS</a></td><td>Теорема о P5, критическое время, устойчивость к шуму</td></tr><tr><td><a href="FOUR_STEPS.md">FOUR_STEPS</a></td><td>Мера, сигнатура, поле <span class="eq-i">$n$</span>, Эйнштейн</td></tr><tr><td><a href="CLOSE_GAPS.md">CLOSE_GAPS</a></td><td>T1–T9</td></tr><tr><td><a href="MATH_TIGHTEN.md">MATH_TIGHTEN</a></td><td>M1–M3</td></tr><tr><td><code>bartini_plus/*.mjs</code></td><td>Прогоны</td></tr><tr><td><code>results/*.json</code></td><td>Сырые числа</td></tr></tbody></table></div>
+<p>Английский и китайский — <code>docs/en/</code>, <code>docs/zh/</code>, те же имена.</p></article>
+<article id="ru-proof" class="page" hidden><h1>Доказательства и рассуждения: Бартини и Бартини+</h1>
+<p><strong>Авторы гипотезы и проверки:</strong> Александр Кутепов и языковые модели (LLM). <strong>Дата фиксации:</strong> 31 августа 2026. <strong>Статус:</strong> открытое исследование. Историческая шестимерность Вселенной не доказана. Численные следствия Бартини+ проверены.</p>
+<p>Этот текст воспроизводит полную цепочку рассуждений: от работ Р. О. ди Бартини до стохастической надстройки и экспериментов L0–L3.</p>
+<hr>
+<h2>0. Предмет</h2>
+<p>Роберто Орос ди Бартини (Роберт Людвигович Бартини) предложил описывать реальность как шестимерную структуру: три пространственные и три временные координаты. Физические величины он записывал как <span class="eq-i">$L^a T^b$</span>.</p>
+<p>Обычная физика:</p>
+<p><div class="eq">$$(x,y,z,t),\qquad 3+1.$$</div></p>
+<p>Бартини:</p>
+<p><div class="eq">$$(x,y,z,t_1,t_2,t_3),\qquad 3+3.$$</div></p>
+<p>Задача исследования: отделить то, что следует из математики Бартини, от поздних интерпретаций, затем достроить недостающий механизм выбора наблюдаемого времени и проверить его.</p>
+<hr>
+<h2>1. Историческая конструкция Бартини</h2>
+<h3>1.1. Матрица размерностей</h3>
+<p>Фундаментальные категории: <span class="eq-i">$L$</span> (длина) и <span class="eq-i">$T$</span> (время). Величины — комбинации степеней <span class="eq-i">$L^a T^b$</span>.</p>
+<p><div class="eq">$$v = LT^{-1},\qquad a = LT^{-2}.$$</div></p>
+<p>Масса и прочие величины вводятся через константы и таблицу размерностей. Размерностный анализ задаёт класс <span class="eq-i">$[Q]$</span>, но не безразмерные коэффициенты (<span class="eq-i">$\alpha$</span>, <span class="eq-i">$m_e/m_p$</span>). Утверждение «Бартини вывел все константы» не доказано, пока не показаны конкретные формулы, входы и число свободных параметров.</p>
+<h3>1.2. Шесть измерений как произведение многообразий</h3>
+<p>Бартини записывает шестимерную конфигурацию как</p>
+<p><div class="eq">$$M_6 = M_3^{\mathrm{space}}\times M_3^{\mathrm{time}},$$</div></p>
+<p>«(3+3)-мерное комплексное многообразие»: трёхмерная пространственноподобная и ортогональная ей трёхмерная времениподобная протяжённость.</p>
+<h3>1.3. «Миры-варианты» и «скорость времени»</h3>
+<p>Дополнительные временные оси иногда толкуют как ветви историй. Это не следует из одних координат. Многомировая интерпретация требует гильбертова пространства, унитарной эволюции, декогеренции и меры. Три оси <span class="eq-i">$t_\alpha$</span> — не три судьбы.</p>
+<p>«Скорость времени» / «высота времени» — положение во внутреннем временном пространстве. В известных текстах Бартини нет готового закона выбора оси.</p>
+<hr>
+<h2>2. Вывод числа 6 (воспроизводимый расчёт)</h2>
+<h3>2.1. Функция и интеграл</h3>
+<p>В реконструкции работы 1965 года используется</p>
+<p><div class="eq">$$j(n)=n^n e^{-\pi n^2},$$</div></p>
+<p>и величина, связанная с ожиданием частоты переходов:</p>
+<p><div class="eq">$$m(n)=\int_0^\infty x^n e^{-\pi x^2}\,dx.$$</div></p>
+<p>Стандартный интеграл:</p>
+<p><div class="eq">$$\int_0^\infty x^n e^{-a x^2}\,dx = \tfrac12 a^{-(n+1)/2}\,\Gamma\bigl(\tfrac{n+1}{2}\bigr).$$</div></p>
+<p>При <span class="eq-i">$a=\pi$</span>:</p>
+<p><div class="eq">$$\boxed{m(n)=\dfrac{\Gamma\bigl(\tfrac{n+1}{2}\bigr)}{2\pi^{(n+1)/2}}.}$$</div></p>
+<h3>2.2. Экстремум</h3>
+<p><div class="eq">$$\ln m(n)=\ln\Gamma\bigl(\tfrac{n+1}{2}\bigr)-\tfrac{n+1}{2}\ln\pi-\ln 2.$$</div></p>
+<p><div class="eq">$$\frac{d\ln m}{dn}=\tfrac12\psi\bigl(\tfrac{n+1}{2}\bigr)-\tfrac12\ln\pi,$$</div></p>
+<p>где <span class="eq-i">$\psi=\Gamma'/\Gamma$</span>. Условие экстремума:</p>
+<p><div class="eq">$$\boxed{\psi\bigl(\tfrac{n+1}{2}\bigr)=\ln\pi.}$$</div></p>
+<p>Численно:</p>
+<p><div class="eq">$$\frac{n+1}{2}\approx 3.628473202,\qquad n_*\approx 6.256946404.$$</div></p>
+<p>В таблице Бартини: <span class="eq-i">$n+1=+7.256946404$</span>, то есть тот же <span class="eq-i">$n_*$</span>.</p>
+<h3>2.3. Ближайшее целое</h3>
+<p>Физическая размерность целая. Среди соседей:</p>
+<p><div class="eq">$$m(5)\approx 0.03225,\quad m(6)\approx 0.03024,\quad m(7)\approx 0.03080.$$</div></p>
+<p><div class="eq">$$\boxed{m(6)<m(5),\quad m(6)<m(7).}$$</div></p>
+<p>Локальный целочисленный минимум — <span class="eq-i">$n=6$</span>.</p>
+<h3>2.4. Что этим не доказано</h3>
+<ol><li>Функция <span class="eq-i">$j(n)=n^n e^{-\pi n^2}$</span> и параметр <span class="eq-i">$a=\pi$</span> не выведены из физики. При другом <span class="eq-i">$a$</span> минимум сдвигается: <span class="eq-i">$\psi((n+1)/2)=\ln a$</span>.</li><li>Переход «экстремум <span class="eq-i">$m(n)$</span> ⇒ физическая размерность» — отдельный постулат.</li><li>Округление <span class="eq-i">$6.2569\to 6$</span> — отдельное предположение.</li><li>Из <span class="eq-i">$n=6$</span> не следует <span class="eq-i">$3+3$</span>. Возможны <span class="eq-i">$5+1$</span>, <span class="eq-i">$4+2$</span>, <span class="eq-i">$2+4$</span>. Разбиение постулируется.</li></ol>
+<p><strong>Теорема (условная).</strong> <em>При данной <span class="eq-i">$m(n)$</span> и <span class="eq-i">$a=\pi$</span> ближайшее целое к непрерывному минимуму есть 6, и оно локально минимально на <span class="eq-i">$\mathbb{Z}$</span>.</em> <strong>Не теорема.</strong> <em>Вселенная шестимерна.</em></p>
+<hr>
+<h2>3. Геометрия <span class="eq-i">$3+3$</span></h2>
+<h3>3.1. Плоская метрика</h3>
+<p>Координаты <span class="eq-i">$X^A=(x^1,x^2,x^3,q^1,q^2,q^3)$</span>, <span class="eq-i">$q^\alpha=ct_\alpha$</span>.</p>
+<p><div class="eq">$$ds^2=dx^2+dy^2+dz^2-c^2(dt_1^2+dt_2^2+dt_3^2),$$</div></p>
+<p><div class="eq">$$\eta_{AB}=\mathrm{diag}(1,1,1,-1,-1,-1),\qquad \mathrm{сигнатура}\ (3,3).$$</div></p>
+<p>Конструкция математически допустима.</p>
+<h3>3.2. Геодезические</h3>
+<p><span class="eq-i">$\Gamma^A_{BC}=0$</span>, свободное движение — прямая <span class="eq-i">$X^A(\lambda)=U^A\lambda+X_0^A$</span>.</p>
+<p><div class="eq">$$\frac{ds^2}{d\lambda^2}=|u|^2-|w|^2.$$</div></p>
+<p>Времениподобные: <span class="eq-i">$|u|<|w|$</span>; нулевые: <span class="eq-i">$|u|=|w|$</span>; пространственноподобные: <span class="eq-i">$|u|>|w|$</span>.</p>
+<h3>3.3. Два способа получить <span class="eq-i">$3+1$</span>-наблюдателя</h3>
+<p><strong>Полное время.</strong></p>
+<p><div class="eq">$$dT=\frac1c\sqrt{dq_1^2+dq_2^2+dq_3^2}.$$</div></p>
+<p>Вдоль траектории <span class="eq-i">$ds^2=dx^2-c^2 dT^2$</span>, <span class="eq-i">$v_T^2=c^2|u|^2/|w|^2$</span>. Для времениподобных <span class="eq-i">$v_T<c$</span>, для нулевых <span class="eq-i">$v_T=c$</span>. Но <span class="eq-i">$T$</span> — длина пути во внутреннем времени, не показание одних часов. Разные 6D-пути между теми же событиями дают разное <span class="eq-i">$T$</span>.</p>
+<p><strong>Одна координата <span class="eq-i">$t=t_1$</span>.</strong> Нулевая траектория даёт</p>
+<p><div class="eq">$$v_{\mathrm{obs}}^2=c^2\bigl(1+(dt_2/dt)^2+(dt_3/dt)^2\bigr)\ge c^2.$$</div></p>
+<p>Скрытое движение по <span class="eq-i">$t_2,t_3$</span> выглядит сверхсветовым. Чтобы вернуть СТО, нужно <span class="eq-i">$dt_2=dt_3=0$</span> вручную.</p>
+<p><strong>Вывод.</strong> <span class="eq-i">$3+3$</span> содержит <span class="eq-i">$3+1$</span> как срез. <span class="eq-i">$3+3$</span> не объясняет, почему реализуется именно этот срез.</p>
+<h3>3.4. Импульсы и масса</h3>
+<p>Для безмассовой 6-частицы <span class="eq-i">$|p|^2=|\pi|^2$</span>. Проекция на <span class="eq-i">$t_1$</span>:</p>
+<p><div class="eq">$$E_1^2=c^2|p|^2-c^2(\pi_2^2+\pi_3^2)\implies m_{\mathrm{eff}}^2\le 0.$$</div></p>
+<p>Скрытые времена дают тахионный знак, не обычную массу. Полное время <span class="eq-i">$T$</span> даёт <span class="eq-i">$E_T=c|p|$</span> — снова без массы. Нужен отдельный механизм (компактификация, связь, искривление).</p>
+<h3>3.5. Волна и задача Коши</h3>
+<p>Уравнение сигнатуры <span class="eq-i">$(3,3)$</span> ультрагиперболическое:</p>
+<p><div class="eq">$$\Bigl(\sum_{\alpha=1}^3\partial_{t_\alpha}^2-c^2\nabla^2\Bigr)\phi=0.$$</div></p>
+<p>Для плоской волны <span class="eq-i">$\omega_1^2=c^2k^2-\omega_2^2-\omega_3^2$</span>. Если <span class="eq-i">$\omega_2^2+\omega_3^2>c^2k^2$</span>, то <span class="eq-i">$\omega_1$</span> мнимая и амплитуда растёт как <span class="eq-i">$e^{\lambda t_1}$</span>. Задача Коши по <span class="eq-i">$t_1$</span> для произвольных данных некорректна. Нужно нелокальное ограничение спектра. У Бартини такого механизма нет.</p>
+<h3>3.6. Причинность</h3>
+<p>Три временных направления: нет канонического «раньше/позже». Световой конус связан с <span class="eq-i">$S^2\times S^2$</span>. Компактное время почти неизбежно даёт замкнутые времениподобные кривые.</p>
+<hr>
+<h2>4. Гипотеза о выборе <span class="eq-i">$T$</span> каждый миг</h2>
+<p>Интуиция: в каждый момент из <span class="eq-i">$t_1,t_2,t_3$</span> выбирается одно направление, и мир становится <span class="eq-i">$3+1$</span>.</p>
+<p>Это <strong>не следствие</strong> метрики <span class="eq-i">$3+3$</span>. Это отдельный постулат.</p>
+<p>Уточнения:</p>
+<ul><li>Наблюдаемое время может быть любой линейной комбинацией <span class="eq-i">$T=n\cdot t$</span>, <span class="eq-i">$n\in S^2$</span>. Вариантов не 3, а континуум.</li><li>«Каждый момент» требует мета-параметра <span class="eq-i">$\lambda$</span>, иначе логическая петля: время выбирается относительно ещё не выбранного времени.</li><li>Случайный выбор требует вероятности, носителя выбора и согласования наблюдателей.</li><li>В стандартных экспериментах скачков течения времени нет; если механизм есть, он скрыт.</li></ul>
+<p>Три интерпретации без стохастики:</p>
+<div class="table-wrap"><table><thead><tr><th></th><th>Содержание</th><th>Выбор оси</th></tr></thead><tbody><tr><td>A</td><td>Статический 6D-блок, наш мир — срез</td><td>нет</td></tr><tr><td>B</td><td>Динамическое направление <span class="eq-i">$n(x)$</span></td><td>закон / наблюдатель</td></tr><tr><td>C</td><td>Ветвление историй</td><td>нужна квантовая мера</td></tr></tbody></table></div>
+<p>Бартини ближе к геометрической программе A. Выбор «каждый миг» — надстройка.</p>
+<hr>
+<h2>5. Бартини+: аксиомы</h2>
+<p>К геометрии добавляется ровно механизм, которого не хватало.</p>
+<p><strong>П1.</strong> Координаты <span class="eq-i">$(x_i,t_\alpha)$</span>, метрика <span class="eq-i">$ds^2=dx^2-c^2\sum dt_\alpha^2$</span>.</p>
+<p><strong>П2.</strong> Мета-шаг <span class="eq-i">$k=0,1,2,\ldots$</span>. На шаге тикает ровно один час <span class="eq-i">$\alpha_k\in\{1,2,3\}$</span>, <span class="eq-i">$t_{\alpha}\mapsto t_{\alpha}+\varepsilon$</span>.</p>
+<p><strong>П3.</strong> Поле эволюционирует относительно тикающего часа (в численной реализации — комплексная мода <span class="eq-i">$\psi\mapsto\psi\exp(-i c_\alpha k\Delta t)$</span>). Разные часы могут нести разные <span class="eq-i">$c_\alpha$</span>.</p>
+<p><strong>П4.</strong> Наблюдаемое время <span class="eq-i">$T=\varepsilon k$</span>. Отдельные <span class="eq-i">$t_\alpha$</span> наблюдателю недоступны.</p>
+<p><strong>П5.</strong> Вероятности <span class="eq-i">$p_\alpha\propto n_\alpha^\theta$</span>, <span class="eq-i">$n_\alpha$</span> — число тиков часа <span class="eq-i">$\alpha$</span>. При <span class="eq-i">$\theta>1$</span> — нелинейная урна (возрастающая отдача).</p>
+<p><strong>П6.</strong> Наблюдатель — структура внутри поля / клеточного автомата. Отдельного внешнего времени у него нет.</p>
+<p>Это уже не исторический Бартини.</p>
+<hr>
+<h2>6. Аналитические следствия</h2>
+<h3>6.1. Запирание <span class="eq-i">$3+3\to 3+1$</span></h3>
+<p>При <span class="eq-i">$\theta>1$</span> процесс почти наверное запирается на одной вершине:</p>
+<p><div class="eq">$$p_\alpha(k)\xrightarrow{k\to\infty}\delta_{\alpha,\alpha^*}.$$</div></p>
+<p>Точное утверждение — сильная монополия по критерию Рубина <span class="eq-i">$\sum_n n^{-\theta}<\infty$</span>. Численный критерий <code>max(p) &gt;= 0.95</code> означает только первое достижение порога. Доказательство, критическая асимптотика и контрпример с постоянным шумом: <a href="P5_STRESS.md">P5_STRESS.md</a>.</p>
+<p>Победитель <span class="eq-i">$\alpha^*$</span> случаен при симметричном старте. Условие <span class="eq-i">$t_2=t_3=\mathrm{const}$</span> возникает динамически. Разные реализации — разные оси: дерево миров как статистика ансамбля.</p>
+<p>При <span class="eq-i">$\theta=0$</span>: <span class="eq-i">$p$</span> равномерно, запирания нет. При <span class="eq-i">$\theta=1$</span>: классическая урна Пойа, сходимость внутрь симплекса.</p>
+<h3>6.2. Затухание в смешанной фазе</h3>
+<p>Для независимых тиков</p>
+<p><div class="eq">$$\langle\psi_{n+1}\rangle=\langle e^{-i c k\Delta t}\rangle\langle\psi_n\rangle,$$</div></p>
+<p><div class="eq">$$\boxed{\Gamma=-\frac1{\Delta t}\ln\bigl|\langle e^{-i c_\alpha k\Delta t}\rangle\bigr|.}$$</div></p>
+<p>Малый угол:</p>
+<p><div class="eq">$$\Gamma\approx\tfrac12\mathrm{Var}(c)\,k^2\Delta t.$$</div></p>
+<p>Исходная оценка <span class="eq-i">$\Gamma=\mathrm{Var}(c)\,k^2\Delta t$</span> ошибочна на множитель <span class="eq-i">$1/2$</span>.</p>
+<p>Энергия одной реализации волнового уравнения 2-го порядка при скачках <span class="eq-i">$c$</span> <strong>растёт</strong> (параметрическая накачка). Мера <span class="eq-i">$\langle|A|\rangle$</span> ложна. Верная мера — <span class="eq-i">$|\langle\psi\rangle|$</span>.</p>
+<h3>6.3. После запирания</h3>
+<p><span class="eq-i">$\Delta c_{\mathrm{eff}}\to 0$</span>, <span class="eq-i">$\Gamma\to 0$</span>. Лоренц-инвариантность восстанавливается. Остаточные чужие тики:</p>
+<p><div class="eq">$$p_{\mathrm{чужой}}(k)\sim k^{-(\theta-1)}.$$</div></p>
+<h3>6.4. Эффективная размерность времени</h3>
+<p><div class="eq">$$d_T=\frac{(\sum p_\alpha)^2}{\sum p_\alpha^2}\in[1,3].$$</div></p>
+<p>Переход <span class="eq-i">$3\to 1$</span> — наблюдаемый фазовый переход в симуляции.</p>
+<hr>
+<h2>7. Численные эксперименты</h2>
+<p>Код: <code>bartini_plus/experiments.mjs</code>. Данные: <code>results/bartini_plus.json</code>. Запуск: <code>node bartini_plus/experiments.mjs</code>.</p>
+<p>Часы: <span class="eq-i">$c=(0.18,0.40,0.62)$</span>, <span class="eq-i">$\Delta t=0.4$</span>, решётка моды <span class="eq-i">$N=128$</span>.</p>
+<h3>L0. Контроль <span class="eq-i">$\theta=0$</span></h3>
+<p>64 реализации, моды <span class="eq-i">$2,4,6,8,10$</span>.</p>
+<div class="table-wrap"><table><thead><tr><th></th><th></th></tr></thead><tbody><tr><td><span class="eq-i">$\Gamma>0$</span></td><td>да</td></tr><tr><td><span class="eq-i">$\Gamma$</span> растёт с <span class="eq-i">$k^2$</span></td><td>да</td></tr><tr><td><span class="eq-i">$\beta_{\mathrm{fit}}/\beta_{\mathrm{th}}-1$</span></td><td><span class="eq-i">$-2.9\%$</span></td></tr></tbody></table></div>
+<h3>L1. Урна</h3>
+<div class="table-wrap"><table><thead><tr><th><span class="eq-i">$\theta$</span></th><th><span class="eq-i">$n_0$</span></th><th>lock</th><th>медиана lock</th><th><span class="eq-i">$d_T$</span> финал</th><th>победители</th></tr></thead><tbody><tr><td>0</td><td>1</td><td>0</td><td>—</td><td>3</td><td>—</td></tr><tr><td>1</td><td>1</td><td>0</td><td>—</td><td>2.12</td><td>—</td></tr><tr><td>2</td><td>25</td><td>0.938</td><td>1397</td><td>1.034</td><td>24 / 26 / 30</td></tr><tr><td>2</td><td>1</td><td>1</td><td>9</td><td>1.000</td><td>31 / 23 / 36</td></tr></tbody></table></div>
+<p>При <span class="eq-i">$n_0=1$</span>, <span class="eq-i">$\theta=2$</span> смешанная фаза почти отсутствует.</p>
+<h3>L2. Шум до и после lock</h3>
+<p><span class="eq-i">$\theta=2$</span>, <span class="eq-i">$n_0=25$</span>, 64 реализации, медиана lock <span class="eq-i">$1475$</span>. <span class="eq-i">$\Gamma$</span> после lock много меньше <span class="eq-i">$\Gamma$</span> до lock.</p>
+<h3>L3. Бартини–Life</h3>
+<p>Решётка <span class="eq-i">$48\times 48$</span>. Правила: B3/S23, B36/S23, B3/S234. Старт — глайдер. Структура: <span class="eq-i">$3$</span>–<span class="eq-i">$40$</span> живых клеток.</p>
+<div class="table-wrap"><table><thead><tr><th>режим</th><th>доля структур в конце</th></tr></thead><tbody><tr><td><span class="eq-i">$\theta=0$</span>, смесь</td><td><span class="eq-i">$4.2\%$</span></td></tr><tr><td><span class="eq-i">$\theta=2.5$</span>, lock</td><td><span class="eq-i">$47\%$</span></td></tr><tr><td>lock, победитель B3/S23</td><td><span class="eq-i">$75\%$</span></td></tr><tr><td>lock, победитель B36/S23</td><td><span class="eq-i">$85\%$</span></td></tr><tr><td>lock, победитель B3/S234</td><td><span class="eq-i">$0\%$</span></td></tr><tr><td>случайный суп, смесь</td><td><span class="eq-i">$0\%$</span></td></tr><tr><td>случайный суп, lock</td><td><span class="eq-i">$4\%$</span></td></tr></tbody></table></div>
+<p>Смесь разрушает глайдер. Lock сохраняет его только если победившее правило допускает глайдер. B3/S234 взрывает популяцию. Антропный вывод внутри модели: наблюдатели возможны после запирания и только в мирах с «жизненным» часом.</p>
+<p><strong>Критерий успеха теории (игрушка):</strong> 10/10 заранее зафиксированных вердиктов.</p>
+<hr>
+<h2>8. Итоговая таблица утверждений</h2>
+<div class="table-wrap"><table><thead><tr><th>Утверждение</th><th>Математика</th><th>Физика природы</th></tr></thead><tbody><tr><td>Минимум выбранной <span class="eq-i">$m(n)$</span> около 6</td><td>да</td><td>зависит от функции</td></tr><tr><td>Метрика <span class="eq-i">$(3,3)$</span> существует</td><td>да</td><td>не доказано, что природа такова</td></tr><tr><td>Срез <span class="eq-i">$3+1$</span> возможен</td><td>да, при ограничениях</td><td>ограничения нужны отдельно</td></tr><tr><td>Скрытые времена дают массу</td><td>нет, знак неверный</td><td>нужен механизм</td></tr><tr><td>Задача Коши произвольна</td><td>нет</td><td>нет</td></tr><tr><td>Бартини доказал 6D Вселенную</td><td>нет</td><td>нет</td></tr><tr><td>Урна <span class="eq-i">$\theta>1$</span> запирает одно время</td><td>да (теория + L1)</td><td>модель</td></tr><tr><td><span class="eq-i">$\Gamma\approx\frac12\mathrm{Var}(c)k^2\Delta t$</span></td><td>да (L0)</td><td>модель</td></tr><tr><td>Life устойчива только после lock + life-rule</td><td>да (L3)</td><td>модель</td></tr></tbody></table></div>
+<hr>
+<h2>9. Прямой ответ на вопрос о «выборе каждый миг»</h2>
+<p>Нет. В Бартини+ после запирания тикает один час. Случайный выбор оси — свойство <strong>ранней</strong> смешанной фазы и <strong>разных реализаций</strong>, не текущего тика уже запертого мира. Сейчас, если модель верна, чужие тики редки и убывают как степень <span class="eq-i">$k$</span>.</p>
+<hr>
+<h2>10. Открытые пункты</h2>
+<p>Уравнения поля не выведены из вариационного принципа. Квантование без духов не построено. Масса и безразмерные константы не получены. Экспериментальные границы на остаточный шум (<span class="eq-i">$\lesssim 10^{-15}$</span>–<span class="eq-i">$10^{-20}$</span> в тестах Лоренц-инвариантности) не сопоставлены с <span class="eq-i">$(\Delta c)^2\varepsilon$</span> количественно в этой версии кода.</p></article>
+<article id="ru-steps" class="page" hidden><h1>Четыре шага: мера, сигнатура, поле <span class="eq-i">$n$</span>, Эйнштейн / no-go</h1>
+<p><strong>Авторы:</strong> Александр Кутепов и LLM. <strong>Прогон:</strong> <code>node bartini_plus/four_steps.mjs</code> → <code>results/four_steps.json</code> (31.08.2026).</p>
+<p>Это не доказательство, что Вселенная шестимерна. Это проверка, выводятся ли четыре недостающих куска из названных принципов, без подстановки <span class="eq-i">$n=6$</span> и без урны как фундамента.</p>
+<hr>
+<h2>Шаг 1. Вывод меры</h2>
+<h3>Принцип</h3>
+<p>Унитарное преобразование Фурье</p>
+<p><div class="eq">$$\hat f(\xi)=\int_{\mathbb R} f(x)\,e^{-2\pi i x\xi}\,dx$$</div></p>
+<p>имеет единственную (с точностью до фазы и нормировки) чётную положительную неподвижную точку в <span class="eq-i">$L^2$</span>:</p>
+<p><div class="eq">$$\boxed{f(x)=e^{-\pi x^2}=\hat f(x).}$$</div></p>
+<p>Численная проверка на сетке <span class="eq-i">$L=4096$</span>, носитель <span class="eq-i">$[-4,4)$</span>: относительная <span class="eq-i">$L^2$</span>-ошибка <span class="eq-i">$\|f-\hat f\|_2/\|f\|_2=1.93\cdot 10^{-15}$</span>.</p>
+<p>Константа <span class="eq-i">$\pi$</span> здесь не подбор. Она есть константа единственного самодуального гауссиана. Вероятностный гауссиан <span class="eq-i">$e^{-x^2/2}$</span> самодуален относительно другого соглашения Фурье и даёт другой параметр <span class="eq-i">$a$</span>.</p>
+<h3>Эквивалентность сфере</h3>
+<p><div class="eq">$$m(n)=\int_0^\infty x^n e^{-\pi x^2}\,dx=\frac{\Gamma(\frac{n+1}{2})}{2\pi^{(n+1)/2}}=\frac{1}{\mathrm{Area}(S^n)}.$$</div></p>
+<p>Тождество проверено для <span class="eq-i">$n=1,\ldots,10$</span>: относительная ошибка <span class="eq-i">$<10^{-15}$</span>.</p>
+<p>Минимизация <span class="eq-i">$m(n)$</span> тождественна максимизации площади единичной сферы <span class="eq-i">$S^n$</span>.</p>
+<h3>Экстремум</h3>
+<p><div class="eq">$$\psi\bigl(\tfrac{n+1}{2}\bigr)=\ln\pi\implies n_*=6.25694641164.$$</div></p>
+<p>Целые: <span class="eq-i">$m(6)<m(5)$</span>, <span class="eq-i">$m(6)<m(7)$</span>. Площадь <span class="eq-i">$S^n$</span> максимальна при целом <span class="eq-i">$n=6$</span>.</p>
+<h3>Если принцип другой — шестёрки нет</h3>
+<p>Условие <span class="eq-i">$\psi((n+1)/2)=\ln a$</span>:</p>
+<div class="table-wrap"><table><thead><tr><th><span class="eq-i">$a$</span></th><th><span class="eq-i">$n_*$</span></th></tr></thead><tbody><tr><td><span class="eq-i">$1/2$</span></td><td>0.87</td></tr><tr><td><span class="eq-i">$1$</span></td><td>1.92</td></tr><tr><td><span class="eq-i">$e$</span></td><td>5.41</td></tr><tr><td><span class="eq-i">$\pi$</span></td><td>6.26</td></tr><tr><td><span class="eq-i">$2\pi$</span></td><td>12.55</td></tr></tbody></table></div>
+<p>Шестёрка привязана к фурье-самодуальному <span class="eq-i">$\pi$</span>, не к «любому гауссиану».</p>
+<h3>Статус шага 1</h3>
+<p><strong>Выведено из принципа самодуальности / максимальной площади <span class="eq-i">$S^n$</span>.</strong> M1 именует пару: maxent при фиксированной дисперсии + унитарность <span class="eq-i">$\mathcal F$</span> фиксируют <span class="eq-i">$a=\pi$</span>. Самодуальность одна <span class="eq-i">$n=6$</span> не даёт (моды Эрмита <span class="eq-i">$4k$</span>). Почему природа максимизирует энтропию размерностного веса — по-прежнему постулат. См. <a href="MATH_TIGHTEN.md">MATH_TIGHTEN</a>.</p>
+<hr>
+<h2>Шаг 2. Вывод <span class="eq-i">$6=3+3$</span></h2>
+<h3>Принцип</h3>
+<p>При фиксированном <span class="eq-i">$n=p+q=6$</span> максимизировать меру вещественного светового конуса</p>
+<p><div class="eq">$$\mathrm{Vol}(\mathbb P\mathcal N)=\mathrm{Area}(S^{p-1})\,\mathrm{Area}(S^{q-1}).$$</div></p>
+<p>Проективизированный конус нулевых направлений в сигнатуре <span class="eq-i">$(p,q)$</span> есть <span class="eq-i">$S^{p-1}\times S^{q-1}$</span>.</p>
+<h3>Числа</h3>
+<div class="table-wrap"><table><thead><tr><th>сигнатура</th><th>вещественный конус</th><th>объём</th></tr></thead><tbody><tr><td><span class="eq-i">$0+6$</span></td><td>нет</td><td>0</td></tr><tr><td><span class="eq-i">$1+5$</span></td><td><span class="eq-i">$S^0\times S^4$</span></td><td><span class="eq-i">$16\pi^2/3\approx 52.64$</span></td></tr><tr><td><span class="eq-i">$2+4$</span></td><td><span class="eq-i">$S^1\times S^3$</span></td><td><span class="eq-i">$4\pi^3\approx 124.03$</span></td></tr><tr><td><span class="eq-i">$3+3$</span></td><td><span class="eq-i">$S^2\times S^2$</span></td><td><span class="eq-i">$16\pi^2\approx 157.91$</span></td></tr></tbody></table></div>
+<p><div class="eq">$$\boxed{(3,3)=\mathrm{argmax}.}\qquad \frac{\mathrm{Vol}_{3+3}}{\mathrm{Vol}_{2+4}}=\frac{4}{\pi}\approx 1.27324.$$</div></p>
+<p>Среди разбиений шестёрки с обоими знаками <span class="eq-i">$(3,3)$</span> единственный максимум.</p>
+<h3>Второй путь, эмпирический</h3>
+<p>Небесная сфера наблюдаемых пространственных направлений есть <span class="eq-i">$S^2\Rightarrow$</span> три пространства. Если полная размерность 6, время трёхмерно. Это не круговое: 6 пришло из шага 1, тройка пространства — из неба.</p>
+<h3>Алгебры</h3>
+<p><span class="eq-i">$\mathfrak{so}(3,3)\cong\mathfrak{sl}(4,\mathbb R)$</span> — расщеплённая форма. <span class="eq-i">$\mathfrak{so}(4,2)\cong\mathfrak{su}(2,2)$</span> — конформная алгебра 4D (твисторы, 2T-физика Барса). <span class="eq-i">$(3,3)$</span> и <span class="eq-i">$(4,2)$</span> — разные теории. Максимум конуса выбирает первую, конформная 4D-геометрия — вторую. Это развилка, не тождество.</p>
+<h3>Статус шага 2</h3>
+<p><strong>Выведено из того же класса принципов, что шаг 1 (максимум меры направлений), при уже полученном <span class="eq-i">$n=6$</span>.</strong> Без шага 1 или без эмпирической <span class="eq-i">$S^2$</span> разбиение не принудительно.</p>
+<hr>
+<h2>Шаг 3. Поле <span class="eq-i">$n$</span> вместо урны</h2>
+<h3>Действие</h3>
+<p><div class="eq">$$n:M_{\mathrm{space}}\to S^2,\qquad S[n]=\frac\kappa2\int |dn|^2.$$</div></p>
+<p>Наблюдаемое время: <span class="eq-i">$dT=n_\alpha\,dt^\alpha$</span>. Вакуум: <span class="eq-i">$n=\mathrm{const}$</span>. Градиентный поток — гармоническое отображение (heat flow):</p>
+<p><div class="eq">$$\partial_\tau n = \Delta n+|\nabla n|^2 n,$$</div></p>
+<p>на решётке: <span class="eq-i">$n\leftarrow \mathrm{normalize}(n+\Delta\tau\,\Delta n)$</span>.</p>
+<p>Это не <span class="eq-i">$p\propto n^\theta$</span>. Запирание есть минимум энергии Дирихле, не правило урны.</p>
+<h3>Прогон</h3>
+<div class="table-wrap"><table><thead><tr><th>старт</th><th>геометрия</th><th>lock (<span class="eq-i">$\lvert\langle n\rangle\rvert>0.9$</span>)</th></tr></thead><tbody><tr><td>константа</td><td><span class="eq-i">$T^2$</span>, <span class="eq-i">$16\times16$</span></td><td>да, энергия <span class="eq-i">$0$</span></td></tr><tr><td>случайный</td><td><span class="eq-i">$T^2$</span>, 12 реализаций, 1200 шагов</td><td><span class="eq-i">$12/12$</span>, <span class="eq-i">$\lvert\langle n\rangle\rvert=1$</span>, <span class="eq-i">$E\sim 10^{-23}$</span></td></tr><tr><td>случайный</td><td><span class="eq-i">$S^1$</span>, 12 реализаций</td><td><span class="eq-i">$11/12$</span></td></tr><tr><td>стереографический «ёжик»</td><td><span class="eq-i">$T^2$</span></td><td>размотался до константы</td></tr></tbody></table></div>
+<p>Кривая порядка на типичной 2D реализации: <span class="eq-i">$0.05\to 0.75\to 0.985\to 1$</span> за сотни шагов.</p>
+<h3>Топология</h3>
+<p><span class="eq-i">$\pi_2(S^2)=\mathbb Z$</span>. В трёхмерном пространстве дефекты поля <span class="eq-i">$n$</span> — точки (ёжики). На торе <span class="eq-i">$T^2$</span> посаженный стереографический текстур не является гомотопическим инвариантом и уничтожается потоком: периодическая идентификация снимает заряд. На замкнутом <span class="eq-i">$T^3$</span> суммарный заряд ёжиков равен нулю; пары рождаются и аннигилируют (Киббл).</p>
+<p>Урна этот слой прятала. Поле его показывает.</p>
+<h3>Голдстоуны</h3>
+<p>Вакуум ломает <span class="eq-i">$\mathrm{SO}(3)_{\mathrm{time}}\to\mathrm{SO}(2)$</span>. Остаются две безмассовые угловые моды <span class="eq-i">$\delta n\perp n$</span>. Это качание оси времени. Чтобы вернуть точную лоренц-инвариантность, нужна щель (потенциал, связанный с <span class="eq-i">$n$</span>) либо чудовищная жёсткость <span class="eq-i">$\kappa$</span>. В прогоне потенциала нет: lock есть выстраивание, не масса голдстоунов.</p>
+<h3>Статус шага 3</h3>
+<p><strong>Урна снята как фундамент.</strong> Вакуум <span class="eq-i">$n=\mathrm{const}$</span> устойчив, поток запирает случайные данные, когда топология позволяет. <strong>Не выведено:</strong> масса голдстоунов, динамика в 3D с сохраняющимися ёжиками, связь <span class="eq-i">$\kappa$</span> с наблюдаемыми.</p>
+<hr>
+<h2>Шаг 4. Эйнштейн на срезе, no-go, прогноз</h2>
+<h3>Редукция Эйнштейна</h3>
+<p>Метрика-произведение <span class="eq-i">$G=g_4\oplus\gamma_\perp$</span>, <span class="eq-i">$n=\mathrm{const}$</span>, поля не зависят от скрытых времён <span class="eq-i">$q_\perp$</span>:</p>
+<p><div class="eq">$$R[G]=R[g_4],\qquad \sqrt{|G|}=\sqrt{|g|}\sqrt{|\gamma|}.$$</div></p>
+<p><div class="eq">$$S_{\mathrm{EH},6}=\mathrm{Vol}_\perp\,S_{\mathrm{EH},4}.$$</div></p>
+<p>Вариация по <span class="eq-i">$g_4$</span> даёт уравнения Эйнштейна на срезе. Это редукция связью, не компактификация Калуцы–Клейна. <span class="eq-i">$\mathrm{Vol}_\perp$</span> бесконечен, если <span class="eq-i">$\gamma_\perp$</span> некомпактна; тогда либо режут интеграл связью <span class="eq-i">$\partial_\perp=0$</span> до вариации, либо <span class="eq-i">$\gamma_\perp$</span> компактна и появляются замкнутые времениподобные кривые. Развилка не закрыта: либо некомпактные скрытые времена и жёсткая связь, либо компакт и CTC.</p>
+<h3>Обход no-go</h3>
+<p>Кинетика материи только вдоль <span class="eq-i">$n$</span>:</p>
+<p><div class="eq">$$\mathcal L=\tfrac12(n^\alpha\partial_{t_\alpha}\phi)^2-\tfrac12 c^2|\nabla\phi|^2.$$</div></p>
+<p>Главный символ по наблюдаемому <span class="eq-i">$T$</span>: <span class="eq-i">$\omega^2-c^2k^2$</span>. Гиперболичен. Задача Коши по <span class="eq-i">$T$</span> корректна.</p>
+<p>Без проекции: <span class="eq-i">$\omega_1^2=c^2k^2-\omega_\perp^2$</span>. Из <span class="eq-i">$12$</span> тестовых мод с <span class="eq-i">$\omega_\perp\neq 0$</span> часть имеет <span class="eq-i">$\omega_1^2<0$</span>. С проекцией неустойчивых <span class="eq-i">$0/12$</span>.</p>
+<p>Масса: без проекции <span class="eq-i">$m_{\mathrm{eff}}^2=-c^2\pi_\perp^2\le 0$</span>. С проекцией скрытые импульсы не входят в кинетику, тахионный знак снят, <span class="eq-i">$m^2>0$</span> не появился.</p>
+<h3>Жёсткий прогноз</h3>
+<p>После lock: <span class="eq-i">$\Delta c/c\sim|\delta n|$</span>. Оценка Киббла <span class="eq-i">$|\delta n|\sim E_{\mathrm{lock}}/M_{\mathrm{Pl}}$</span>.</p>
+<div class="table-wrap"><table><thead><tr><th><span class="eq-i">$E_{\mathrm{lock}}$</span></th><th><span class="eq-i">$\Delta c/c$</span></th><th>граница <span class="eq-i">$\sim 10^{-15}$</span></th></tr></thead><tbody><tr><td><span class="eq-i">$10^{16}\,\mathrm{GeV}$</span></td><td><span class="eq-i">$8\cdot 10^{-4}$</span></td><td>убито, если нет последующего разбавления</td></tr><tr><td><span class="eq-i">$10^3\,\mathrm{GeV}$</span></td><td><span class="eq-i">$8\cdot 10^{-17}$</span></td><td>на грани / ниже</td></tr><tr><td><span class="eq-i">$10^{-3}\,\mathrm{GeV}$</span></td><td><span class="eq-i">$8\cdot 10^{-23}$</span></td><td>невидимо</td></tr><tr><td><span class="eq-i">$2.4\cdot 10^{-4}\,\mathrm{GeV}$</span> (<span class="eq-i">$T_{\mathrm{CMB}}$</span>)</td><td>ещё меньше</td><td>невидимо</td></tr></tbody></table></div>
+<p>Если запирание до или во время инфляции — дефекты разбавлены, теория неотличима от ОТО, прогноз пустой. Если запирание после инфляции на высоком масштабе — уже противоречит тестам Лоренца. Живое окно: lock после инфляции при <span class="eq-i">$E\lesssim 10^4\,\mathrm{GeV}$</span>, либо голдстоуны с щелью. Это не предсказание числа, а вилка «либо скрыто, либо убито».</p>
+<p>Второй твёрдый кусок: две голдстоуновы моды оси времени и, в 3D, точечные ёжики <span class="eq-i">$\pi_2$</span>. Их нет в ОТО. Пока щель не задана, они либо светлые (уже запрещены), либо отсутствуют (нет отличия от ОТО).</p>
+<h3>Статус шага 4</h3>
+<p><strong>Гиперболичность и снятие тахиона — да, при проекции <span class="eq-i">$n\cdot\partial_t$</span>.</strong> <strong>Эйнштейн на срезе — да, при <span class="eq-i">$n=\mathrm{const}$</span> и <span class="eq-i">$\partial_\perp=0$</span>.</strong> <strong>Масса частиц — нет.</strong> <strong>Один числовой прогноз, отличающий теорию от ОТО и ещё не убитый — нет.</strong> Есть только вилка масштаба lock.</p>
+<hr>
+<h2>Сводка</h2>
+<div class="table-wrap"><table><thead><tr><th>шаг</th><th>выведено</th><th>осталось постулатом / дыра</th></tr></thead><tbody><tr><td>1 мера</td><td><span class="eq-i">$e^{-\pi x^2}$</span> из maxent+<span class="eq-i">$\mathcal F$</span>; <span class="eq-i">$m=1/\mathrm{Area}(S^n)$</span>; <span class="eq-i">$n_*=6.2569\to 6$</span></td><td>maxent размерностного веса как закон</td></tr><tr><td>2 сигнатура</td><td><span class="eq-i">$(3,3)$</span> максимум объёма конуса при <span class="eq-i">$n=6$</span>; <span class="eq-i">$16\pi^2$</span> vs <span class="eq-i">$4\pi^3$</span></td><td>принцип максимума; развилка со <span class="eq-i">$(4,2)$</span></td></tr><tr><td>3 поле <span class="eq-i">$n$</span></td><td>действие Дирихле; вакуум устойчив; lock без урны</td><td>щель голдстоунов; 3D-ёжики</td></tr><tr><td>4 Эйнштейн / no-go</td><td><span class="eq-i">$R_6=R_4$</span>; гиперболический символ; <span class="eq-i">$m^2\le 0$</span> снят</td><td><span class="eq-i">$m^2>0$</span>; CTC vs некомпакт; отличимый прогноз</td></tr></tbody></table></div>
+<p>Цепочка «самодуальный гауссиан → 6 → максимум конуса → 3+3 → поле <span class="eq-i">$n$</span> → Эйнштейн на срезе» смыкается математически. В природу она проходит только если принять максимум меры направлений как закон и закрыть голдстоуны плюс массу. Это не доказанный Бартини. Это максимальная жёсткая реконструкция, которую четыре шага допускают.</p></article>
+<article id="ru-gaps" class="page" hidden><h1>Закрытие дыр: теоремы и один запрет</h1>
+<p><strong>Авторы:</strong> Александр Кутепов и LLM. <strong>Прогон:</strong> <code>node bartini_plus/close_gaps.mjs</code> → <code>results/close_gaps.json</code>; T8–T9: <code>node bartini_plus/aether_bounds.mjs</code> → <code>results/aether_bounds.json</code>.</p>
+<p>Минимальный набор был: щель голдстоунов, <span class="eq-i">$m^2>0$</span>, связь <span class="eq-i">$\partial_\perp$</span>, живой прогноз. Ниже — что из этого доказывается и что доказывается в отрицательную сторону.</p>
+<hr>
+<h2>T1. Запрет <span class="eq-i">$(4,2)$</span> внутри той же цепи</h2>
+<p><strong>Дано.</strong> Полная размерность 6 получена максимизацией меры направлений (<span class="eq-i">$\mathrm{Area}(S^n)$</span> / момент самодуального гауссиана).</p>
+<p><strong>Тогда.</strong> Тот же функционал на разбиениях <span class="eq-i">$p+q=6$</span> имеет единственный максимум <span class="eq-i">$(3,3)$</span>. <span class="eq-i">$(4,2)$</span> и <span class="eq-i">$(5,1)$</span> строго меньше (<span class="eq-i">$4\pi^3$</span> и <span class="eq-i">$16\pi^2/3$</span> против <span class="eq-i">$16\pi^2$</span>).</p>
+<p><strong>Следствие.</strong> Использовать принцип для <span class="eq-i">$n=6$</span> и отбросить его для сигнатуры — противоречие. Внутри цепи Бартини <span class="eq-i">$(4,2)$</span> запрещён. Вне цепи (конформная алгебра <span class="eq-i">$\mathfrak{su}(2,2)$</span>) он остаётся другой теорией, не этой.</p>
+<p>Принцип максимума сам по себе законом природы не доказан. T1 — внутренняя согласованность, не выход в опыт.</p>
+<hr>
+<h2>T2. Голдстоуны съедаются Фробениусом и диффеоморфизмами</h2>
+<p>Наивное поле <span class="eq-i">$n\in S^2$</span>: 2 степени свободы, <span class="eq-i">$\mathrm{SO}(3)\to\mathrm{SO}(2)$</span>, 2 голдстоуна.</p>
+<p><strong>Условие Фробениуса</strong> в <span class="eq-i">$T^3$</span>:</p>
+<p><div class="eq">$$n\wedge dn=0\implies n=\frac{d\tau}{|d\tau|}.$$</div></p>
+<p>Остаётся один скаляр <span class="eq-i">$\tau$</span>. Перепараметризация времени <span class="eq-i">$\tau\mapsto f(\tau)$</span> — калибровка. Фиксация <span class="eq-i">$\tau=T$</span> убивает хронон <span class="eq-i">$\chi=\delta\tau$</span>.</p>
+<p><strong>Число физических голдстоунов: 0.</strong></p>
+<p>Щель <span class="eq-i">$m_n$</span> не нужна: мод нет, они калибровочные. Потенциал <span class="eq-i">$V(n)$</span> не требуется.</p>
+<p>Цена: <span class="eq-i">$n$</span> больше не свободная <span class="eq-i">$\sigma$</span>-модель. «Ось времени» есть градиент одной функции времени. Ёжики <span class="eq-i">$\pi_2$</span> в секторе Фробениуса отсутствуют (глобальная <span class="eq-i">$\tau$</span> без CTC гомотопна константному направлению).</p>
+<p>Альтернатива «калибровать <span class="eq-i">$\mathrm{SO}(3)_{\mathrm{time}}$</span>» оставляет безмассовый <span class="eq-i">$U(1)$</span>. Она хуже. Выбран Фробениус.</p>
+<hr>
+<h2>T3. Запрет: масса частиц не следует из скрытых времён</h2>
+<p>Квадратичное действие с кинетикой вдоль скрытого направления:</p>
+<p><div class="eq">$$m^2=\sigma\,k_\perp^2.$$</div></p>
+<p>Прогон знаков (<code>close_gaps.mjs</code>):</p>
+<ul><li><span class="eq-i">$\sigma<0$</span> (скрытое направление времениподобно, как в <span class="eq-i">$\eta_{(3,3)}$</span>): <span class="eq-i">$m^2<0$</span> при любом <span class="eq-i">$k_\perp\neq 0$</span>. Тахион.</li><li><span class="eq-i">$\sigma>0$</span>: <span class="eq-i">$m^2>0$</span>, но тогда <span class="eq-i">$\perp$</span> пространственноподобно. Это уже не время.</li></ul>
+<p><strong>Теорема.</strong> Положительная масса из фурье-моды по скрытому <em>времени</em> невозможна. Либо тахион, либо смена сигнатуры.</p>
+<p>Дефекты <span class="eq-i">$n$</span> как частицы исчезают после T2. Масса на срезе импортируется (Хиггс 4D). Это не дыра в логике 3+3, это граница того, что 3+3 умеет.</p>
+<hr>
+<h2>T4. <span class="eq-i">$\partial_\perp=0$</span> есть калибровка</h2>
+<p>Лагранжиан <span class="eq-i">$\mathcal L=\mathcal L(n\cdot\partial_t\phi,\nabla\phi)$</span> не содержит <span class="eq-i">$\partial_\perp\phi$</span>. Сдвиги</p>
+<p><div class="eq">$$\phi\mapsto\phi+\varepsilon(q_\perp),\qquad \partial_T\varepsilon=0$$</div></p>
+<p>— симметрии. Профиль по скрытым временам — калибровочный / суперселекционный волос.</p>
+<p><strong>Фиксация <span class="eq-i">$\phi=\phi(x,T)$</span> законна.</strong> Связь не накладывается рукой поверх динамики: её нет в действии как эволюционного направления, и она убивается факторпространством по симметрии.</p>
+<hr>
+<h2>T5. Физическая метрика ранга 4: CTC нет</h2>
+<p><div class="eq">$$(g_{\mathrm{phys}})_{AB}=\eta_{CD}P^C{}_A P^D{}_B,\qquad P=\mathrm{id}_{\mathrm{space}}\oplus n\otimes n.$$</div></p>
+<p>Собственные значения (прогон, <span class="eq-i">$n=(1,0,0)$</span>):</p>
+<p><div class="eq">$$(1,1,1,-1,0,0).$$</div></p>
+<p>Ранг 4, сигнатура <span class="eq-i">$(3,1)$</span>, ядро 2. Ядро — скрытые времена. Компактификация ядра не создаёт времениподобных петель в <span class="eq-i">$g_{\mathrm{phys}}$</span>. <span class="eq-i">$\mathrm{Vol}_\perp$</span> в 4D-действии не появляется.</p>
+<p>Полная <span class="eq-i">$\eta_{(3,3)}$</span> задаёт, что <span class="eq-i">$n$</span> — единичный вектор в 3-плоскости. Часы меряют <span class="eq-i">$g_{\mathrm{phys}}$</span>, не <span class="eq-i">$\eta$</span>.</p>
+<hr>
+<h2>T6. Квантование без духов лишнего времени</h2>
+<p>Спроектированный гамильтониан моды:</p>
+<p><div class="eq">$$H=\tfrac12\pi^2+\tfrac12 c^2k^2>0$$</div></p>
+<p>на всех тестовых <span class="eq-i">$k$</span>. Скалярное произведение Клейна–Гордона по <span class="eq-i">$T$</span> определённое.</p>
+<p>Без проекции: <span class="eq-i">$\omega_1^2=c^2k^2-\omega_\perp^2$</span> меняет знак, произведение индефинитное, гамильтониан по <span class="eq-i">$t_1$</span> не ограничен.</p>
+<p>После T4–T5 квантуется только <span class="eq-i">$\square_{3,1}\phi=0$</span>. Лишних времён в гильбертовом пространстве нет. Духи <span class="eq-i">$(3,3)$</span> не возникают, потому что <span class="eq-i">$(3,3)$</span> не есть квантуемая кинетика.</p>
+<hr>
+<h2>T7. Что остаётся от прогноза</h2>
+<p>После T2–T6 отличительная феноменология 3+3 схлопывается в ОТО на срезе плюс, самое большее, хронон до калибровки (уже ограничен экспериментами).</p>
+<p>Живого числа, которого нет в ОТО и которое ещё не убито, цепочка не даёт.</p>
+<p>Единственный остаточный кандидат был: УФ спектральная размерность <span class="eq-i">$\approx 6$</span> против <span class="eq-i">$d_s^{\mathrm{UV}}\approx 2$</span> в CDT. M3 это закрывает: после T4–T5 физический оператор четырёхмерен, <span class="eq-i">$d_s=4$</span>. Шестёрка живёт только у нередуцированного <span class="eq-i">$\Delta_6$</span> / <span class="eq-i">$|\square_{3,3}|$</span>, который цепь запрещает квантовать. Кандидат пуст.</p>
+<hr>
+<h2>T8. Проверяемость покупается снятием Фробениуса: граница на <span class="eq-i">$E_{\mathrm{lock}}$</span></h2>
+<p><strong>Прогон:</strong> <code>node bartini_plus/aether_bounds.mjs</code> → <code>results/aether_bounds.json</code>.</p>
+<p>T7 пуст, потому что T2–T6 делают срез тождественным ОТО. Единственный путь к живому числу — ослабить одно из условий и посчитать остаток. Ослабляем T2: <span class="eq-i">$n\in S^2$</span> не обязано быть градиентом. На срезе ось времени становится динамическим единичным времениподобным вектором <span class="eq-i">$u^\mu$</span> с жёсткостью <span class="eq-i">$f^2=E_{\mathrm{lock}}^2$</span>. Это класс Эйнштейна–эфира (Jacobson–Mattingly):</p>
+<p><div class="eq">$$\mathcal L=\frac{M_{\mathrm{Pl}}^2}{2}\Big[R-c_1\nabla_a u_m\nabla^a u^m-c_2(\nabla\!\cdot u)^2-c_3\nabla_a u_m\nabla^m u^a+c_4\,u^a u^b\nabla_a u_m\nabla_b u^m\Big].$$</div></p>
+<p><strong>Отображение Бартини+.</strong> 6D энергия Дирихле <span class="eq-i">$\eta^{AB}\partial_A n\cdot\partial_B n$</span> при <span class="eq-i">$\partial_\perp=0$</span> (T4) даёт на срезе только первую структуру:</p>
+<p><div class="eq">$$c_1=\Big(\frac{E_{\mathrm{lock}}}{M_{\mathrm{Pl}}}\Big)^2\equiv\varepsilon,\qquad c_2=c_3=c_4=0.$$</div></p>
+<p>Свободных коэффициентов для сокращений в модели нет.</p>
+<p><strong>Наблюдаемые</strong> (формулы Jacobson–Mattingly 2004, Foster–Jacobson 2006): скорости спина 2, 1, 0; PPN <span class="eq-i">$\alpha_1,\alpha_2$</span>; <span class="eq-i">$G_{\mathrm{cosmo}}/G_N$</span>. <strong>Границы:</strong> GW170817+GRB170817A <span class="eq-i">$-3\cdot10^{-15}<c_{\mathrm{gw}}/c-1<7\cdot10^{-16}$</span>; гравичеренков — все <span class="eq-i">$s_i^2\ge1$</span>; пульсары <span class="eq-i">$|\alpha_1|<4\cdot10^{-5}$</span>, <span class="eq-i">$|\alpha_2|<1.6\cdot10^{-9}$</span>; BBN <span class="eq-i">$|G_{\mathrm{cosmo}}/G_N-1|<0.13$</span>; без духов <span class="eq-i">$0<c_{14}<2$</span>, <span class="eq-i">$c_{123}\ge0$</span>, <span class="eq-i">$c_{13}<1$</span>.</p>
+<p><strong>Результат для Бартини+ (<span class="eq-i">$c_1$</span> только).</strong> <span class="eq-i">$s_2^2=1/(1-\varepsilon)$</span>, связывает GW170817:</p>
+<p><div class="eq">$$\varepsilon\le1.6\cdot10^{-15}\quad\Longleftrightarrow\quad E_{\mathrm{lock}}\le 9.7\cdot10^{10}\ \text{ГэВ}.$$</div></p>
+<ul><li><span class="eq-i">$E_{\mathrm{lock}}=M_{\mathrm{Pl}}$</span> (естественная нормировка): <span class="eq-i">$c_{13}=1$</span>, кинетика спина 2 меняет знак. <strong>Убито.</strong></li><li><span class="eq-i">$E_{\mathrm{lock}}=10^{16}$</span> ГэВ: GW170817 и <span class="eq-i">$\alpha_2$</span>. <strong>Убито.</strong></li><li><span class="eq-i">$E_{\mathrm{lock}}\le5\cdot10^{10}$</span> ГэВ: все границы пройдены.</li></ul>
+<p><strong>Общий Эйнштейн–эфир</strong> при <span class="eq-i">$\varepsilon=O(1)$</span> выживает только на щели: <span class="eq-i">$c_{13}=0$</span> с точностью <span class="eq-i">$7\cdot10^{-16}$</span>, <span class="eq-i">$c_{14}/c_1\approx3\cdot10^{-9}$</span>, <span class="eq-i">$c_2\sim10^{-4}$</span>. Это два сокращения между независимыми коэффициентами без симметрийной причины. Отображение Бартини+ их не производит: в нём один коэффициент. Из 80 знаковых шаблонов <span class="eq-i">$(c_1..c_4)\in\{-1,0,1\}\varepsilon$</span> ни один не проходит при <span class="eq-i">$\varepsilon\ge1$</span>; лучший даёт тот же <span class="eq-i">$1.6\cdot10^{-15}$</span>.</p>
+<p><strong>Поправка к T2.</strong> При <span class="eq-i">$f\ne0$</span> хронон физичен даже с Фробениусом: это хронометрическая гравитация с <span class="eq-i">$\beta=c_{13}$</span>, <span class="eq-i">$\lambda=c_2$</span>, <span class="eq-i">$\alpha=c_{14}$</span>. Дирихле даёт <span class="eq-i">$\beta=\varepsilon$</span>, та же граница GW170817. T2 (ноль мод) точна только при <span class="eq-i">$f=0$</span>, то есть когда <span class="eq-i">$n$</span> — чистая калибровка без энергии.</p>
+<p><strong>Теорема T8.</strong> Бартини+ с жёсткостью оси времени, выведенной из энергии Дирихле, фальсифицируема и <em>уже</em> ограничена: либо <span class="eq-i">$E_{\mathrm{lock}}\lesssim10^{11}$</span> ГэВ, либо <span class="eq-i">$f=0$</span> и теория неотличима от ОТО (T7). Естественный масштаб <span class="eq-i">$M_{\mathrm{Pl}}$</span> исключён.</p>
+<p>Это живое число. Оно отрицательное.</p>
+<hr>
+<h2>T9. Дефекты оси времени: граница слабее T8</h2>
+<p>Если снят и <span class="eq-i">$\partial_\perp=0$</span> в пространстве, <span class="eq-i">$\pi_2(S^2)=\mathbb Z$</span> даёт точечные дефекты <span class="eq-i">$n$</span> — глобальные монополи с дефицитом телесного угла <span class="eq-i">$\Delta=8\pi G\eta^2$</span>, <span class="eq-i">$\eta=E_{\mathrm{lock}}$</span>. Planck (текстуры / глобальные дефекты): <span class="eq-i">$G\eta^2\lesssim10^{-6}$</span>, откуда</p>
+<p><div class="eq">$$\eta\lesssim1.2\cdot10^{16}\ \text{ГэВ}.$$</div></p>
+<p>На пять порядков слабее T8. В секторе Фробениуса (T2) ёжиков нет; T9 применима только вместе с T8 и тогда ничего не добавляет. Реликтовая плотность при <span class="eq-i">$E_{\mathrm{lock}}\le10^{11}$</span> ГэВ: <span class="eq-i">$G\eta^2\sim10^{-16}$</span>, невидима в CMB.</p>
+<hr>
+<h2>Итог</h2>
+<div class="table-wrap"><table><thead><tr><th>пункт</th><th>статус</th></tr></thead><tbody><tr><td>запрет <span class="eq-i">$(4,2)$</span> внутри цепи</td><td>доказан (T1)</td></tr><tr><td>голдстоуны</td><td>доказаны как калибровка при Фробениусе (T2)</td></tr><tr><td><span class="eq-i">$m^2>0$</span> из скрытых времён</td><td><strong>запрещён</strong> (T3)</td></tr><tr><td><span class="eq-i">$\partial_\perp=0$</span></td><td>калибровка (T4)</td></tr><tr><td>CTC</td><td>сняты вырождением <span class="eq-i">$g_{\mathrm{phys}}$</span> (T5)</td></tr><tr><td>духи лишнего времени</td><td>сняты (T6)</td></tr><tr><td>живой прогноз ≠ ОТО при <span class="eq-i">$f=0$</span></td><td><strong>не получен</strong> (T7)</td></tr><tr><td>живое число при <span class="eq-i">$f\ne0$</span></td><td>получено: <span class="eq-i">$E_{\mathrm{lock}}\le10^{11}$</span> ГэВ, <span class="eq-i">$M_{\mathrm{Pl}}$</span> исключён (T8)</td></tr><tr><td>дефекты оси времени</td><td><span class="eq-i">$\eta\lesssim10^{16}$</span> ГэВ, слабее T8 (T9)</td></tr><tr><td>принцип меры = закон природы</td><td><strong>не доказан</strong></td></tr></tbody></table></div>
+<p>Минимальный набор закрыт так: три пункта — теоремы редукции, один (масса из 3+3) — теорема о невозможности, прогноз при нулевой жёсткости — пуст, при ненулевой — уже ограничен сверху GW170817.</p>
+<p>Бартини как факт о Вселенной по-прежнему не доказан. Доказана согласованная редукция <span class="eq-i">$3+3\to 3+1$</span> без урны, без тахиона «из времени», без CTC в физических часах и без голдстоунов, если ось времени есть градиент одной <span class="eq-i">$\tau$</span>. Цена: теория на срезе неотличима от уже известной 4D-физики, пока не доказан сам принцип меры.</p></article>
+<article id="ru-tighten" class="page" hidden><h1>M1–M3: ужесточение, не грим</h1>
+<p><strong>Авторы:</strong> Александр Кутепов и LLM. <strong>Прогон:</strong> <code>node bartini_plus/math_tighten.mjs</code> → <code>results/math_tighten.json</code>.</p>
+<p>Три дыры, которые ещё меняли формальный статус: принцип меры, вложение действия в эфир, спектральная размерность. Ниже — теоремы и запреты. Природа по-прежнему не доказана.</p>
+<hr>
+<h2>M1. Maxent + унитарный Фурье ⇒ <span class="eq-i">$a=\pi$</span>; самодуальность одна не даёт <span class="eq-i">$n=6$</span></h2>
+<p><strong>Принято.</strong> Среди плотностей на <span class="eq-i">$\mathbb R$</span> с фиксированными <span class="eq-i">$\int f=1$</span> и <span class="eq-i">$\int x^2 f=\sigma^2$</span> максимум энтропии <span class="eq-i">$-\int f\log f$</span> есть гауссиан <span class="eq-i">$f\propto e^{-x^2/(2\sigma^2)}$</span>. Это классика, не наш результат.</p>
+<p><strong>Унитарный Фурье</strong> <span class="eq-i">$\hat f(\xi)=\int f(x)e^{-2\pi i x\xi}\,dx$</span>. Неподвижная точка среди этой семьи: <span class="eq-i">$\sigma^2=1/(2\pi)$</span>, значит показатель <span class="eq-i">$a=1/(2\sigma^2)=\pi$</span>.</p>
+<p>Дальше старое: <span class="eq-i">$m(n)=\Gamma(\frac{n+1}{2})/(2a^{(n+1)/2})$</span>, целое <span class="eq-i">$\mathrm{argmin}$</span> есть 6 тогда и только тогда, когда</p>
+<p><div class="eq">$$\Bigl(\frac{\Gamma(7/2)}{\Gamma(3)}\Bigr)^2 < a < \Bigl(\frac{\Gamma(4)}{\Gamma(7/2)}\Bigr)^2
+\quad\Leftrightarrow\quad 2.761 < a < 3.259.$$</div></p>
+<p><span class="eq-i">$\pi$</span> внутри. Вне окна минимум на <span class="eq-i">$\{5,6,7\}$</span> уходит на 5 или 7.</p>
+<p><strong>Запрет.</strong> Самодуальность без maxent <span class="eq-i">$n=6$</span> не фиксирует. Функции Эрмита <span class="eq-i">$\psi_n$</span> удовлетворяют <span class="eq-i">$\mathcal F[\psi_n]=(-i)^n\psi_n$</span>. Собственное значение <span class="eq-i">$+1$</span> при <span class="eq-i">$n\equiv 0\pmod 4$</span>: не только <span class="eq-i">$\psi_0$</span>. Смесь <span class="eq-i">$e^{-\pi x^2}(1+\varepsilon H_4(\sqrt{2\pi}\,x))$</span> при <span class="eq-i">$\varepsilon=0.02$</span> остаётся положительной, фурье-самодуальна (<span class="eq-i">$L^2$</span>-ошибка <span class="eq-i">$10^{-15}$</span>) и сдвигает <span class="eq-i">$n_*$</span>: <span class="eq-i">$6.25\to 2.30$</span>, целый минимум <span class="eq-i">$6\to 2$</span>. Дисперсия меняется; при той же дисперсии энтропия смеси ниже гауссовой. Значит <span class="eq-i">$n=6$</span> требует maxent (или эквивалентный запрет мод <span class="eq-i">$4k$</span>), а не «любую самодуальную меру».</p>
+<p><strong>Статус.</strong> Принцип меры больше не «вкус к <span class="eq-i">$\pi$</span>». Он есть пара: maxent + унитарность <span class="eq-i">$\mathcal F$</span>. Почему природа максимизирует энтропию размерностного веса — по-прежнему постулат.</p>
+<hr>
+<h2>M2. Дирихле на срезе есть <span class="eq-i">$c_1$</span>, и только <span class="eq-i">$c_1$</span></h2>
+<p>Вложение: <span class="eq-i">$n=(\varepsilon_1,\varepsilon_2,\sqrt{1-\varepsilon^2})\in S^2$</span> в плоскости скрытых времён <span class="eq-i">$\mapsto$</span> <span class="eq-i">$u=(\varepsilon_1,\varepsilon_2,0,\sqrt{1-\varepsilon^2})$</span> на срезе, <span class="eq-i">$\eta=\mathrm{diag}(1,1,1,-1)$</span>. Третья аэфирная степень свободы (наклон <span class="eq-i">$u^z$</span>) в Бартини+ отсутствует: у <span class="eq-i">$n\in S^2$</span> две, не три.</p>
+<p>Энергия Дирихле на <span class="eq-i">$(3,1)$</span>:</p>
+<p><div class="eq">$$L_D=g^{\mu\nu}\partial_\mu n\cdot\partial_\nu n.$$</div></p>
+<p>Мономы Эйнштейна–эфира: <span class="eq-i">$C_1=\eta^{ab}\eta_{mn}\partial_a u^m\partial_b u^n$</span>, <span class="eq-i">$C_2=(\partial\cdot u)^2$</span>, <span class="eq-i">$C_3=\partial_a u_m\partial^m u^a$</span>, <span class="eq-i">$C_4=(u\cdot\partial u)^2$</span>.</p>
+<p><strong>Тождество (прогон, <span class="eq-i">$8^4$</span>, 12 случайных полей).</strong> <span class="eq-i">$L_D/C_1=1.007$</span>, остаток <span class="eq-i">$c_1$</span>-только <span class="eq-i">$0.007$</span>. Продольная волна: <span class="eq-i">$C_2/L_D\approx 1$</span>, и всё равно <span class="eq-i">$L_D=C_1$</span>. Поперечная: <span class="eq-i">$C_2=0$</span>, <span class="eq-i">$L_D=C_1$</span>. <span class="eq-i">$C_2$</span> существует как тензор и <strong>не входит</strong> в Дирихле.</p>
+<p><div class="eq">$$(c_1,c_2,c_3,c_4)=(\kappa,0,0,0),\qquad c_{13}=c_1\neq 0.$$</div></p>
+<p>Щель <span class="eq-i">$c_{13}=0$</span>, которой общий эфир живёт при <span class="eq-i">$\varepsilon=O(1)$</span>, из 6D-Дирихле не следует. T8 остаётся в силе: <span class="eq-i">$E_{\mathrm{lock}}\lesssim 10^{11}$</span> ГэВ или <span class="eq-i">$f=0$</span>.</p>
+<p><strong>Статус.</strong> Отображение T8 больше не эвристика. Лемма квадратичная, на решётке, с обрезанным <span class="eq-i">$|\varepsilon|<0.45$</span>. Не доказан полный нелинейный вариационный вывод <span class="eq-i">$R_6+\kappa|Dn|^2\to$</span> 4D действие со всеми членами кривизны.</p>
+<hr>
+<h2>M3. Физический <span class="eq-i">$d_s=4$</span>; «УФ-шестёрка» не есть прогноз среза</h2>
+<p>Определение: <span class="eq-i">$P(s)=\mathrm{Tr}\,e^{-s\omega^2}$</span>, <span class="eq-i">$d_s(s)=-2\,d\log P/d\log s$</span>.</p>
+<div class="table-wrap"><table><thead><tr><th>оператор</th><th><span class="eq-i">$d_s$</span></th><th>где</th></tr></thead><tbody><tr><td>евклидов <span class="eq-i">$\Delta_6$</span></td><td><span class="eq-i">$6$</span> точно</td><td>нередуцированный объём</td></tr><tr><td>евклидов <span class="eq-i">$\Delta_4$</span>, спроектированный <span class="eq-i">$\Delta_{3,1}$</span></td><td><span class="eq-i">$4$</span> точно</td><td>после T4–T5</td></tr><tr><td><span class="eq-i">$\lvert\square_{3,3}\rvert$</span>, <span class="eq-i">$\omega^2=\lvert k_x^2-k_t^2\rvert$</span></td><td><span class="eq-i">$6$</span> на всех <span class="eq-i">$s$</span></td><td>однородность степени 2 на <span class="eq-i">$\mathbb R^6$</span></td></tr></tbody></table></div>
+<p>Любой символ степени 2 на <span class="eq-i">$\mathbb R^d$</span> даёт <span class="eq-i">$d_s=d$</span>. Поэтому <span class="eq-i">$|\square_{3,3}|$</span> не «течёт» от 6 к 4: пока оператор шестимерный, <span class="eq-i">$d_s=6$</span>. После проекции он четырёхмерный, <span class="eq-i">$d_s=4$</span>.</p>
+<p>Напряжение с CDT (<span class="eq-i">$d_s^{\mathrm{UV}}\approx 2$</span>) — сравнение чужого расчёта с <strong>нередуцированным</strong> оператором, который остальная цепь запрещает квантовать. У редуцированной теории <span class="eq-i">$d_s=4$</span>, как у ОТО. Кандидат T7 пуст.</p>
+<hr>
+<h2>Итог</h2>
+<div class="table-wrap"><table><thead><tr><th>пункт</th><th>статус</th></tr></thead><tbody><tr><td><span class="eq-i">$\pi$</span> из maxent+<span class="eq-i">$\mathcal F$</span></td><td>выведено (M1)</td></tr><tr><td>самодуальность <span class="eq-i">$\Rightarrow n=6$</span></td><td><strong>запрещено</strong> (Эрмит <span class="eq-i">$4k$</span>)</td></tr><tr><td>Дирихле <span class="eq-i">$\mapsto(c_1,0,0,0)$</span></td><td>лемма, квадратичная (M2)</td></tr><tr><td><span class="eq-i">$c_{13}=0$</span> из 6D</td><td><strong>не получено</strong></td></tr><tr><td>физический <span class="eq-i">$d_s$</span></td><td><span class="eq-i">$4$</span>, не <span class="eq-i">$6$</span> (M3)</td></tr><tr><td>Вселенная шестимерна</td><td><strong>не доказано</strong></td></tr></tbody></table></div>
+<p>Цепочка стала жёстче и честнее: принцип меры именован; эфирное число T8 закреплено леммой; УФ-шестёрка снята как ложный прогноз. Живого положительного эффекта нет.</p></article>
+<article id="en-researchers" class="page" hidden><h1>Note for researchers</h1>
+<p><strong>Project:</strong> Bartini+ — reconstruction of R. O. di Bartini’s <span class="eq-i">$3+3$</span> programme, a stochastic extension, a field reduction, and an explicit list of theorems and no-go results. <strong>Authors:</strong> Alexander Kutepov (<a href="https://github.com/AlexKutepov">@AlexKutepov</a>) and large language models in a 2026 Cursor research chain. Kutepov posed the hypothesis and is responsible for the publication. The LLMs produced the reconstructions, proofs, and code jointly with him. <strong>Repo:</strong> https://github.com/AlexKutepov/bartini-plus <strong>Licence:</strong> MIT <strong>Cite:</strong> <code>CITATION.cff</code></p>
+<p>This note is the map. The proofs are in the files listed at the end. Read this first if you intend to reuse, refute, or continue the work.</p>
+<hr>
+<h2>What this is</h2>
+<p>An open, reproducible attempt to separate four layers that are usually mixed in popular accounts of Bartini:</p>
+<ol><li><strong>Historical Bartini</strong> — dimension tables <span class="eq-i">$L^a T^b$</span>, a 1965-style integral whose minimum sits near <span class="eq-i">$n=6$</span>, and a postulated split <span class="eq-i">$M_6=M_3^{\mathrm{space}}\times M_3^{\mathrm{time}}$</span>.</li><li><strong>Geometry of signature <span class="eq-i">$(3,3)$</span></strong> — the flat metric <span class="eq-i">$\eta=\mathrm{diag}(1,1,1,-1,-1,-1)$</span>, geodesics, projections onto a single time, ultrahyperbolic waves, Cauchy problem, mass sign.</li><li><strong>Bartini+</strong> — a <em>new</em> stochastic mechanism (nonlinear Pólya urn) that selects one ticking clock. This is not in Bartini’s texts.</li><li><strong>Reduction without the urn</strong> — a unit field <span class="eq-i">$n\in S^2$</span> in the time 3-plane, then Frobenius + a degenerate physical metric of rank 4.</li></ol>
+<p>The chain that closes <em>mathematically</em> is:</p>
+<p><div class="eq">$$\text{Fourier-self-dual Gaussian}\to n=6\to\max(\text{null-cone volume})\to(3,3)\to n\text{-field / khronon}\to\text{Einstein on the slice}.$$</div></p>
+<p>The chain does <strong>not</strong> enter nature until the measure principle is a law and a distinctive, still-living prediction exists. We do not claim that it does.</p>
+<hr>
+<h2>What we did, in order</h2>
+<ol><li>Reconstructed the integral <span class="eq-i">$m(n)=\Gamma(\frac{n+1}{2})/(2\pi^{(n+1)/2})$</span> and solved <span class="eq-i">$\psi(\frac{n+1}{2})=\ln\pi$</span>. Result: <span class="eq-i">$n_*=6.25694641$</span>, integer local minimum <span class="eq-i">$n=6$</span>.</li><li>Wrote the flat <span class="eq-i">$(3,3)$</span> metric, classified geodesics, and showed that a <span class="eq-i">$3+1$</span> observer is a <em>slice</em>, not a corollary. Hidden times give <span class="eq-i">$v_{\mathrm{obs}}\ge c$</span> if one coordinate is used as time, <span class="eq-i">$m_{\mathrm{eff}}^2\le 0$</span> in the 6-momentum projection, and an ill-posed Cauchy problem for the ultrahyperbolic wave operator.</li><li>Stated Bartini+ axioms (meta-step, one clock per tick, <span class="eq-i">$p\propto n^\theta$</span>). Derived lock-in for <span class="eq-i">$\theta>1$</span>, <span class="eq-i">$d_T:3\to 1$</span>, and coherent decay <span class="eq-i">$\Gamma=-\Delta t^{-1}\ln|\langle e^{-ic_\alpha k\Delta t}\rangle|\approx\frac12\mathrm{Var}(c)\,k^2\Delta t$</span>. The factor <span class="eq-i">$\frac12$</span> corrects an earlier Kubo estimate.</li><li>Ran numerical tests <strong>L0–L3</strong> (<code>bartini_plus/experiments.mjs</code>). All ten pre-registered verdicts passed. Wave <em>energy</em> with switching <span class="eq-i">$c$</span> pumps (parametric); the correct observable is <span class="eq-i">$|\langle\psi\rangle|$</span>.</li><li>Replaced the ad hoc <span class="eq-i">$e^{-\pi x^2}$</span> by Fourier self-duality and by the identity <span class="eq-i">$m(n)=1/\mathrm{Area}(S^n)$</span> (<strong>four steps</strong>). Other widths <span class="eq-i">$a\neq\pi$</span> do not give six. Among splits of 6, <span class="eq-i">$(3,3)$</span> uniquely maximizes the real null-cone volume; <span class="eq-i">$\mathrm{Vol}_{3+3}/\mathrm{Vol}_{2+4}=4/\pi$</span>.</li><li>Replaced the urn by Dirichlet energy of <span class="eq-i">$n:M\to S^2$</span> and harmonic-map heat flow. Random data lock when topology allows (<span class="eq-i">$T^2$</span>: <span class="eq-i">$12/12$</span>; <span class="eq-i">$S^1$</span>: <span class="eq-i">$11/12$</span>).</li><li>Closed the remaining holes (<strong>T1–T7</strong>, <code>close_gaps.mjs</code>): Goldstones are gauge under Frobenius; hidden-time KK mass is a no-go; <span class="eq-i">$\partial_\perp=0$</span> is gauge; <span class="eq-i">$g_{\mathrm{phys}}$</span> has spectrum <span class="eq-i">$(1,1,1,-1,0,0)$</span>; projected <span class="eq-i">$H>0$</span>. No live number distinct from GR remains.</li><li>Testability (<strong>T8–T9</strong>, <code>aether_bounds.mjs</code>): relaxing Frobenius with stiffness <span class="eq-i">$f=E_{\mathrm{lock}}$</span> maps Bartini+ onto Einstein-aether with a single coefficient <span class="eq-i">$c_1=(E_{\mathrm{lock}}/M_{\mathrm{Pl}})^2$</span>. GW170817 gives <span class="eq-i">$E_{\mathrm{lock}}\le9.7\cdot10^{10}$</span> GeV; a Planck-scale lock is excluded. Time-axis defects (T9) are bounded more weakly by Planck: <span class="eq-i">$\eta\lesssim10^{16}$</span> GeV.</li><li>Tightening <strong>M1–M3</strong> (<code>math_tighten.mjs</code>): maxent + unitary Fourier fixes <span class="eq-i">$a=\pi$</span>; self-duality alone moves <span class="eq-i">$n_*$</span> (Hermite <span class="eq-i">$4k$</span>). Dirichlet on the slice is <span class="eq-i">$c_1$</span> only. Physical <span class="eq-i">$d_s=4$</span>; UV-six is the unreduced operator, not a prediction of the slice.</li></ol>
+<hr>
+<h2>What we proved</h2>
+<div class="table-wrap"><table><thead><tr><th>Claim</th><th>Status</th><th>Where</th></tr></thead><tbody><tr><td><span class="eq-i">$m(n)=1/\mathrm{Area}(S^n)$</span></td><td>identity, error <span class="eq-i">$<10^{-15}$</span></td><td>four_steps, FOUR_STEPS</td></tr><tr><td><span class="eq-i">$e^{-\pi x^2}=\mathcal F[e^{-\pi x^2}]$</span></td><td><span class="eq-i">$L^2$</span> error <span class="eq-i">$1.93\times10^{-15}$</span></td><td>four_steps</td></tr><tr><td><span class="eq-i">$n_*=6.25694641$</span>, integer min at 6</td><td>theorem for this <span class="eq-i">$m$</span></td><td>PROOF, four_steps</td></tr><tr><td>Other <span class="eq-i">$a$</span> move <span class="eq-i">$n_*$</span> off 6</td><td>computed</td><td>four_steps</td></tr><tr><td><span class="eq-i">$(3,3)$</span> maximizes null volume among <span class="eq-i">$p+q=6$</span></td><td>theorem, <span class="eq-i">$4/\pi$</span></td><td>FOUR_STEPS</td></tr><tr><td><span class="eq-i">$(3,3)$</span> metric exists; <span class="eq-i">$3+1$</span> is a slice</td><td>geometry</td><td>PROOF</td></tr><tr><td>Extra times do not give <span class="eq-i">$3+1$</span> automatically</td><td>no-go list</td><td>PROOF §§3–4</td></tr><tr><td>Urn <span class="eq-i">$\theta>1$</span> locks one clock</td><td>theory + L1</td><td>experiments</td></tr><tr><td><span class="eq-i">$\Gamma$</span> matches <span class="eq-i">$\frac12\mathrm{Var}(c)k^2\Delta t$</span> to <span class="eq-i">$2.9\%$</span></td><td>L0</td><td>experiments</td></tr><tr><td>Life-like CA structures survive only after lock + life-rule</td><td>L3</td><td>experiments</td></tr><tr><td><strong>T1</strong> <span class="eq-i">$(4,2)$</span> forbidden <em>inside the same chain</em></td><td>consistency</td><td>CLOSE_GAPS</td></tr><tr><td><strong>T2</strong> Frobenius + diffs <span class="eq-i">$\Rightarrow$</span> 0 physical Goldstones</td><td>DoF count</td><td>CLOSE_GAPS</td></tr><tr><td><strong>T3</strong> <span class="eq-i">$m^2>0$</span> from hidden <em>time</em> is impossible</td><td>sign table</td><td>close_gaps.json</td></tr><tr><td><strong>T4</strong> <span class="eq-i">$\partial_\perp=0$</span> is gauge fixing</td><td>symmetry</td><td>CLOSE_GAPS</td></tr><tr><td><strong>T5</strong> <span class="eq-i">$g_{\mathrm{phys}}$</span> rank 4, signature <span class="eq-i">$(3,1)$</span>, no CTC in it</td><td>eigenvalues <span class="eq-i">$(1,1,1,-1,0,0)$</span></td><td>close_gaps</td></tr><tr><td><strong>T6</strong> projected Hamiltonian bounded below; no extra-time ghosts</td><td><span class="eq-i">$H>0$</span></td><td>close_gaps</td></tr><tr><td><strong>T7</strong> a still-living number <span class="eq-i">$\neq$</span> GR at <span class="eq-i">$f=0$</span></td><td><strong>not obtained</strong></td><td>CLOSE_GAPS</td></tr><tr><td><strong>T8</strong> <span class="eq-i">$f\ne0$</span>: <span class="eq-i">$E_{\mathrm{lock}}\le9.7\cdot10^{10}$</span> GeV, <span class="eq-i">$M_{\mathrm{Pl}}$</span> excluded</td><td>GW170817 bound</td><td>aether_bounds</td></tr><tr><td><strong>T9</strong> time-axis defects <span class="eq-i">$\eta\lesssim10^{16}$</span> GeV</td><td>weaker than T8</td><td>aether_bounds</td></tr><tr><td><strong>M1</strong> maxent+<span class="eq-i">$\mathcal F\Rightarrow a=\pi$</span>; Hermite <span class="eq-i">$4k$</span> moves <span class="eq-i">$n_*$</span></td><td>theorem + no-go</td><td>math_tighten</td></tr><tr><td><strong>M2</strong> <span class="eq-i">$L_D=C_1$</span>, <span class="eq-i">$(c_i)=(\kappa,0,0,0)$</span></td><td>quadratic lemma</td><td>math_tighten</td></tr><tr><td><strong>M3</strong> physical <span class="eq-i">$d_s=4$</span>, not 6</td><td>heat kernel</td><td>math_tighten</td></tr></tbody></table></div>
+<hr>
+<h2>What we did not prove (do not cite us as if we did)</h2>
+<ul><li>That the physical Universe is six-dimensional.</li><li>That Bartini derived <span class="eq-i">$\alpha$</span>, <span class="eq-i">$G$</span>, <span class="eq-i">$\hbar$</span>, or mass ratios from dimensions. Dimensional analysis does not fix dimensionless numbers.</li><li>That one of <span class="eq-i">$t_1,t_2,t_3$</span> is chosen at random at every instant of the locked world. After lock, one clock ticks; branching is ensemble statistics, not a per-tick lottery.</li><li>That Fourier self-duality / maximal direction measure is a law of nature. M1 names the pair maxent + unitarity of <span class="eq-i">$\mathcal F$</span>. Self-duality without maxent does not give <span class="eq-i">$n=6$</span> (Hermite <span class="eq-i">$4k$</span>). Drop maxent and both 6 and <span class="eq-i">$(3,3)$</span> fall.</li><li>That particle masses come from extra times. <strong>T3 forbids that.</strong> Mass on the slice must be imported (e.g. Higgs).</li><li>A new laboratory number that GR/SR/QFT do not already cover and that current Lorentz tests have not already killed. T8 yields a number, but a negative one: an upper bound on <span class="eq-i">$E_{\mathrm{lock}}$</span>, not a detection.</li></ul>
+<p>After T2–T6 the slice is ordinary <span class="eq-i">$3+1$</span> GR (at most a khronon before gauge fixing). That is the cost of a consistent reduction. With nonzero time-axis stiffness (T8) the khronon is physical and already bounded by GW170817.</p>
+<hr>
+<h2>What is ours and what is Bartini’s</h2>
+<div class="table-wrap"><table><thead><tr><th>Item</th><th>Bartini (historical)</th><th>This repo</th></tr></thead><tbody><tr><td><span class="eq-i">$L,T$</span> dimension matrix</td><td>yes</td><td>reconstructed, limits stated</td></tr><tr><td>Integral / <span class="eq-i">$n\approx 6$</span></td><td>yes (1965 line, OCR-sensitive)</td><td>reproduced exactly</td></tr><tr><td>Split <span class="eq-i">$3+3$</span></td><td>postulated</td><td>derived <em>if</em> the measure principle is kept</td></tr><tr><td>Stochastic clock / urn</td><td>no</td><td>Bartini+, then retired</td></tr><tr><td>Field <span class="eq-i">$n$</span>, Frobenius, <span class="eq-i">$g_{\mathrm{phys}}$</span></td><td>no</td><td>2026</td></tr><tr><td>“Many-worlds every tick”</td><td>later folklore</td><td>rejected</td></tr></tbody></table></div>
+<p>Treat popular claims that “Bartini computed all constants” as unverified until a primary formula, its inputs, and its number of free parameters are shown. We did not find such a derivation in the material we used.</p>
+<hr>
+<h2>How to reproduce</h2>
+<p>Requires Node.js (no Python required for the published runs).</p>
+<pre><code class="lang-bash">node bartini_plus/experiments.mjs   # L0–L3 → results/bartini_plus.json
+node bartini_plus/four_steps.mjs    # measure, (3,3), n-field → results/four_steps.json
+node bartini_plus/close_gaps.mjs    # T3, T5, T6 numerics → results/close_gaps.json
+node bartini_plus/aether_bounds.mjs # T8–T9 Einstein-aether / defect bounds → results/aether_bounds.json
+node bartini_plus/math_tighten.mjs  # M1–M3 measure / aether embed / d_s → results/math_tighten.json</code></pre>
+<p>Seeds are fixed in the scripts. Verdict objects are boolean and are printed on stdout. If you change <span class="eq-i">$c_\alpha$</span>, <span class="eq-i">$\theta$</span>, or the Fourier convention, <span class="eq-i">$n_*$</span> and <span class="eq-i">$\Gamma$</span> <em>must</em> move; that is a feature of the claims, not a bug.</p>
+<p>Python files under <code>bartini_plus/*.py</code> are a parallel write-up of the urn, wave, and Life rules. They were not the production runner (Python was missing in the original environment).</p>
+<hr>
+<h2>If you continue this</h2>
+<p>The only openings that still change the scientific status:</p>
+<ol><li><strong>Derive maxent of the dimensional weight</strong> from already accepted physics. M1 only named the pair; why nature maximises that entropy is not derived.</li><li><strong>A live prediction</strong> that survives Lorentz bounds <span class="eq-i">$\sim 10^{-15}$</span> and is not inflated away. T8 shows that with Dirichlet stiffness such a prediction is already bounded, <span class="eq-i">$E_{\mathrm{lock}}\lesssim10^{11}$</span> GeV; a symmetry forcing <span class="eq-i">$c_{13}=0$</span>, not tuning, would be required to reopen the Planck scale. UV spectral dimension <span class="eq-i">$\approx 6$</span> versus CDT <span class="eq-i">$\approx 2$</span> is tension, not confirmation, unless those calculations are wrong or measure a different <span class="eq-i">$n$</span>.</li><li><strong>Primary Bartini sources.</strong> Several formulae circulate as late typescripts. A mismatch in the exponent of the Gaussian or in the definition of <span class="eq-i">$m(n)$</span> kills the numerical coincidence with <span class="eq-i">$n_*$</span>.</li></ol>
+<p>Do not “improve” the theory by giving hidden times a space-like kinetic sign in order to get <span class="eq-i">$m^2>0$</span>. That is T3: they are then not times.</p>
+<hr>
+<h2>File map</h2>
+<div class="table-wrap"><table><thead><tr><th>File</th><th>Content</th></tr></thead><tbody><tr><td><a href="PROOF.md">PROOF</a></td><td>Full chain from Bartini to Bartini+ and L0–L3</td></tr><tr><td><a href="FOUR_STEPS.md">FOUR_STEPS</a></td><td>Measure, signature, field <span class="eq-i">$n$</span>, Einstein / no-go</td></tr><tr><td><a href="CLOSE_GAPS.md">CLOSE_GAPS</a></td><td>T1–T9</td></tr><tr><td><a href="MATH_TIGHTEN.md">MATH_TIGHTEN</a></td><td>M1–M3</td></tr><tr><td><code>bartini_plus/experiments.mjs</code></td><td>L0–L3</td></tr><tr><td><code>bartini_plus/four_steps.mjs</code></td><td>Sphere volumes, heat flow</td></tr><tr><td><code>bartini_plus/close_gaps.mjs</code></td><td>Mass signs, <span class="eq-i">$g_{\mathrm{phys}}$</span> spectrum, <span class="eq-i">$H$</span></td></tr><tr><td><code>bartini_plus/aether_bounds.mjs</code></td><td>Einstein-aether map, GW170817 / PPN / Cherenkov bounds, defect bound</td></tr><tr><td><code>bartini_plus/math_tighten.mjs</code></td><td>Maxent+Fourier, Dirichlet<span class="eq-i">$\to c_1$</span>, spectral dimension</td></tr><tr><td><code>results/*.json</code></td><td>Raw numbers</td></tr></tbody></table></div>
+<p>Russian and Chinese translations sit in <code>docs/ru/</code> and <code>docs/zh/</code> with the same names.</p></article>
+<article id="en-proof" class="page" hidden><h1>Proofs and reasoning: Bartini and Bartini+</h1>
+<p><strong>Hypothesis and verification:</strong> Alexander Kutepov and large language models (LLMs). <strong>Recorded:</strong> 31 August 2026. <strong>Status:</strong> open research. The physical six-dimensionality of the Universe is not proven. The numerical consequences of Bartini+ have been checked.</p>
+<p>This document records the full chain: from R. O. di Bartini’s construction to the stochastic extension and experiments L0–L3.</p>
+<hr>
+<h2>0. Subject</h2>
+<p>Roberto Oros di Bartini (Robert Ludwigovich Bartini) proposed a six-dimensional world: three spatial and three temporal coordinates. Physical quantities were written as <span class="eq-i">$L^a T^b$</span>.</p>
+<p>Standard physics:</p>
+<p><div class="eq">$$(x,y,z,t),\qquad 3+1.$$</div></p>
+<p>Bartini:</p>
+<p><div class="eq">$$(x,y,z,t_1,t_2,t_3),\qquad 3+3.$$</div></p>
+<p>The task: separate what follows from Bartini’s mathematics from later readings, then add the missing mechanism that selects observed time, and test it.</p>
+<hr>
+<h2>1. Bartini’s historical construction</h2>
+<h3>1.1. Dimension matrix</h3>
+<p>Fundamental categories: <span class="eq-i">$L$</span> (length) and <span class="eq-i">$T$</span> (time). Quantities are <span class="eq-i">$L^a T^b$</span>.</p>
+<p><div class="eq">$$v=LT^{-1},\qquad a=LT^{-2}.$$</div></p>
+<p>Dimensional analysis fixes the class <span class="eq-i">$[Q]$</span>, not dimensionless coefficients (<span class="eq-i">$\alpha$</span>, <span class="eq-i">$m_e/m_p$</span>). The claim “Bartini derived all constants” is unproven until concrete formulae, inputs, and the number of free parameters are shown.</p>
+<h3>1.2. Six dimensions as a product</h3>
+<p><div class="eq">$$M_6=M_3^{\mathrm{space}}\times M_3^{\mathrm{time}},$$</div></p>
+<p>a “(3+3)-dimensional complex manifold”: a spacelike 3-extent orthogonal to a timelike 3-extent.</p>
+<h3>1.3. “Variant worlds” and “speed of time”</h3>
+<p>Extra time axes are sometimes read as history branches. Coordinates alone do not give the many-worlds interpretation. That interpretation needs a Hilbert space, unitary evolution, decoherence, and a measure. Three axes <span class="eq-i">$t_\alpha$</span> are not three fates.</p>
+<p>“Speed of time” / “height of time” means a position in the internal time space. Bartini’s known texts do not contain a finished selection law for the axis.</p>
+<hr>
+<h2>2. Derivation of the number 6 (reproducible)</h2>
+<h3>2.1. Function and integral</h3>
+<p>A reconstruction of the 1965 paper uses</p>
+<p><div class="eq">$$j(n)=n^n e^{-\pi n^2}$$</div></p>
+<p>and a quantity linked to the expected transition rate,</p>
+<p><div class="eq">$$m(n)=\int_0^\infty x^n e^{-\pi x^2}\,dx.$$</div></p>
+<p><div class="eq">$$\int_0^\infty x^n e^{-a x^2}\,dx=\tfrac12 a^{-(n+1)/2}\,\Gamma\bigl(\tfrac{n+1}{2}\bigr).$$</div></p>
+<p>For <span class="eq-i">$a=\pi$</span>:</p>
+<p><div class="eq">$$\boxed{m(n)=\dfrac{\Gamma\bigl(\tfrac{n+1}{2}\bigr)}{2\pi^{(n+1)/2}}.}$$</div></p>
+<h3>2.2. Extremum</h3>
+<p><div class="eq">$$\frac{d\ln m}{dn}=\tfrac12\psi\bigl(\tfrac{n+1}{2}\bigr)-\tfrac12\ln\pi=0
+\implies
+\boxed{\psi\bigl(\tfrac{n+1}{2}\bigr)=\ln\pi.}$$</div></p>
+<p>Numerically:</p>
+<p><div class="eq">$$\frac{n+1}{2}\approx 3.628473202,\qquad n_*\approx 6.256946404.$$</div></p>
+<p>Bartini’s table has <span class="eq-i">$n+1=+7.256946404$</span>, the same <span class="eq-i">$n_*$</span>.</p>
+<h3>2.3. Nearest integer</h3>
+<p><div class="eq">$$m(5)\approx 0.03225,\quad m(6)\approx 0.03024,\quad m(7)\approx 0.03080.$$</div></p>
+<p><div class="eq">$$\boxed{m(6)<m(5),\quad m(6)<m(7).}$$</div></p>
+<p>The local integer minimum is <span class="eq-i">$n=6$</span>.</p>
+<h3>2.4. What this does not prove</h3>
+<ol><li>The function <span class="eq-i">$j(n)$</span> and <span class="eq-i">$a=\pi$</span> are not derived from physics. Another <span class="eq-i">$a$</span> moves the minimum: <span class="eq-i">$\psi((n+1)/2)=\ln a$</span>.</li><li>“Extremum of <span class="eq-i">$m(n)$</span> ⇒ physical dimension” is an extra postulate.</li><li>Rounding <span class="eq-i">$6.2569\to 6$</span> is an extra assumption.</li><li><span class="eq-i">$n=6$</span> does not imply <span class="eq-i">$3+3$</span>. Splits <span class="eq-i">$5+1$</span>, <span class="eq-i">$4+2$</span>, <span class="eq-i">$2+4$</span> are possible. The split is postulated.</li></ol>
+<p><strong>Conditional theorem.</strong> <em>For this <span class="eq-i">$m(n)$</span> and <span class="eq-i">$a=\pi$</span>, the nearest integer to the continuous minimum is 6, and it is locally minimal on <span class="eq-i">$\mathbb{Z}$</span>.</em> <strong>Not a theorem.</strong> <em>The Universe is six-dimensional.</em></p>
+<hr>
+<h2>3. Geometry of <span class="eq-i">$3+3$</span></h2>
+<h3>3.1. Flat metric</h3>
+<p><span class="eq-i">$X^A=(x^i,q^\alpha)$</span>, <span class="eq-i">$q^\alpha=ct_\alpha$</span>,</p>
+<p><div class="eq">$$ds^2=dx^2-c^2(dt_1^2+dt_2^2+dt_3^2),\qquad \eta_{AB}=\mathrm{diag}(1,1,1,-1,-1,-1).$$</div></p>
+<p>Signature <span class="eq-i">$(3,3)$</span>. Mathematically admissible.</p>
+<h3>3.2. Geodesics</h3>
+<p>Christoffel symbols vanish. Free motion is a straight line. Timelike / null / spacelike according to <span class="eq-i">$|u|^2-|w|^2$</span>.</p>
+<h3>3.3. Two ways to recover a <span class="eq-i">$3+1$</span> observer</h3>
+<p><strong>Total time</strong> <span class="eq-i">$dT=c^{-1}|dq|$</span> yields an SR-like interval along a trajectory, with <span class="eq-i">$v_T<c$</span> for timelike paths. <span class="eq-i">$T$</span> is a path length in internal time, not a single clock reading.</p>
+<p><strong>One coordinate</strong> <span class="eq-i">$t=t_1$</span> makes hidden motion in <span class="eq-i">$t_2,t_3$</span> look superluminal: <span class="eq-i">$v_{\mathrm{obs}}\ge c$</span>. Ordinary SR requires <span class="eq-i">$dt_2=dt_3=0$</span> by hand.</p>
+<p><strong>Conclusion.</strong> <span class="eq-i">$3+3$</span> contains <span class="eq-i">$3+1$</span> as a slice. It does not explain why that slice is realized.</p>
+<h3>3.4. Momenta and mass</h3>
+<p>A massless 6-particle satisfies <span class="eq-i">$|p|^2=|\pi|^2$</span>. Projection onto <span class="eq-i">$t_1$</span> gives <span class="eq-i">$m_{\mathrm{eff}}^2\le 0$</span> (tachyon sign). Total time <span class="eq-i">$T$</span> gives <span class="eq-i">$E_T=c|p|$</span> — still no mass. An extra mechanism is required.</p>
+<h3>3.5. Wave equation and Cauchy problem</h3>
+<p>The <span class="eq-i">$(3,3)$</span> wave operator is ultrahyperbolic. If hidden frequencies exceed <span class="eq-i">$c|k|$</span>, the <span class="eq-i">$t_1$</span> amplitude grows exponentially. The Cauchy problem in <span class="eq-i">$t_1$</span> is ill-posed for arbitrary data. A nonlocal spectral constraint is needed. Bartini’s usual presentation has no such mechanism.</p>
+<h3>3.6. Causality</h3>
+<p>Three time directions: no canonical before/after. The null set is related to <span class="eq-i">$S^2\times S^2$</span>. Compact time almost inevitably produces closed timelike curves.</p>
+<hr>
+<h2>4. The “choose <span class="eq-i">$T$</span> every instant” hypothesis</h2>
+<p>The idea: at each instant one of <span class="eq-i">$t_1,t_2,t_3$</span> is selected and the world becomes <span class="eq-i">$3+1$</span>.</p>
+<p>This is <strong>not a corollary</strong> of the <span class="eq-i">$3+3$</span> metric. It is an extra postulate.</p>
+<ul><li>Observed time may be any <span class="eq-i">$T=n\cdot t$</span> with <span class="eq-i">$n\in S^2$</span>. The set of options is a continuum, not three points.</li><li>“Every instant” needs a meta-parameter <span class="eq-i">$\lambda$</span>, or the selection is timed by the time it is supposed to create.</li><li>A random rule needs a probability, a locus of choice, and observer agreement.</li><li>Ordinary experiments show no jumps in the flow of time; any such mechanism is hidden.</li></ul>
+<p>Three readings without the urn:</p>
+<div class="table-wrap"><table><thead><tr><th></th><th>Content</th><th>Axis choice</th></tr></thead><tbody><tr><td>A</td><td>Static 6D block; our world is a slice</td><td>none</td></tr><tr><td>B</td><td>Dynamical direction <span class="eq-i">$n(x)$</span></td><td>law / observer</td></tr><tr><td>C</td><td>Branching histories</td><td>needs a quantum measure</td></tr></tbody></table></div>
+<p>Bartini is closer to geometric programme A. Instant-by-instant choice is an add-on.</p>
+<hr>
+<h2>5. Bartini+ axioms</h2>
+<p><strong>P1.</strong> Coordinates <span class="eq-i">$(x_i,t_\alpha)$</span>, metric <span class="eq-i">$ds^2=dx^2-c^2\sum dt_\alpha^2$</span>.</p>
+<p><strong>P2.</strong> Meta-step <span class="eq-i">$k=0,1,2,\ldots$</span>. Exactly one clock <span class="eq-i">$\alpha_k$</span> ticks: <span class="eq-i">$t_\alpha\mapsto t_\alpha+\varepsilon$</span>.</p>
+<p><strong>P3.</strong> The field evolves with the ticking clock. In the numerics, a complex mode <span class="eq-i">$\psi\mapsto\psi\exp(-i c_\alpha k\Delta t)$</span>. Clocks may carry different <span class="eq-i">$c_\alpha$</span>.</p>
+<p><strong>P4.</strong> Observed time is <span class="eq-i">$T=\varepsilon k$</span>. Separate <span class="eq-i">$t_\alpha$</span> are not observable.</p>
+<p><strong>P5.</strong> <span class="eq-i">$p_\alpha\propto n_\alpha^\theta$</span>. For <span class="eq-i">$\theta>1$</span>, a nonlinear Pólya urn (increasing returns).</p>
+<p><strong>P6.</strong> An observer is a structure inside the field / cellular automaton.</p>
+<p>This is not historical Bartini.</p>
+<hr>
+<h2>6. Analytic consequences</h2>
+<h3>6.1. Lock-in <span class="eq-i">$3+3\to 3+1$</span></h3>
+<p>For <span class="eq-i">$\theta>1$</span> the process locks on one vertex almost surely:</p>
+<p><div class="eq">$$p_\alpha(k)\to\delta_{\alpha,\alpha^*}.$$</div></p>
+<p>The winner is random given a symmetric start. The condition <span class="eq-i">$t_2=t_3=\mathrm{const}$</span> appears dynamically. Different runs lock on different axes: a tree of worlds as ensemble statistics.</p>
+<p><span class="eq-i">$\theta=0$</span>: uniform <span class="eq-i">$p$</span>, no lock. <span class="eq-i">$\theta=1$</span>: classical Pólya, convergence into the simplex interior.</p>
+<h3>6.2. Decay in the mixed phase</h3>
+<p>Independent ticks give</p>
+<p><div class="eq">$$\boxed{\Gamma=-\frac1{\Delta t}\ln\bigl|\langle e^{-i c_\alpha k\Delta t}\rangle\bigr|}\approx\tfrac12\mathrm{Var}(c)\,k^2\Delta t.$$</div></p>
+<p>The earlier estimate <span class="eq-i">$\Gamma=\mathrm{Var}(c)\,k^2\Delta t$</span> is wrong by a factor <span class="eq-i">$1/2$</span>.</p>
+<p>Energy of a single second-order wave realization <strong>grows</strong> when <span class="eq-i">$c$</span> jumps (parametric pumping). The measure <span class="eq-i">$\langle|A|\rangle$</span> is the wrong one. The correct measure is <span class="eq-i">$|\langle\psi\rangle|$</span>.</p>
+<h3>6.3. After lock-in</h3>
+<p><span class="eq-i">$\Gamma\to 0$</span>. Lorentz invariance is restored dynamically. Residual foreign ticks scale as <span class="eq-i">$k^{-(\theta-1)}$</span>.</p>
+<h3>6.4. Effective time dimension</h3>
+<p><div class="eq">$$d_T=\frac{(\sum p_\alpha)^2}{\sum p_\alpha^2}\in[1,3],$$</div></p>
+<p>a <span class="eq-i">$3\to 1$</span> transition visible in simulation.</p>
+<hr>
+<h2>7. Numerical experiments</h2>
+<p>Code: <code>bartini_plus/experiments.mjs</code>. Data: <code>results/bartini_plus.json</code>. Run: <code>node bartini_plus/experiments.mjs</code>.</p>
+<p>Clocks <span class="eq-i">$c=(0.18,0.40,0.62)$</span>, <span class="eq-i">$\Delta t=0.4$</span>, mode lattice <span class="eq-i">$N=128$</span>.</p>
+<h3>L0. Control <span class="eq-i">$\theta=0$</span></h3>
+<p>64 runs, modes <span class="eq-i">$2,4,6,8,10$</span>. <span class="eq-i">$\Gamma>0$</span>; <span class="eq-i">$\Gamma$</span> grows with <span class="eq-i">$k^2$</span>; <span class="eq-i">$\beta_{\mathrm{fit}}/\beta_{\mathrm{th}}-1=-2.9\%$</span>.</p>
+<h3>L1. Urn</h3>
+<div class="table-wrap"><table><thead><tr><th><span class="eq-i">$\theta$</span></th><th><span class="eq-i">$n_0$</span></th><th>lock</th><th>median lock</th><th>final <span class="eq-i">$d_T$</span></th><th>winners</th></tr></thead><tbody><tr><td>0</td><td>1</td><td>0</td><td>—</td><td>3</td><td>—</td></tr><tr><td>1</td><td>1</td><td>0</td><td>—</td><td>2.12</td><td>—</td></tr><tr><td>2</td><td>25</td><td>0.938</td><td>1397</td><td>1.034</td><td>24 / 26 / 30</td></tr><tr><td>2</td><td>1</td><td>1</td><td>9</td><td>1.000</td><td>31 / 23 / 36</td></tr></tbody></table></div>
+<p>With <span class="eq-i">$n_0=1$</span>, <span class="eq-i">$\theta=2$</span> the mixed phase is almost absent.</p>
+<h3>L2. Noise before and after lock</h3>
+<p><span class="eq-i">$\theta=2$</span>, <span class="eq-i">$n_0=25$</span>, 64 runs, median lock 1475. <span class="eq-i">$\Gamma$</span> after lock is much smaller than before.</p>
+<h3>L3. Bartini–Life</h3>
+<p>Grid <span class="eq-i">$48\times 48$</span>. Rules B3/S23, B36/S23, B3/S234. Seed: Conway glider. “Structured”: 3–40 live cells.</p>
+<div class="table-wrap"><table><thead><tr><th>regime</th><th>structured fraction at end</th></tr></thead><tbody><tr><td><span class="eq-i">$\theta=0$</span>, mixed</td><td><span class="eq-i">$4.2\%$</span></td></tr><tr><td><span class="eq-i">$\theta=2.5$</span>, lock</td><td><span class="eq-i">$47\%$</span></td></tr><tr><td>lock, winner B3/S23</td><td><span class="eq-i">$75\%$</span></td></tr><tr><td>lock, winner B36/S23</td><td><span class="eq-i">$85\%$</span></td></tr><tr><td>lock, winner B3/S234</td><td><span class="eq-i">$0\%$</span></td></tr><tr><td>random soup, mixed</td><td><span class="eq-i">$0\%$</span></td></tr><tr><td>random soup, lock</td><td><span class="eq-i">$4\%$</span></td></tr></tbody></table></div>
+<p>Mixing destroys the glider. Lock preserves it only if the winning rule supports gliders. B3/S234 explodes the population. Inside the model, observers are possible after lock and only in worlds whose winning clock is “life-supporting”.</p>
+<p><strong>Toy-theory success criterion:</strong> 10/10 pre-registered verdicts.</p>
+<hr>
+<h2>8. Statement table</h2>
+<div class="table-wrap"><table><thead><tr><th>Claim</th><th>Mathematics</th><th>Nature</th></tr></thead><tbody><tr><td>Minimum of this <span class="eq-i">$m(n)$</span> near 6</td><td>yes</td><td>depends on the function</td></tr><tr><td>A <span class="eq-i">$(3,3)$</span> metric exists</td><td>yes</td><td>not shown to be nature</td></tr><tr><td>A <span class="eq-i">$3+1$</span> slice is possible</td><td>yes, with constraints</td><td>constraints are extra</td></tr><tr><td>Hidden times produce mass</td><td>no, wrong sign</td><td>needs a mechanism</td></tr><tr><td>Cauchy problem for arbitrary data</td><td>no</td><td>no</td></tr><tr><td>Bartini proved a 6D Universe</td><td>no</td><td>no</td></tr><tr><td><span class="eq-i">$\theta>1$</span> urn locks one time</td><td>yes (theory + L1)</td><td>model</td></tr><tr><td><span class="eq-i">$\Gamma\approx\frac12\mathrm{Var}(c)k^2\Delta t$</span></td><td>yes (L0)</td><td>model</td></tr><tr><td>Life stable only after lock + life-rule</td><td>yes (L3)</td><td>model</td></tr></tbody></table></div>
+<hr>
+<h2>9. Direct answer on “choice every instant”</h2>
+<p>No. In Bartini+, after lock-in, one clock ticks. Random axis selection is a property of the <strong>early mixed phase</strong> and of <strong>different realizations</strong>, not of each tick of an already locked world. If the model is right, foreign ticks now are rare and decay as a power of <span class="eq-i">$k$</span>.</p>
+<hr>
+<h2>10. Open items</h2>
+<p>Field equations are not derived from a variational principle. Ghost-free quantization is not built. Mass and dimensionless constants are not obtained. Experimental Lorentz-violation bounds have not been mapped onto <span class="eq-i">$(\Delta c)^2\varepsilon$</span> in this code version.</p></article>
+<article id="en-steps" class="page" hidden><h1>Four steps: measure, signature, field <span class="eq-i">$n$</span>, Einstein / no-go</h1>
+<p><strong>Authors:</strong> Alexander Kutepov and LLMs. <strong>Run:</strong> <code>node bartini_plus/four_steps.mjs</code> → <code>results/four_steps.json</code> (2026-08-31).</p>
+<p>This is not a proof that the Universe is six-dimensional. It tests whether the four missing pieces follow from named principles, without inserting <span class="eq-i">$n=6$</span> by hand and without the urn as a foundation.</p>
+<hr>
+<h2>Step 1. The measure</h2>
+<p>The unitary Fourier transform has a unique even positive <span class="eq-i">$L^2$</span> fixed point (up to phase): <span class="eq-i">$e^{-\pi x^2}$</span>. Grid check: relative <span class="eq-i">$L^2$</span> error <span class="eq-i">$1.93\times 10^{-15}$</span>.</p>
+<p><div class="eq">$$m(n)=\frac{\Gamma(\frac{n+1}{2})}{2\pi^{(n+1)/2}}=\frac{1}{\mathrm{Area}(S^n)}.$$</div></p>
+<p>Identity holds to <span class="eq-i">$10^{-15}$</span>. Minimizing <span class="eq-i">$m$</span> is maximizing the area of <span class="eq-i">$S^n$</span>.</p>
+<p><div class="eq">$$\psi\bigl(\tfrac{n+1}{2}\bigr)=\ln\pi\implies n_*=6.25694641164.$$</div></p>
+<p>Integer minimum of <span class="eq-i">$m$</span>: <span class="eq-i">$n=6$</span>. Other Gaussian widths: <span class="eq-i">$a=1/2,1,e,2\pi$</span> give <span class="eq-i">$n_*=0.87,1.92,5.41,12.55$</span>. Six is tied to Fourier-self-dual <span class="eq-i">$\pi$</span>.</p>
+<p><strong>Status.</strong> Derived from self-duality / maximal sphere area. The principle itself remains a postulate.</p>
+<hr>
+<h2>Step 2. Why <span class="eq-i">$3+3$</span></h2>
+<p>For <span class="eq-i">$p+q=6$</span>, maximize the real null-cone measure <span class="eq-i">$\mathrm{Area}(S^{p-1})\mathrm{Area}(S^{q-1})$</span>.</p>
+<div class="table-wrap"><table><thead><tr><th>split</th><th>volume</th></tr></thead><tbody><tr><td><span class="eq-i">$1+5$</span></td><td><span class="eq-i">$16\pi^2/3\approx 52.64$</span></td></tr><tr><td><span class="eq-i">$2+4$</span></td><td><span class="eq-i">$4\pi^3\approx 124.03$</span></td></tr><tr><td><span class="eq-i">$3+3$</span></td><td><span class="eq-i">$16\pi^2\approx 157.91$</span></td></tr></tbody></table></div>
+<p><span class="eq-i">$(3,3)$</span> is the unique maximum. <span class="eq-i">$\mathrm{Vol}_{3+3}/\mathrm{Vol}_{2+4}=4/\pi$</span>.</p>
+<p>Empirical path: the sky is <span class="eq-i">$S^2$</span> <span class="eq-i">$\Rightarrow$</span> 3 space; step 1 gave 6 <span class="eq-i">$\Rightarrow$</span> 3 time.</p>
+<p>Algebra: <span class="eq-i">$\mathfrak{so}(3,3)\cong\mathfrak{sl}(4,\mathbb R)$</span>; <span class="eq-i">$\mathfrak{so}(4,2)\cong\mathfrak{su}(2,2)$</span> (4D conformal). Different theories.</p>
+<p><strong>Status.</strong> Derived given <span class="eq-i">$n=6$</span> and the same “maximal direction measure” idea.</p>
+<hr>
+<h2>Step 3. Field <span class="eq-i">$n$</span></h2>
+<p><div class="eq">$$S[n]=\frac\kappa2\int|dn|^2,\qquad dT=n_\alpha dt^\alpha.$$</div></p>
+<p>Heat flow on the lattice locks random data: <span class="eq-i">$T^2$</span> <span class="eq-i">$12/12$</span>, <span class="eq-i">$S^1$</span> <span class="eq-i">$11/12$</span>. Constant vacuum is stable. A stereographic texture on <span class="eq-i">$T^2$</span> unwinds (not a homotopy invariant there). <span class="eq-i">$\pi_2(S^2)=\mathbb Z$</span> still implies point hedgehogs in 3D space. Two Goldstone angles remain massless without a potential.</p>
+<p><strong>Status.</strong> The urn is no longer foundational. Goldstone gap and 3D defects are open.</p>
+<hr>
+<h2>Step 4. Einstein, no-go, prediction</h2>
+<p>Product metric <span class="eq-i">$G=g_4\oplus\gamma_\perp$</span>, <span class="eq-i">$n=\mathrm{const}$</span>, <span class="eq-i">$\partial_\perp=0$</span>: <span class="eq-i">$R_6=R_4$</span>, <span class="eq-i">$S_{\mathrm{EH},6}=\mathrm{Vol}_\perp S_{\mathrm{EH},4}$</span>. Einstein equations on the slice.</p>
+<p>Matter kinetics <span class="eq-i">$(n\cdot\partial_t\phi)^2-c^2|\nabla\phi|^2$</span>: hyperbolic; <span class="eq-i">$0/12$</span> unstable modes vs a nonzero count without the projection. Tachyon sign removed. Positive mass not produced.</p>
+<p><span class="eq-i">$\Delta c/c\sim|\delta n|\sim E_{\mathrm{lock}}/M_{\mathrm{Pl}}$</span>. After inflation at high <span class="eq-i">$E$</span>: already killed by <span class="eq-i">$\sim 10^{-15}$</span> Lorentz tests. At the Planck scale plus inflation: diluted, indistinguishable from GR. No surviving distinctive number.</p>
+<p><strong>Status.</strong> Hyperbolicity and Einstein reduction: yes, under the projection. Mass and a live numerical prediction: no.</p>
+<hr>
+<h2>Summary</h2>
+<p>The chain “self-dual Gaussian → 6 → maximal null cone → 3+3 → field <span class="eq-i">$n$</span> → Einstein on the slice” closes mathematically. It enters nature only if maximal direction measure is a law and Goldstones plus mass are closed. That is not a proven Bartini.</p></article>
+<article id="en-gaps" class="page" hidden><h1>Closing the gaps: theorems and one prohibition</h1>
+<p><strong>Authors:</strong> Alexander Kutepov and LLMs. <strong>Run:</strong> <code>node bartini_plus/close_gaps.mjs</code> → <code>results/close_gaps.json</code>; T8–T9: <code>node bartini_plus/aether_bounds.mjs</code> → <code>results/aether_bounds.json</code>.</p>
+<p><strong>T1.</strong> If <span class="eq-i">$n=6$</span> comes from maximizing direction measure, the same functional on <span class="eq-i">$p+q=6$</span> uniquely selects <span class="eq-i">$(3,3)$</span> and forbids <span class="eq-i">$(4,2)$</span> inside this chain.</p>
+<p><strong>T2.</strong> Frobenius <span class="eq-i">$n\wedge dn=0$</span> in <span class="eq-i">$T^3$</span> gives <span class="eq-i">$n=d\tau/|d\tau|$</span>. Time reparameterization gauges <span class="eq-i">$\tau$</span>. Physical Goldstones: 0. A mass <span class="eq-i">$m_n$</span> is unnecessary.</p>
+<p><strong>T3 (no-go).</strong> A Fourier mode along a hidden <em>time</em> yields <span class="eq-i">$m^2<0$</span>. Positive <span class="eq-i">$m^2$</span> flips that direction to space. Particle mass is not a theorem of <span class="eq-i">$3+3$</span>. Import Higgs on the slice.</p>
+<p><strong>T4.</strong> If <span class="eq-i">$\mathcal L=\mathcal L(n\cdot\partial_t\phi,\nabla\phi)$</span>, shifts <span class="eq-i">$\phi\mapsto\phi+\varepsilon(q_\perp)$</span> are symmetries. <span class="eq-i">$\phi=\phi(x,T)$</span> is gauge fixing.</p>
+<p><strong>T5.</strong> <span class="eq-i">$g_{\mathrm{phys}}$</span> has eigenvalues <span class="eq-i">$(1,1,1,-1,0,0)$</span>: rank 4, signature <span class="eq-i">$(3,1)$</span>, kernel 2. Compactifying the kernel makes no CTC in <span class="eq-i">$g_{\mathrm{phys}}$</span>.</p>
+<p><strong>T6.</strong> Projected <span class="eq-i">$H=\tfrac12\pi^2+\tfrac12 c^2k^2>0$</span>. The unprojected Klein–Gordon product is indefinite. After reduction there are no extra-time ghosts.</p>
+<p><strong>T7.</strong> After T2–T6 the slice is GR (plus at most a khronon). No live number distinct from GR remains. M3: physical <span class="eq-i">$d_s=4$</span>; UV-six belongs to the unreduced operator, which the chain forbids to quantise. The CDT tension is not a prediction of the slice.</p>
+<p><strong>T8 (testability by relaxing T2).</strong> Drop Frobenius and give the time axis a stiffness <span class="eq-i">$f^2=E_{\mathrm{lock}}^2$</span>. On the slice <span class="eq-i">$u^\mu$</span> becomes a dynamical unit timelike vector: Einstein-aether (Jacobson–Mattingly). The 6D Dirichlet energy with <span class="eq-i">$\partial_\perp=0$</span> (T4) maps to <span class="eq-i">$c_1=(E_{\mathrm{lock}}/M_{\mathrm{Pl}})^2\equiv\varepsilon$</span>, <span class="eq-i">$c_2=c_3=c_4=0$</span>; no free coefficients for cancellations. Then <span class="eq-i">$s_2^2=1/(1-\varepsilon)$</span> and GW170817 (<span class="eq-i">$c_{\mathrm{gw}}/c-1<7\cdot10^{-16}$</span>) gives</p>
+<p><div class="eq">$$\varepsilon\le1.6\cdot10^{-15}\iff E_{\mathrm{lock}}\le 9.7\cdot10^{10}\ \mathrm{GeV}.$$</div></p>
+<p><span class="eq-i">$E_{\mathrm{lock}}=M_{\mathrm{Pl}}$</span>: <span class="eq-i">$c_{13}=1$</span>, spin-2 kinetic term flips sign — dead. <span class="eq-i">$10^{16}$</span> GeV: killed by GW170817 and <span class="eq-i">$\alpha_2$</span>. <span class="eq-i">$\le5\cdot10^{10}$</span> GeV: passes GW170817, gravitational Cherenkov (all <span class="eq-i">$s_i^2\ge1$</span>), pulsar <span class="eq-i">$|\alpha_1|<4\cdot10^{-5}$</span>, <span class="eq-i">$|\alpha_2|<1.6\cdot10^{-9}$</span>, BBN <span class="eq-i">$|G_{\mathrm{cosmo}}/G_N-1|<0.13$</span>, ghost-freedom. Generic Einstein-aether at <span class="eq-i">$\varepsilon=O(1)$</span> survives only on a sliver (<span class="eq-i">$c_{13}=0$</span> to <span class="eq-i">$7\cdot10^{-16}$</span>, <span class="eq-i">$c_{14}/c_1\approx3\cdot10^{-9}$</span>, <span class="eq-i">$c_2\sim10^{-4}$</span>); the Bartini+ map cannot reach it. None of the 80 sign patterns <span class="eq-i">$\{-1,0,1\}\varepsilon$</span> survives <span class="eq-i">$\varepsilon\ge1$</span>. Correction to T2: with <span class="eq-i">$f\ne0$</span> the khronon is physical even under Frobenius (khronometric gravity, <span class="eq-i">$\beta=c_{13}=\varepsilon$</span>), same GW bound; T2 is exact only at <span class="eq-i">$f=0$</span>. <strong>Result:</strong> Bartini+ with Dirichlet stiffness is falsifiable and already bounded: <span class="eq-i">$E_{\mathrm{lock}}\lesssim10^{11}$</span> GeV, or <span class="eq-i">$f=0$</span> and the theory is GR (T7). The Planck scale is excluded. A live number, negative.</p>
+<p><strong>T9.</strong> Dropping <span class="eq-i">$\partial_\perp=0$</span> in space as well, <span class="eq-i">$\pi_2(S^2)=\mathbb Z$</span> gives global monopoles of <span class="eq-i">$n$</span> with solid-angle deficit <span class="eq-i">$8\pi G\eta^2$</span>. Planck defect bounds <span class="eq-i">$G\eta^2\lesssim10^{-6}$</span> give <span class="eq-i">$\eta\lesssim1.2\cdot10^{16}$</span> GeV — five orders weaker than T8. In the Frobenius sector there are no hedgehogs; T9 adds nothing beyond T8.</p>
+<p>The measure principle is still not a law of nature. Bartini is not a fact about the Universe. What is proved is a consistent reduction <span class="eq-i">$3+3\to 3+1$</span> without an urn, without time-KK tachyons, without physical-metric CTCs, and without Goldstones if time is a single gradient with zero stiffness; with nonzero stiffness the lock scale is bounded above by GW170817.</p></article>
+<article id="en-tighten" class="page" hidden><h1>M1–M3: tightening, not costume</h1>
+<p><strong>Authors:</strong> Alexander Kutepov and LLMs. <strong>Run:</strong> <code>node bartini_plus/math_tighten.mjs</code> → <code>results/math_tighten.json</code>.</p>
+<p>Three holes that still changed formal status: the measure principle, the action-to-aether embedding, spectral dimension. Theorems and no-gos below. Nature is still not proved.</p>
+<hr>
+<h2>M1. Maxent + unitary Fourier <span class="eq-i">$\Rightarrow a=\pi$</span>; self-duality alone does not give <span class="eq-i">$n=6$</span></h2>
+<p><strong>Given.</strong> Among densities on <span class="eq-i">$\mathbb R$</span> with fixed <span class="eq-i">$\int f=1$</span> and <span class="eq-i">$\int x^2 f=\sigma^2$</span>, entropy <span class="eq-i">$-\int f\log f$</span> is maximised by <span class="eq-i">$f\propto e^{-x^2/(2\sigma^2)}$</span>. Classical, not ours.</p>
+<p><strong>Unitary Fourier</strong> <span class="eq-i">$\hat f(\xi)=\int f(x)e^{-2\pi i x\xi}\,dx$</span>. The fixed point in that family is <span class="eq-i">$\sigma^2=1/(2\pi)$</span>, hence <span class="eq-i">$a=1/(2\sigma^2)=\pi$</span>.</p>
+<p>Then the old calculus: the integer <span class="eq-i">$\mathrm{argmin}$</span> of <span class="eq-i">$m(n)$</span> is 6 iff <span class="eq-i">$2.761<a<3.259$</span>. <span class="eq-i">$\pi$</span> sits inside. Outside, the min on <span class="eq-i">$\{5,6,7\}$</span> moves to 5 or 7.</p>
+<p><strong>No-go.</strong> Self-duality without maxent does not pin <span class="eq-i">$n=6$</span>. Hermite functions satisfy <span class="eq-i">$\mathcal F[\psi_n]=(-i)^n\psi_n$</span>; eigenvalue <span class="eq-i">$+1$</span> whenever <span class="eq-i">$n\equiv 0\pmod 4$</span>. The mix <span class="eq-i">$e^{-\pi x^2}(1+\varepsilon H_4(\sqrt{2\pi}\,x))$</span> at <span class="eq-i">$\varepsilon=0.02$</span> stays positive, is Fourier-self-dual (<span class="eq-i">$L^2$</span> error <span class="eq-i">$10^{-15}$</span>), and moves <span class="eq-i">$n_*$</span>: <span class="eq-i">$6.25\to 2.30$</span>, integer min <span class="eq-i">$6\to 2$</span>. Variance changes; at equal variance the mix has lower entropy than the Gaussian. So <span class="eq-i">$n=6$</span> needs maxent (or an equivalent ban on <span class="eq-i">$4k$</span> modes), not “any self-dual weight”.</p>
+<p><strong>Status.</strong> The measure principle is no longer a taste for <span class="eq-i">$\pi$</span>. It is the pair maxent + unitarity of <span class="eq-i">$\mathcal F$</span>. Why nature maximises entropy of a dimensional weight remains a postulate.</p>
+<hr>
+<h2>M2. Dirichlet on the slice is <span class="eq-i">$c_1$</span> and only <span class="eq-i">$c_1$</span></h2>
+<p>Embed <span class="eq-i">$n=(\varepsilon_1,\varepsilon_2,\sqrt{1-\varepsilon^2})\in S^2$</span> in the hidden-time plane as <span class="eq-i">$u=(\varepsilon_1,\varepsilon_2,0,\sqrt{1-\varepsilon^2})$</span> on the slice, <span class="eq-i">$\eta=\mathrm{diag}(1,1,1,-1)$</span>. The third aether d.o.f. (<span class="eq-i">$u^z$</span> tilt) is absent: <span class="eq-i">$n\in S^2$</span> has two, not three.</p>
+<p>Dirichlet energy <span class="eq-i">$L_D=g^{\mu\nu}\partial_\mu n\cdot\partial_\nu n$</span>. Aether monomials <span class="eq-i">$C_1,C_2,C_3,C_4$</span> as in Jacobson–Mattingly.</p>
+<p><strong>Identity (run, <span class="eq-i">$8^4$</span>, 12 random fields).</strong> <span class="eq-i">$L_D/C_1=1.007$</span>, <span class="eq-i">$c_1$</span>-only residual <span class="eq-i">$0.007$</span>. Longitudinal wave: <span class="eq-i">$C_2/L_D\approx 1$</span>, still <span class="eq-i">$L_D=C_1$</span>. Transverse: <span class="eq-i">$C_2=0$</span>, <span class="eq-i">$L_D=C_1$</span>. <span class="eq-i">$C_2$</span> exists as a tensor and <strong>does not enter</strong> Dirichlet.</p>
+<p><div class="eq">$$(c_1,c_2,c_3,c_4)=(\kappa,0,0,0),\qquad c_{13}=c_1\neq 0.$$</div></p>
+<p>The sliver <span class="eq-i">$c_{13}=0$</span> that keeps generic aether alive at <span class="eq-i">$\varepsilon=O(1)$</span> is not produced by 6D Dirichlet. T8 stands: <span class="eq-i">$E_{\mathrm{lock}}\lesssim 10^{11}$</span> GeV or <span class="eq-i">$f=0$</span>.</p>
+<p><strong>Status.</strong> The T8 map is no longer a heuristic. The lemma is quadratic, on a lattice, with <span class="eq-i">$|\varepsilon|<0.45$</span>. A full nonlinear reduction of <span class="eq-i">$R_6+\kappa|Dn|^2$</span> is not proved.</p>
+<hr>
+<h2>M3. Physical <span class="eq-i">$d_s=4$</span>; “UV six” is not a prediction of the slice</h2>
+<p><span class="eq-i">$P(s)=\mathrm{Tr}\,e^{-s\omega^2}$</span>, <span class="eq-i">$d_s(s)=-2\,d\log P/d\log s$</span>.</p>
+<div class="table-wrap"><table><thead><tr><th>operator</th><th><span class="eq-i">$d_s$</span></th><th>where</th></tr></thead><tbody><tr><td>Euclidean <span class="eq-i">$\Delta_6$</span></td><td><span class="eq-i">$6$</span> exactly</td><td>unreduced volume</td></tr><tr><td>Euclidean <span class="eq-i">$\Delta_4$</span>, projected <span class="eq-i">$\Delta_{3,1}$</span></td><td><span class="eq-i">$4$</span> exactly</td><td>after T4–T5</td></tr><tr><td><span class="eq-i">$\lvert\square_{3,3}\rvert$</span></td><td><span class="eq-i">$6$</span> at every <span class="eq-i">$s$</span></td><td>degree-2 homogeneity on <span class="eq-i">$\mathbb R^6$</span></td></tr></tbody></table></div>
+<p>Any degree-2 symbol on <span class="eq-i">$\mathbb R^d$</span> has <span class="eq-i">$d_s=d$</span>. So <span class="eq-i">$|\square_{3,3}|$</span> does not flow from 6 to 4. After projection the operator is four-dimensional, <span class="eq-i">$d_s=4$</span>.</p>
+<p>Tension with CDT (<span class="eq-i">$d_s^{\mathrm{UV}}\approx 2$</span>) compares that calculation to the <strong>unreduced</strong> operator, which the rest of the chain forbids to quantise. The reduced theory has <span class="eq-i">$d_s=4$</span>, as GR. The T7 candidate is empty.</p>
+<hr>
+<h2>Summary</h2>
+<div class="table-wrap"><table><thead><tr><th>item</th><th>status</th></tr></thead><tbody><tr><td><span class="eq-i">$\pi$</span> from maxent+<span class="eq-i">$\mathcal F$</span></td><td>derived (M1)</td></tr><tr><td>self-duality <span class="eq-i">$\Rightarrow n=6$</span></td><td><strong>forbidden</strong> (Hermite <span class="eq-i">$4k$</span>)</td></tr><tr><td>Dirichlet <span class="eq-i">$\mapsto(c_1,0,0,0)$</span></td><td>quadratic lemma (M2)</td></tr><tr><td><span class="eq-i">$c_{13}=0$</span> from 6D</td><td><strong>not obtained</strong></td></tr><tr><td>physical <span class="eq-i">$d_s$</span></td><td><span class="eq-i">$4$</span>, not <span class="eq-i">$6$</span> (M3)</td></tr><tr><td>the Universe is six-dimensional</td><td><strong>not proved</strong></td></tr></tbody></table></div>
+<p>The chain is stricter and more honest: the measure principle is named; T8 is a lemma; UV-six is not a live prediction. No positive laboratory effect.</p></article>
+<article id="zh-researchers" class="page" hidden><h1>给研究者的说明</h1>
+<p><strong>项目：</strong> 巴尔蒂尼+ — 对 R. O. di Bartini 的 <span class="eq-i">$3+3$</span> 纲领的复原、随机扩展、场约化，以及定理与禁令的显式清单。 <strong>作者：</strong> 亚历山大·库捷波夫（<a href="https://github.com/AlexKutepov">@AlexKutepov</a>）与 2026 年 Cursor 研究链中的大语言模型。假说由库捷波夫提出，发表责任归他；复原、证明与代码与 LLM 共同完成。 <strong>仓库：</strong> https://github.com/AlexKutepov/bartini-plus <strong>许可：</strong> MIT <strong>引用：</strong> <code>CITATION.cff</code></p>
+<p>这是地图。证明在文末所列文件中。若要使用、反驳或续做，先读本文。</p>
+<hr>
+<h2>这是什么</h2>
+<p>一次公开、可复现的尝试，把常被混在一起的四层分开：</p>
+<ol><li><strong>历史上的巴尔蒂尼</strong> — 量纲表 <span class="eq-i">$L^a T^b$</span>、1965 年风格的积分（极小在 <span class="eq-i">$n=6$</span> 附近）、公设 <span class="eq-i">$M_6=M_3^{\mathrm{space}}\times M_3^{\mathrm{time}}$</span>。</li><li><strong>签名 <span class="eq-i">$(3,3)$</span> 的几何</strong> — 平坦度量、测地线、向单一时间的投影、超双曲波、柯西问题、质量符号。</li><li><strong>巴尔蒂尼+</strong> — *新的*随机机制（非线性波利亚瓮），选择一只打勾的钟。巴尔蒂尼文本中没有这一层。</li><li><strong>无瓮约化</strong> — 时间 3-平面中的 <span class="eq-i">$n\in S^2$</span>，再加 Frobenius 与秩 4 的退化物理度量。</li></ol>
+<p>*数学上*闭合的链条是：自对偶高斯 <span class="eq-i">$\to n=6\to$</span> 光锥体积极大 <span class="eq-i">$\to(3,3)\to n$</span> 场/chronon <span class="eq-i">$\to$</span> 切片上的爱因斯坦。</p>
+<p>在测度原理成为定律、并出现可区分且仍存活的预言之前，它<strong>不</strong>进入自然。我们不声称它已经进入。</p>
+<hr>
+<h2>我们做了什么（顺序）</h2>
+<ol><li>复原 <span class="eq-i">$m(n)$</span>，解 <span class="eq-i">$\psi(\frac{n+1}{2})=\ln\pi$</span>：<span class="eq-i">$n_*=6.25694641$</span>，整数局部极小 <span class="eq-i">$n=6$</span>。</li><li>写出平坦 <span class="eq-i">$(3,3)$</span>。证明 <span class="eq-i">$3+1$</span> 是切片而非推论。隐蔽时间给出超光速投影、<span class="eq-i">$m_{\mathrm{eff}}^2\le 0$</span>、超双曲柯西问题不适定。</li><li>巴尔蒂尼+公理。<span class="eq-i">$\theta>1$</span> 时锁定；<span class="eq-i">$\Gamma\approx\frac12\mathrm{Var}(c)\,k^2\Delta t$</span>（修正了原先的因子 2）。</li><li>数值 <strong>L0–L3</strong>，十项预登记判定全部通过。切换 <span class="eq-i">$c$</span> 时波的*能量*被泵浦；正确观测量是 <span class="eq-i">$|\langle\psi\rangle|$</span>。</li><li>用傅里叶自对偶与 <span class="eq-i">$m(n)=1/\mathrm{Area}(S^n)$</span> 替换任意的 <span class="eq-i">$e^{-\pi x^2}$</span>。<span class="eq-i">$a\neq\pi$</span> 得不到 6。在 6 的分裂中 <span class="eq-i">$(3,3)$</span> 唯一极大化实光锥体积。</li><li>用 <span class="eq-i">$n:M\to S^2$</span> 的 Dirichlet 能量替换瓮。拓扑允许时随机初值会锁定。</li><li><strong>T1–T7</strong>：Frobenius 下戈德斯通为规范；隐蔽时间 KK 质量被禁止；<span class="eq-i">$\partial_\perp=0$</span> 是规范；<span class="eq-i">$g_{\mathrm{phys}}$</span> 谱为 <span class="eq-i">$(1,1,1,-1,0,0)$</span>；投影后 <span class="eq-i">$H>0$</span>。没有不同于广义相对论且仍存活的数字。</li><li>可检验性 <strong>T8–T9</strong>（<code>aether_bounds.mjs</code>）：以刚度 <span class="eq-i">$f=E_{\mathrm{lock}}$</span> 放松 Frobenius，巴尔蒂尼+ 映射为只有一个系数 <span class="eq-i">$c_1=(E_{\mathrm{lock}}/M_{\mathrm{Pl}})^2$</span> 的 Einstein-aether。GW170817 给出 <span class="eq-i">$E_{\mathrm{lock}}\le9.7\cdot10^{10}$</span> GeV；普朗克尺度锁定被排除。时间轴缺陷（T9）由 Planck 给出更弱的界 <span class="eq-i">$\eta\lesssim10^{16}$</span> GeV。</li><li>收紧 <strong>M1–M3</strong>（<code>math_tighten.mjs</code>）：maxent + 幺正傅里叶固定 <span class="eq-i">$a=\pi$</span>；单靠自对偶会移动 <span class="eq-i">$n_*$</span>（厄米 <span class="eq-i">$4k$</span>）。切片上 Dirichlet 只有 <span class="eq-i">$c_1$</span>。物理 <span class="eq-i">$d_s=4$</span>；紫外六是未约化算子，不是切片的预言。</li></ol>
+<hr>
+<h2>我们证明了什么 / 没有证明什么</h2>
+<p>已证：上述积分与球面恒等式、<span class="eq-i">$n=6$</span>、<span class="eq-i">$(3,3)$</span> 为光锥极大、<span class="eq-i">$3+1$</span> 仅为切片、瓮的锁定与 <span class="eq-i">$\Gamma$</span>、Life 仅在 lock+生命规则下存活、T1–T6、T8 上界（<span class="eq-i">$E_{\mathrm{lock}}\le9.7\cdot10^{10}$</span> GeV）、M1–M3（maxent+<span class="eq-i">$\mathcal F$</span>、<span class="eq-i">$L_D=C_1$</span>、物理 <span class="eq-i">$d_s=4$</span>）。</p>
+<p>未证：宇宙在物理上是六维的；巴尔蒂尼推出了无量纲常数；已锁定世界的每一瞬间都在三只钟里抽签；maxent 是自然定律（M1 只命名了配对；无 maxent 的自对偶不能给出 <span class="eq-i">$n=6$</span>）；粒子质量来自额外时间（<strong>T3 禁止</strong>）；一个尚未被洛伦兹检验杀死的新实验室数字。</p>
+<p>T2–T6 之后，切片就是普通 <span class="eq-i">$3+1$</span> 广义相对论。这是自洽约化的代价。时间轴刚度非零时（T8），chronon 是物理的，且已被 GW170817 限制；得到的数字是否定的——上界，不是探测。</p>
+<p>「巴尔蒂尼算出了全部常数」在拿出原始公式、输入与自由参数个数之前，应视为未核实。我们在所用材料中没有找到这样的推导。</p>
+<hr>
+<h2>如何复现</h2>
+<p>需要 Node.js。</p>
+<pre><code class="lang-bash">node bartini_plus/experiments.mjs
+node bartini_plus/four_steps.mjs
+node bartini_plus/close_gaps.mjs
+node bartini_plus/aether_bounds.mjs
+node bartini_plus/math_tighten.mjs</code></pre>
+<p>种子写在脚本里。判定为布尔值，打印到 stdout。若改 <span class="eq-i">$c_\alpha$</span>、<span class="eq-i">$\theta$</span> 或傅里叶约定，<span class="eq-i">$n_*$</span> 与 <span class="eq-i">$\Gamma$</span> <strong>必须</strong>移动。</p>
+<p>不要靠把隐蔽时间的动能改成类空来「改进」质量。那就是 T3：它们就不再是时间。</p>
+<p>仍能改变科学地位的开口只有：从已接受物理推出维度权重的 maxent；一个能活过 <span class="eq-i">$\sim 10^{-15}$</span> 的预言；巴尔蒂尼一手文献。全文见 <code>docs/ru/MATH_TIGHTEN.md</code>。</p>
+<p>俄文、英文全文见 <code>docs/ru/</code>、<code>docs/en/</code> 中的同名文件。</p></article>
+<article id="zh-proof" class="page" hidden><h1>证明与推理：巴尔蒂尼与巴尔蒂尼+</h1>
+<p><strong>假说与检验：</strong> 亚历山大·库捷波夫（Alexander Kutepov）与大语言模型（LLM）。 <strong>记录日期：</strong> 2026年8月31日。 <strong>状态：</strong> 公开研究。并未证明物理宇宙是六维的。巴尔蒂尼+的数值推论已检验。</p>
+<p>本文记录完整推理链：从 R. O. di Bartini 的构造，到随机扩展，再到实验 L0–L3。</p>
+<hr>
+<h2>0. 对象</h2>
+<p>罗伯托·奥罗斯·迪·巴尔蒂尼（罗伯特·路德维戈维奇·巴尔蒂尼）把实在写成六维：三个空间坐标、三个时间坐标。物理量写成 <span class="eq-i">$L^a T^b$</span>。</p>
+<p>标准物理：</p>
+<p><div class="eq">$$(x,y,z,t),\qquad 3+1.$$</div></p>
+<p>巴尔蒂尼：</p>
+<p><div class="eq">$$(x,y,z,t_1,t_2,t_3),\qquad 3+3.$$</div></p>
+<p>任务：把巴尔蒂尼数学中真正推出的内容，与后来的解读分开；补上选择可观测时间的机制；再做检验。</p>
+<hr>
+<h2>1. 巴尔蒂尼的历史构造</h2>
+<h3>1.1. 量纲矩阵</h3>
+<p>基本范畴：<span class="eq-i">$L$</span>（长度）、<span class="eq-i">$T$</span>（时间）。量是 <span class="eq-i">$L^a T^b$</span>。</p>
+<p><div class="eq">$$v=LT^{-1},\qquad a=LT^{-2}.$$</div></p>
+<p>量纲分析只定类 <span class="eq-i">$[Q]$</span>，不定无量纲系数（<span class="eq-i">$\alpha$</span>、<span class="eq-i">$m_e/m_p$</span>）。在写出具体公式、输入量与自由参数个数之前，“巴尔蒂尼推出了全部常数”不成立。</p>
+<h3>1.2. 六维作为乘积</h3>
+<p><div class="eq">$$M_6=M_3^{\mathrm{space}}\times M_3^{\mathrm{time}},$$</div></p>
+<p>“(3+3) 维复流形”：三维类空延拓，与正交的三维类时延拓。</p>
+<h3>1.3. “世界变体”与“时间速度”</h3>
+<p>额外时间轴有时被读成历史分支。仅有坐标得不到多世界诠释。多世界需要希尔伯特空间、幺正演化、退相干与测度。三条轴 <span class="eq-i">$t_\alpha$</span> 不是三条命运。</p>
+<p>“时间速度 / 时间高度”指内时间空间中的位置。巴尔蒂尼已知文本里没有现成的选轴定律。</p>
+<hr>
+<h2>2. 数字 6 的推导（可复现）</h2>
+<h3>2.1. 函数与积分</h3>
+<p>对 1965 年工作的复原使用</p>
+<p><div class="eq">$$j(n)=n^n e^{-\pi n^2},$$</div></p>
+<p>以及与跃迁期望相关的</p>
+<p><div class="eq">$$m(n)=\int_0^\infty x^n e^{-\pi x^2}\,dx=\dfrac{\Gamma\bigl(\tfrac{n+1}{2}\bigr)}{2\pi^{(n+1)/2}}.$$</div></p>
+<h3>2.2. 极值</h3>
+<p><div class="eq">$$\psi\bigl(\tfrac{n+1}{2}\bigr)=\ln\pi,$$</div></p>
+<p>数值解：</p>
+<p><div class="eq">$$\frac{n+1}{2}\approx 3.628473202,\qquad n_*\approx 6.256946404.$$</div></p>
+<p>巴尔蒂尼表中 <span class="eq-i">$n+1=+7.256946404$</span>，同一 <span class="eq-i">$n_*$</span>。</p>
+<h3>2.3. 最近整数</h3>
+<p><div class="eq">$$m(5)\approx 0.03225,\quad m(6)\approx 0.03024,\quad m(7)\approx 0.03080,$$</div></p>
+<p><div class="eq">$$m(6)<m(5),\quad m(6)<m(7).$$</div></p>
+<p>整数局部最小在 <span class="eq-i">$n=6$</span>。</p>
+<h3>2.4. 这不能证明什么</h3>
+<ol><li><span class="eq-i">$j(n)$</span> 与 <span class="eq-i">$a=\pi$</span> 并非由物理推出。换 <span class="eq-i">$a$</span>，极小值移动。</li><li>“<span class="eq-i">$m(n)$</span> 的极值 ⇒ 物理维数”是额外公设。</li><li><span class="eq-i">$6.2569\to 6$</span> 的取整是额外假定。</li><li><span class="eq-i">$n=6$</span> 推不出 <span class="eq-i">$3+3$</span>。<span class="eq-i">$5+1$</span>、<span class="eq-i">$4+2$</span> 均可。分裂是公设。</li></ol>
+<p><strong>条件定理。</strong> <em>对此 <span class="eq-i">$m(n)$</span> 与 <span class="eq-i">$a=\pi$</span>，连续极小的最近整数是 6，且在 <span class="eq-i">$\mathbb{Z}$</span> 上局部最小。</em> <strong>不是定理。</strong> <em>宇宙是六维的。</em></p>
+<hr>
+<h2>3. <span class="eq-i">$3+3$</span> 几何</h2>
+<h3>3.1. 平坦度量</h3>
+<p><div class="eq">$$ds^2=dx^2-c^2(dt_1^2+dt_2^2+dt_3^2),\qquad \eta_{AB}=\mathrm{diag}(1,1,1,-1,-1,-1).$$</div></p>
+<p>签名 <span class="eq-i">$(3,3)$</span>。数学上合法。</p>
+<h3>3.2. 测地线</h3>
+<p>克里斯托费尔符号为零。自由运动是直线。按 <span class="eq-i">$|u|^2-|w|^2$</span> 分类类时 / 零 / 类空。</p>
+<h3>3.3. 得到 <span class="eq-i">$3+1$</span> 观察者的两种办法</h3>
+<p><strong>总时间</strong> <span class="eq-i">$dT=c^{-1}|dq|$</span> 沿轨迹给出类狭义相对论间隔。<span class="eq-i">$T$</span> 是内时间路径长，不是一只钟的读数。</p>
+<p><strong>单一坐标</strong> <span class="eq-i">$t=t_1$</span> 使 <span class="eq-i">$t_2,t_3$</span> 上的隐蔽运动看起来超光速。普通狭义相对论需要手工令 <span class="eq-i">$dt_2=dt_3=0$</span>。</p>
+<p><strong>结论。</strong> <span class="eq-i">$3+3$</span> 包含作为切片的 <span class="eq-i">$3+1$</span>。它不解释为何实现的是这一片。</p>
+<h3>3.4. 动量与质量</h3>
+<p>无质量 6-粒子满足 <span class="eq-i">$|p|^2=|\pi|^2$</span>。投影到 <span class="eq-i">$t_1$</span> 得 <span class="eq-i">$m_{\mathrm{eff}}^2\le 0$</span>（快子符号）。总时间 <span class="eq-i">$T$</span> 给出 <span class="eq-i">$E_T=c|p|$</span>——仍无质量。需要额外机制。</p>
+<h3>3.5. 波动方程与柯西问题</h3>
+<p><span class="eq-i">$(3,3)$</span> 波动算子是超双曲的。隐蔽频率超过 <span class="eq-i">$c|k|$</span> 时，<span class="eq-i">$t_1$</span> 振幅指数增长。对任意初值，<span class="eq-i">$t_1$</span> 上的柯西问题不适定。需要非局域谱约束。巴尔蒂尼的通常叙述没有这一机制。</p>
+<h3>3.6. 因果</h3>
+<p>三个时间方向：没有典范的先后。零锥与 <span class="eq-i">$S^2\times S^2$</span> 相关。紧致时间几乎必然产生闭合类时曲线。</p>
+<hr>
+<h2>4. “每一瞬间选择 <span class="eq-i">$T$</span>”的假说</h2>
+<p>想法：每一瞬间从 <span class="eq-i">$t_1,t_2,t_3$</span> 中选出一个方向，世界变成 <span class="eq-i">$3+1$</span>。</p>
+<p>这<strong>不是</strong> <span class="eq-i">$3+3$</span> 度量的推论，而是额外公设。</p>
+<ul><li>可观测时间可以是任意 <span class="eq-i">$T=n\cdot t$</span>，<span class="eq-i">$n\in S^2$</span>。选项是连续统，不是三个点。</li><li>“每一瞬间”需要元参数 <span class="eq-i">$\lambda$</span>，否则用尚未选出的时间来为选择计时。</li><li>随机规则需要概率、选择载体与观察者一致。</li><li>常规实验看不到时间流的跳跃；若机制存在，它被隐藏。</li></ul>
+<p>无随机瓮的三种读法：</p>
+<div class="table-wrap"><table><thead><tr><th></th><th>内容</th><th>选轴</th></tr></thead><tbody><tr><td>A</td><td>静态 6D 块，我们的世界是切片</td><td>无</td></tr><tr><td>B</td><td>动力学方向 <span class="eq-i">$n(x)$</span></td><td>定律 / 观察者</td></tr><tr><td>C</td><td>历史分支</td><td>需要量子测度</td></tr></tbody></table></div>
+<p>巴尔蒂尼更接近几何纲领 A。逐瞬选择是附加层。</p>
+<hr>
+<h2>5. 巴尔蒂尼+ 公理</h2>
+<p><strong>P1.</strong> 坐标 <span class="eq-i">$(x_i,t_\alpha)$</span>，度量 <span class="eq-i">$ds^2=dx^2-c^2\sum dt_\alpha^2$</span>。</p>
+<p><strong>P2.</strong> 元步 <span class="eq-i">$k=0,1,2,\ldots$</span>。每步恰好一只钟 <span class="eq-i">$\alpha_k$</span> 走一步。</p>
+<p><strong>P3.</strong> 场随打勾的钟演化。数值上，复振幅 <span class="eq-i">$\psi\mapsto\psi\exp(-i c_\alpha k\Delta t)$</span>。不同钟可带不同 <span class="eq-i">$c_\alpha$</span>。</p>
+<p><strong>P4.</strong> 可观测时间 <span class="eq-i">$T=\varepsilon k$</span>。单独的 <span class="eq-i">$t_\alpha$</span> 不可观测。</p>
+<p><strong>P5.</strong> <span class="eq-i">$p_\alpha\propto n_\alpha^\theta$</span>。<span class="eq-i">$\theta>1$</span> 时为非线性波利亚瓮（报酬递增）。</p>
+<p><strong>P6.</strong> 观察者是场 / 元胞自动机内部的结构。</p>
+<p>这不是历史上的巴尔蒂尼。</p>
+<hr>
+<h2>6. 解析推论</h2>
+<h3>6.1. 锁定 <span class="eq-i">$3+3\to 3+1$</span></h3>
+<p><span class="eq-i">$\theta>1$</span> 时过程几乎必然锁到一个顶点：<span class="eq-i">$p\to\delta_{\alpha,\alpha^*}$</span>。对称初值下赢家随机。<span class="eq-i">$t_2=t_3=\mathrm{const}$</span> 动态出现。不同实现锁到不同轴：世界树是系综统计。</p>
+<p><span class="eq-i">$\theta=0$</span>：均匀 <span class="eq-i">$p$</span>，不锁定。<span class="eq-i">$\theta=1$</span>：经典波利亚，收敛到单纯形内部。</p>
+<h3>6.2. 混合相中的衰减</h3>
+<p>独立滴答给出</p>
+<p><div class="eq">$$\Gamma=-\frac1{\Delta t}\ln\bigl|\langle e^{-i c_\alpha k\Delta t}\rangle\bigr|\approx\tfrac12\mathrm{Var}(c)\,k^2\Delta t.$$</div></p>
+<p>原先的 <span class="eq-i">$\Gamma=\mathrm{Var}(c)\,k^2\Delta t$</span> 差因子 <span class="eq-i">$1/2$</span>。</p>
+<p>二阶波动方程在 <span class="eq-i">$c$</span> 跳变时，单次实现的能量<strong>增长</strong>（参量泵浦）。<span class="eq-i">$\langle|A|\rangle$</span> 是错误测度。正确测度是 <span class="eq-i">$|\langle\psi\rangle|$</span>。</p>
+<h3>6.3. 锁定之后</h3>
+<p><span class="eq-i">$\Gamma\to 0$</span>。洛伦兹不变性动态恢复。残余“外来”滴答按 <span class="eq-i">$k^{-(\theta-1)}$</span> 衰减。</p>
+<h3>6.4. 有效时间维数</h3>
+<p><div class="eq">$$d_T=\frac{(\sum p_\alpha)^2}{\sum p_\alpha^2}\in[1,3],$$</div></p>
+<p>模拟中可见 <span class="eq-i">$3\to 1$</span> 转变。</p>
+<hr>
+<h2>7. 数值实验</h2>
+<p>代码：<code>bartini_plus/experiments.mjs</code>。 数据：<code>results/bartini_plus.json</code>。 运行：<code>node bartini_plus/experiments.mjs</code>。</p>
+<p>钟速 <span class="eq-i">$c=(0.18,0.40,0.62)$</span>，<span class="eq-i">$\Delta t=0.4$</span>，模态格点 <span class="eq-i">$N=128$</span>。</p>
+<h3>L0. 对照 <span class="eq-i">$\theta=0$</span></h3>
+<p>64 次实现，模态 <span class="eq-i">$2,4,6,8,10$</span>。<span class="eq-i">$\Gamma>0$</span>；<span class="eq-i">$\Gamma$</span> 随 <span class="eq-i">$k^2$</span> 增大；<span class="eq-i">$\beta_{\mathrm{fit}}/\beta_{\mathrm{th}}-1=-2.9\%$</span>。</p>
+<h3>L1. 瓮</h3>
+<div class="table-wrap"><table><thead><tr><th><span class="eq-i">$\theta$</span></th><th><span class="eq-i">$n_0$</span></th><th>lock</th><th>lock 中位数</th><th>终末 <span class="eq-i">$d_T$</span></th><th>赢家</th></tr></thead><tbody><tr><td>0</td><td>1</td><td>0</td><td>—</td><td>3</td><td>—</td></tr><tr><td>1</td><td>1</td><td>0</td><td>—</td><td>2.12</td><td>—</td></tr><tr><td>2</td><td>25</td><td>0.938</td><td>1397</td><td>1.034</td><td>24 / 26 / 30</td></tr><tr><td>2</td><td>1</td><td>1</td><td>9</td><td>1.000</td><td>31 / 23 / 36</td></tr></tbody></table></div>
+<p><span class="eq-i">$n_0=1$</span>、<span class="eq-i">$\theta=2$</span> 时混合相几乎不存在。</p>
+<h3>L2. 锁定前后的噪声</h3>
+<p><span class="eq-i">$\theta=2$</span>，<span class="eq-i">$n_0=25$</span>，64 次，lock 中位数 1475。锁定后的 <span class="eq-i">$\Gamma$</span> 远小于锁定前。</p>
+<h3>L3. 巴尔蒂尼–生命</h3>
+<p><span class="eq-i">$48\times 48$</span> 格子。规则 B3/S23、B36/S23、B3/S234。初值：康威滑翔机。“有结构”：3–40 个活细胞。</p>
+<div class="table-wrap"><table><thead><tr><th>制度</th><th>结束时有结构的比例</th></tr></thead><tbody><tr><td><span class="eq-i">$\theta=0$</span>，混合</td><td><span class="eq-i">$4.2\%$</span></td></tr><tr><td><span class="eq-i">$\theta=2.5$</span>，锁定</td><td><span class="eq-i">$47\%$</span></td></tr><tr><td>锁定，赢家 B3/S23</td><td><span class="eq-i">$75\%$</span></td></tr><tr><td>锁定，赢家 B36/S23</td><td><span class="eq-i">$85\%$</span></td></tr><tr><td>锁定，赢家 B3/S234</td><td><span class="eq-i">$0\%$</span></td></tr><tr><td>随机汤，混合</td><td><span class="eq-i">$0\%$</span></td></tr><tr><td>随机汤，锁定</td><td><span class="eq-i">$4\%$</span></td></tr></tbody></table></div>
+<p>混合摧毁滑翔机。锁定仅在赢家规则支持滑翔机时保留它。B3/S234 使种群爆炸。在模型内部：观察者只可能出现在锁定之后，且只在赢家之钟“支持生命”的世界里。</p>
+<p><strong>玩具理论成功标准：</strong> 预先登记的 10/10 项判定通过。</p>
+<hr>
+<h2>8. 命题表</h2>
+<div class="table-wrap"><table><thead><tr><th>命题</th><th>数学</th><th>自然界</th></tr></thead><tbody><tr><td>此 <span class="eq-i">$m(n)$</span> 的极小在 6 附近</td><td>是</td><td>取决于函数</td></tr><tr><td>存在 <span class="eq-i">$(3,3)$</span> 度量</td><td>是</td><td>未证明自然如此</td></tr><tr><td>可以取 <span class="eq-i">$3+1$</span> 切片</td><td>是，需约束</td><td>约束是额外的</td></tr><tr><td>隐蔽时间给出质量</td><td>否，符号错误</td><td>需要机制</td></tr><tr><td>任意初值的柯西问题</td><td>否</td><td>否</td></tr><tr><td>巴尔蒂尼证明了宇宙六维</td><td>否</td><td>否</td></tr><tr><td><span class="eq-i">$\theta>1$</span> 瓮锁定单一时间</td><td>是（理论+L1）</td><td>模型</td></tr><tr><td><span class="eq-i">$\Gamma\approx\frac12\mathrm{Var}(c)k^2\Delta t$</span></td><td>是（L0）</td><td>模型</td></tr><tr><td>生命仅在锁定+生命规则后稳定</td><td>是（L3）</td><td>模型</td></tr></tbody></table></div>
+<hr>
+<h2>9. 对“每一瞬间都在选择”的直接回答</h2>
+<p>否。在巴尔蒂尼+中，锁定之后只有一只钟在走。随机选轴是<strong>早期混合相</strong>与<strong>不同实现</strong>的性质，不是已锁定世界里每一个滴答的性质。若模型成立，现在的外来滴答稀少，并按 <span class="eq-i">$k$</span> 的幂衰减。</p>
+<hr>
+<h2>10. 未决项</h2>
+<p>场方程未从变分原理推出。无鬼量子化未建立。质量与无量纲常数未得到。洛伦兹破坏的实验界限尚未在本版代码中对应到 <span class="eq-i">$(\Delta c)^2\varepsilon$</span>。</p></article>
+<article id="zh-steps" class="page" hidden><h1>四步：测度、签名、场 <span class="eq-i">$n$</span>、爱因斯坦 / no-go</h1>
+<p><strong>作者：</strong> 亚历山大·库捷波夫与 LLM。 <strong>运行：</strong> <code>node bartini_plus/four_steps.mjs</code> → <code>results/four_steps.json</code>（2026-08-31）。</p>
+<p>这不是宇宙为六维的证明。它检验四块缺失是否能从具名原理推出，而不手写 <span class="eq-i">$n=6$</span>、不以瓮为根基。</p>
+<hr>
+<h2>第一步. 测度</h2>
+<p>酉傅里叶变换有唯一的偶正 <span class="eq-i">$L^2$</span> 不动点（至多差相位）：<span class="eq-i">$e^{-\pi x^2}$</span>。网格相对 <span class="eq-i">$L^2$</span> 误差 <span class="eq-i">$1.93\times 10^{-15}$</span>。</p>
+<p><div class="eq">$$m(n)=\frac{\Gamma(\frac{n+1}{2})}{2\pi^{(n+1)/2}}=\frac{1}{\mathrm{Area}(S^n)}.$$</div></p>
+<p>极小化 <span class="eq-i">$m$</span> 等于极大化 <span class="eq-i">$S^n$</span> 的面积。<span class="eq-i">$\psi(\frac{n+1}{2})=\ln\pi$</span> 给出 <span class="eq-i">$n_*=6.25694641164$</span>。整数极小在 <span class="eq-i">$n=6$</span>。其它宽度 <span class="eq-i">$a=1/2,1,e,2\pi$</span> 给出 <span class="eq-i">$0.87,1.92,5.41,12.55$</span>。六只绑在傅里叶自对偶的 <span class="eq-i">$\pi$</span> 上。</p>
+<p><strong>状态。</strong> 由自对偶 / 球面面积极大推出。原理本身仍是公设。</p>
+<hr>
+<h2>第二步. 为何 <span class="eq-i">$3+3$</span></h2>
+<p>在 <span class="eq-i">$p+q=6$</span> 上极大化实光锥测度 <span class="eq-i">$\mathrm{Area}(S^{p-1})\mathrm{Area}(S^{q-1})$</span>。</p>
+<div class="table-wrap"><table><thead><tr><th>分裂</th><th>体积</th></tr></thead><tbody><tr><td><span class="eq-i">$1+5$</span></td><td><span class="eq-i">$\approx 52.64$</span></td></tr><tr><td><span class="eq-i">$2+4$</span></td><td><span class="eq-i">$\approx 124.03$</span></td></tr><tr><td><span class="eq-i">$3+3$</span></td><td><span class="eq-i">$\approx 157.91$</span></td></tr></tbody></table></div>
+<p><span class="eq-i">$(3,3)$</span> 是唯一极大。<span class="eq-i">$\mathrm{Vol}_{3+3}/\mathrm{Vol}_{2+4}=4/\pi$</span>。</p>
+<p>经验路径：天空为 <span class="eq-i">$S^2$</span> ⇒ 三维空间；第一步给出 6 ⇒ 三维时间。</p>
+<p>代数：<span class="eq-i">$\mathfrak{so}(3,3)\cong\mathfrak{sl}(4,\mathbb R)$</span>；<span class="eq-i">$\mathfrak{so}(4,2)\cong\mathfrak{su}(2,2)$</span>（四维共形）。不是同一理论。</p>
+<p><strong>状态。</strong> 在已有 <span class="eq-i">$n=6$</span> 且采用“方向测度极大”时推出。</p>
+<hr>
+<h2>第三步. 场 <span class="eq-i">$n$</span></h2>
+<p><div class="eq">$$S[n]=\frac\kappa2\int|dn|^2,\qquad dT=n_\alpha dt^\alpha.$$</div></p>
+<p>格点热流锁定随机初值：<span class="eq-i">$T^2$</span> 上 <span class="eq-i">$12/12$</span>，<span class="eq-i">$S^1$</span> 上 <span class="eq-i">$11/12$</span>。常值真空稳定。环面上的球极“刺猬”会被拆掉（那里不是同伦不变量）。<span class="eq-i">$\pi_2(S^2)=\mathbb Z$</span> 仍意味着三维空间中的点缺陷。无势时两支戈德斯通角保持无质量。</p>
+<p><strong>状态。</strong> 瓮不再是根基。戈德斯通能隙与三维缺陷未决。</p>
+<hr>
+<h2>第四步. 爱因斯坦、no-go、预言</h2>
+<p>积度量 <span class="eq-i">$G=g_4\oplus\gamma_\perp$</span>，<span class="eq-i">$n$</span> 为常值，<span class="eq-i">$\partial_\perp=0$</span>：<span class="eq-i">$R_6=R_4$</span>，切片上得爱因斯坦方程。</p>
+<p>物质动能 <span class="eq-i">$(n\cdot\partial_t\phi)^2-c^2|\nabla\phi|^2$</span>：双曲；投影后不稳定模 <span class="eq-i">$0/12$</span>。快子符号去掉。正质量未出现。</p>
+<p><span class="eq-i">$\Delta c/c\sim|\delta n|\sim E_{\mathrm{lock}}/M_{\mathrm{Pl}}$</span>。高能且在暴胀之后：已被 <span class="eq-i">$\sim 10^{-15}$</span> 的洛伦兹检验杀死。普朗克尺度再加暴胀：稀释，与广义相对论无区别。没有存活的可区分数字。</p>
+<p><strong>状态。</strong> 双曲性与爱因斯坦约化：在投影下成立。质量与活的数值预言：无。</p>
+<hr>
+<h2>摘要</h2>
+<p>链条“自对偶高斯 → 6 → 光锥极大 → 3+3 → 场 <span class="eq-i">$n$</span> → 切片上的爱因斯坦”在数学上闭合。进入自然还需要把“方向测度极大”当成定律，并关闭戈德斯通与质量。这不是已被证明的巴尔蒂尼。</p></article>
+<article id="zh-gaps" class="page" hidden><h1>填洞：定理与一条禁令</h1>
+<p><strong>作者：</strong> 亚历山大·库捷波夫与 LLM。 <strong>运行：</strong> <code>node bartini_plus/close_gaps.mjs</code> → <code>results/close_gaps.json</code>；T8–T9：<code>node bartini_plus/aether_bounds.mjs</code> → <code>results/aether_bounds.json</code>。</p>
+<p><strong>T1.</strong> 若 <span class="eq-i">$n=6$</span> 来自方向测度极大，则同一泛函在 <span class="eq-i">$p+q=6$</span> 上唯一选取 <span class="eq-i">$(3,3)$</span>，并在本链条内禁止 <span class="eq-i">$(4,2)$</span>。</p>
+<p><strong>T2.</strong> <span class="eq-i">$T^3$</span> 中 Frobenius <span class="eq-i">$n\wedge dn=0$</span> 给出 <span class="eq-i">$n=d\tau/|d\tau|$</span>。时间重参数化吃掉 <span class="eq-i">$\tau$</span>。物理戈德斯通：0。不需要 <span class="eq-i">$m_n$</span>。</p>
+<p><strong>T3（不可能）。</strong> 沿隐蔽*时间*的傅里叶模给出 <span class="eq-i">$m^2<0$</span>。正 <span class="eq-i">$m^2$</span> 会把该方向改成空间。粒子质量不是 <span class="eq-i">$3+3$</span> 的定理。质量从切片上的希格斯导入。</p>
+<p><strong>T4.</strong> 若 <span class="eq-i">$\mathcal L=\mathcal L(n\cdot\partial_t\phi,\nabla\phi)$</span>，则 <span class="eq-i">$\phi\mapsto\phi+\varepsilon(q_\perp)$</span> 是对称。<span class="eq-i">$\phi=\phi(x,T)$</span> 是规范固定。</p>
+<p><strong>T5.</strong> <span class="eq-i">$g_{\mathrm{phys}}$</span> 特征值为 <span class="eq-i">$(1,1,1,-1,0,0)$</span>：秩 4，签名 <span class="eq-i">$(3,1)$</span>，核 2。核的紧致化不在 <span class="eq-i">$g_{\mathrm{phys}}$</span> 中产生 CTC。</p>
+<p><strong>T6.</strong> 投影后 <span class="eq-i">$H>0$</span>。未投影的 Klein–Gordon 内积不定。约化后无额外时间鬼场。</p>
+<p><strong>T7.</strong> T2–T6 之后切片上是广义相对论（至多加一个 chronon）。没有存活的、不同于 GR 的数字。M3：物理 <span class="eq-i">$d_s=4$</span>；紫外六属于未约化算子，链条禁止量子化它。与 CDT 的张力不是切片的预言。</p>
+<p><strong>T8（放松 T2 换取可检验性）。</strong> 去掉 Frobenius，给时间轴一个刚度 <span class="eq-i">$f^2=E_{\mathrm{lock}}^2$</span>。切片上 <span class="eq-i">$u^\mu$</span> 成为动力学单位类时矢量：Einstein-aether（Jacobson–Mattingly）。6D Dirichlet 能量在 <span class="eq-i">$\partial_\perp=0$</span>（T4）下只映射到 <span class="eq-i">$c_1=(E_{\mathrm{lock}}/M_{\mathrm{Pl}})^2\equiv\varepsilon$</span>，<span class="eq-i">$c_2=c_3=c_4=0$</span>，没有可供相消的自由系数。于是 <span class="eq-i">$s_2^2=1/(1-\varepsilon)$</span>，GW170817（<span class="eq-i">$c_{\mathrm{gw}}/c-1<7\cdot10^{-16}$</span>）给出</p>
+<p><div class="eq">$$\varepsilon\le1.6\cdot10^{-15}\iff E_{\mathrm{lock}}\le 9.7\cdot10^{10}\ \mathrm{GeV}.$$</div></p>
+<p><span class="eq-i">$E_{\mathrm{lock}}=M_{\mathrm{Pl}}$</span>：<span class="eq-i">$c_{13}=1$</span>，自旋 2 动能变号——死。<span class="eq-i">$10^{16}$</span> GeV：被 GW170817 与 <span class="eq-i">$\alpha_2$</span> 杀死。<span class="eq-i">$\le5\cdot10^{10}$</span> GeV：通过 GW170817、引力切伦科夫（所有 <span class="eq-i">$s_i^2\ge1$</span>）、脉冲星 <span class="eq-i">$|\alpha_1|<4\cdot10^{-5}$</span>、<span class="eq-i">$|\alpha_2|<1.6\cdot10^{-9}$</span>、BBN、无鬼条件。一般 Einstein-aether 在 <span class="eq-i">$\varepsilon=O(1)$</span> 只在一条细缝上存活（<span class="eq-i">$c_{13}=0$</span> 精确到 <span class="eq-i">$7\cdot10^{-16}$</span>，<span class="eq-i">$c_{14}/c_1\approx3\cdot10^{-9}$</span>，<span class="eq-i">$c_2\sim10^{-4}$</span>）；巴尔蒂尼+ 的映射到不了那里。80 个符号模式 <span class="eq-i">$\{-1,0,1\}\varepsilon$</span> 中无一在 <span class="eq-i">$\varepsilon\ge1$</span> 存活。对 T2 的修正：<span class="eq-i">$f\ne0$</span> 时即使有 Frobenius，chronon 也是物理的（chronometric 引力，<span class="eq-i">$\beta=c_{13}=\varepsilon$</span>），同一 GW 界；T2 仅在 <span class="eq-i">$f=0$</span> 精确。<strong>结论：</strong> 带 Dirichlet 刚度的巴尔蒂尼+ 可证伪且已被限制：<span class="eq-i">$E_{\mathrm{lock}}\lesssim10^{11}$</span> GeV，否则 <span class="eq-i">$f=0$</span> 而理论即 GR（T7）。普朗克尺度被排除。一个存活的数字，且是否定的。</p>
+<p><strong>T9.</strong> 若在空间中也去掉 <span class="eq-i">$\partial_\perp=0$</span>，<span class="eq-i">$\pi_2(S^2)=\mathbb Z$</span> 给出 <span class="eq-i">$n$</span> 的全局单极，立体角亏损 <span class="eq-i">$8\pi G\eta^2$</span>。Planck 缺陷界 <span class="eq-i">$G\eta^2\lesssim10^{-6}$</span> 给 <span class="eq-i">$\eta\lesssim1.2\cdot10^{16}$</span> GeV，比 T8 弱五个量级。Frobenius 扇区中没有刺猬解；T9 在 T8 之外不增加任何东西。</p>
+<p>测度原理仍不是自然定律。巴尔蒂尼仍不是关于宇宙的事实。已证明的是：在时间为一道零刚度梯度时，<span class="eq-i">$3+3\to 3+1$</span> 的自洽约化，无需瓮、无时间 KK 快子、无物理度量中的 CTC、无戈德斯通；刚度非零时，锁定尺度被 GW170817 从上方限制。</p></article>
+<article id="zh-tighten" class="page" hidden><h1>M1–M3：收紧，不是化妆</h1>
+<p><strong>作者：</strong> 亚历山大·库捷波夫与 LLM。 <strong>运行：</strong> <code>node bartini_plus/math_tighten.mjs</code> → <code>results/math_tighten.json</code>。</p>
+<p>三处仍能改变形式地位的缺口：测度原理、作用量嵌入以太、谱维。以下是定理与禁令。自然本身仍未证明。</p>
+<hr>
+<h2>M1. Maxent + 幺正傅里叶 <span class="eq-i">$\Rightarrow a=\pi$</span>；单靠自对偶得不到 <span class="eq-i">$n=6$</span></h2>
+<p><strong>已知。</strong> 在 <span class="eq-i">$\mathbb R$</span> 上固定 <span class="eq-i">$\int f=1$</span>、<span class="eq-i">$\int x^2 f=\sigma^2$</span> 的密度中，熵 <span class="eq-i">$-\int f\log f$</span> 的极大是 <span class="eq-i">$f\propto e^{-x^2/(2\sigma^2)}$</span>。古典结果，不是我们的。</p>
+<p><strong>幺正傅里叶</strong> <span class="eq-i">$\hat f(\xi)=\int f(x)e^{-2\pi i x\xi}\,dx$</span>。该族中的不动点是 <span class="eq-i">$\sigma^2=1/(2\pi)$</span>，故 <span class="eq-i">$a=1/(2\sigma^2)=\pi$</span>。</p>
+<p>其后仍是旧演算：<span class="eq-i">$m(n)$</span> 的整数极小为 6 当且仅当 <span class="eq-i">$2.761<a<3.259$</span>。<span class="eq-i">$\pi$</span> 在窗内。窗外，<span class="eq-i">$\{5,6,7\}$</span> 上的极小落到 5 或 7。</p>
+<p><strong>禁令。</strong> 没有 maxent 的自对偶钉不住 <span class="eq-i">$n=6$</span>。厄米函数满足 <span class="eq-i">$\mathcal F[\psi_n]=(-i)^n\psi_n$</span>；<span class="eq-i">$n\equiv 0\pmod 4$</span> 时特征值为 <span class="eq-i">$+1$</span>。混合 <span class="eq-i">$e^{-\pi x^2}(1+\varepsilon H_4(\sqrt{2\pi}\,x))$</span> 在 <span class="eq-i">$\varepsilon=0.02$</span> 仍为正、傅里叶自对偶（<span class="eq-i">$L^2$</span> 误差 <span class="eq-i">$10^{-15}$</span>），并把 <span class="eq-i">$n_*$</span> 从 <span class="eq-i">$6.25$</span> 移到 <span class="eq-i">$2.30$</span>，整数极小 <span class="eq-i">$6\to 2$</span>。方差变了；在同一方差下混合的熵低于高斯。因此 <span class="eq-i">$n=6$</span> 需要 maxent（或等价地禁止 <span class="eq-i">$4k$</span> 模），不是「任意自对偶权重」。</p>
+<p><strong>地位。</strong> 测度原理不再是对 <span class="eq-i">$\pi$</span> 的口味。它是一对：maxent + <span class="eq-i">$\mathcal F$</span> 的幺正性。自然为何最大化维度权重的熵，仍是公设。</p>
+<hr>
+<h2>M2. 切片上的 Dirichlet 就是 <span class="eq-i">$c_1$</span>，而且只有 <span class="eq-i">$c_1$</span></h2>
+<p>嵌入：隐时间平面中的 <span class="eq-i">$n=(\varepsilon_1,\varepsilon_2,\sqrt{1-\varepsilon^2})\in S^2$</span> <span class="eq-i">$\mapsto$</span> 切片上 <span class="eq-i">$u=(\varepsilon_1,\varepsilon_2,0,\sqrt{1-\varepsilon^2})$</span>，<span class="eq-i">$\eta=\mathrm{diag}(1,1,1,-1)$</span>。以太的第三个自由度（<span class="eq-i">$u^z$</span> 倾斜）不存在：<span class="eq-i">$n\in S^2$</span> 有两个，不是三个。</p>
+<p>Dirichlet 能量 <span class="eq-i">$L_D=g^{\mu\nu}\partial_\mu n\cdot\partial_\nu n$</span>。Einstein-aether 单项式 <span class="eq-i">$C_1,C_2,C_3,C_4$</span>。</p>
+<p><strong>恒等式（运行，<span class="eq-i">$8^4$</span>，12 个随机场）。</strong> <span class="eq-i">$L_D/C_1=1.007$</span>，仅 <span class="eq-i">$c_1$</span> 残差 <span class="eq-i">$0.007$</span>。纵波：<span class="eq-i">$C_2/L_D\approx 1$</span>，仍然 <span class="eq-i">$L_D=C_1$</span>。横波：<span class="eq-i">$C_2=0$</span>，<span class="eq-i">$L_D=C_1$</span>。<span class="eq-i">$C_2$</span> 作为张量存在，<strong>不进入</strong> Dirichlet。</p>
+<p><div class="eq">$$(c_1,c_2,c_3,c_4)=(\kappa,0,0,0),\qquad c_{13}=c_1\neq 0.$$</div></p>
+<p>一般以太在 <span class="eq-i">$\varepsilon=O(1)$</span> 存活所需的缝 <span class="eq-i">$c_{13}=0$</span> 不能由 6D Dirichlet 产生。T8 仍成立：<span class="eq-i">$E_{\mathrm{lock}}\lesssim 10^{11}$</span> GeV 或 <span class="eq-i">$f=0$</span>。</p>
+<p><strong>地位。</strong> T8 的映射不再是启发式。引理是二次的、在格子上、带 <span class="eq-i">$\lvert\varepsilon\rvert<0.45$</span>。未证明 <span class="eq-i">$R_6+\kappa|Dn|^2$</span> 的完整非线性约化。</p>
+<hr>
+<h2>M3. 物理 <span class="eq-i">$d_s=4$</span>；「紫外六」不是切片的预言</h2>
+<p><span class="eq-i">$P(s)=\mathrm{Tr}\,e^{-s\omega^2}$</span>，<span class="eq-i">$d_s(s)=-2\,d\log P/d\log s$</span>。</p>
+<div class="table-wrap"><table><thead><tr><th>算子</th><th><span class="eq-i">$d_s$</span></th><th>何处</th></tr></thead><tbody><tr><td>欧氏 <span class="eq-i">$\Delta_6$</span></td><td>恰为 <span class="eq-i">$6$</span></td><td>未约化体积</td></tr><tr><td>欧氏 <span class="eq-i">$\Delta_4$</span>、投影 <span class="eq-i">$\Delta_{3,1}$</span></td><td>恰为 <span class="eq-i">$4$</span></td><td>T4–T5 之后</td></tr><tr><td><span class="eq-i">$\lvert\square_{3,3}\rvert$</span></td><td>一切 <span class="eq-i">$s$</span> 上都是 <span class="eq-i">$6$</span></td><td><span class="eq-i">$\mathbb R^6$</span> 上 2 次齐次</td></tr></tbody></table></div>
+<p><span class="eq-i">$\mathbb R^d$</span> 上任何 2 次符号都有 <span class="eq-i">$d_s=d$</span>。因此 <span class="eq-i">$|\square_{3,3}|$</span> 不会从 6 流到 4。投影之后算子是四维的，<span class="eq-i">$d_s=4$</span>。</p>
+<p>与 CDT（<span class="eq-i">$d_s^{\mathrm{UV}}\approx 2$</span>）的张力，是把那项计算拿去和<strong>未约化</strong>算子比——而链条的其余部分禁止量子化它。约化理论的 <span class="eq-i">$d_s=4$</span>，与广义相对论相同。T7 候选是空的。</p>
+<hr>
+<h2>总结</h2>
+<div class="table-wrap"><table><thead><tr><th>项</th><th>地位</th></tr></thead><tbody><tr><td>由 maxent+<span class="eq-i">$\mathcal F$</span> 得到 <span class="eq-i">$\pi$</span></td><td>已推出（M1）</td></tr><tr><td>自对偶 <span class="eq-i">$\Rightarrow n=6$</span></td><td><strong>禁止</strong>（厄米 <span class="eq-i">$4k$</span>）</td></tr><tr><td>Dirichlet <span class="eq-i">$\mapsto(c_1,0,0,0)$</span></td><td>二次引理（M2）</td></tr><tr><td>从 6D 得到 <span class="eq-i">$c_{13}=0$</span></td><td><strong>未得到</strong></td></tr><tr><td>物理 <span class="eq-i">$d_s$</span></td><td><span class="eq-i">$4$</span>，不是 <span class="eq-i">$6$</span>（M3）</td></tr><tr><td>宇宙是六维的</td><td><strong>未证明</strong></td></tr></tbody></table></div>
+<p>链条更硬、更诚实：测度原理有了名字；T8 成为引理；紫外六不是活预言。没有正的实验室效应。</p></article></main>
+</div>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"></script>
+<script>
+function show(id) {
+  document.querySelectorAll("article.page").forEach((el) => { el.hidden = el.id !== id; });
+  document.querySelectorAll("nav a").forEach((a) => a.classList.toggle("active", a.dataset.id === id));
+  if (window.renderMathInElement) {
+    renderMathInElement(document.getElementById(id), {
+      delimiters: [
+        {left: "$$", right: "$$", display: true},
+        {left: "$", right: "$", display: false}
+      ],
+      throwOnError: false
+    });
+  }
+  history.replaceState(null, "", "#" + id);
+}
+document.querySelectorAll("nav a").forEach((a) => a.addEventListener("click", (e) => {
+  e.preventDefault();
+  show(a.dataset.id);
+  document.querySelector("main").scrollTop = 0;
+}));
+function boot() {
+  const id = location.hash.slice(1) || "readme";
+  show(document.getElementById(id) ? id : "readme");
+}
+if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", () => setTimeout(boot, 0));
+else setTimeout(boot, 0);
+window.addEventListener("load", boot);
+</script>
+</body>
+</html>
