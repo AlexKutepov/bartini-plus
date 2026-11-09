@@ -21,12 +21,9 @@
 
 Цепочка, которая смыкается *математически*:
 
-
 $$
 \text{фурье-самодуальный гауссиан}\to n=6\to\max(\text{объём конуса})\to(3,3)\to\text{поле }n\text{ / хронон}\to\text{Эйнштейн на срезе}.
 $$
-
-
 
 В природу она **не** входит, пока принцип меры не закон и нет отличимого живого прогноза. Мы этого не утверждаем.
 
@@ -58,7 +55,8 @@ $$
 | $(3,3)$ max объёма конуса при $p+q=6$ | теорема, $4/\pi$ | FOUR_STEPS |
 | Метрика $(3,3)$ есть; $3+1$ — срез | геометрия | PROOF |
 | Лишние времена не дают $3+1$ сами | список no-go | PROOF |
-| Урна $\theta>1$ запирает один час | теория + L1 | experiments |
+| Урна $\theta>1$ запирает один час ($\theta_c=1$, Рубин) | теорема + L1 + P5 | experiments, P5_STRESS |
+| $\ln\tau_{\rm lock}\sim C/(\theta-1)$ в mean-field; шум $\mu>0$ убивает точный lock | теорема + прогон | P5_STRESS |
 | $\Gamma$ совпадает с $\frac12\mathrm{Var}(c)k^2\Delta t$ до $2.9\%$ | L0 | experiments |
 | Life устойчива только после lock + life-rule | L3 | experiments |
 | **T1** $(4,2)$ запрещён *внутри той же цепи* | согласованность | CLOSE_GAPS |
@@ -114,6 +112,7 @@ node bartini_plus/four_steps.mjs
 node bartini_plus/close_gaps.mjs
 node bartini_plus/p5_stress.mjs
 node bartini_plus/aether_bounds.mjs
+node bartini_plus/n_times.mjs
 node bartini_plus/math_tighten.mjs
 ```
 

@@ -14,13 +14,11 @@
 
 Полные доказательства и вся цепочка рассуждений:
 
-| Язык | Бартини / Бартини+ | Четыре шага | Дыры | Ужесточение |
-|---|---|---|---|---|
-| Русский | [docs/ru/PROOF.md](docs/ru/PROOF.md) | [docs/ru/FOUR_STEPS.md](docs/ru/FOUR_STEPS.md) | [docs/ru/CLOSE_GAPS.md](docs/ru/CLOSE_GAPS.md) | [docs/ru/MATH_TIGHTEN.md](docs/ru/MATH_TIGHTEN.md) |
-| English | [docs/en/PROOF.md](docs/en/PROOF.md) | [docs/en/FOUR_STEPS.md](docs/en/FOUR_STEPS.md) | [docs/en/CLOSE_GAPS.md](docs/en/CLOSE_GAPS.md) | [docs/en/MATH_TIGHTEN.md](docs/en/MATH_TIGHTEN.md) |
-| 中文 | [docs/zh/PROOF.md](docs/zh/PROOF.md) | [docs/zh/FOUR_STEPS.md](docs/zh/FOUR_STEPS.md) | [docs/zh/CLOSE_GAPS.md](docs/zh/CLOSE_GAPS.md) | [docs/zh/MATH_TIGHTEN.md](docs/zh/MATH_TIGHTEN.md) |
-
-Стресс-тест аксиомы P5: [теорема о монополии, критическое время и шум](docs/ru/P5_STRESS.md).
+| Язык | Бартини / Бартини+ | Стресс-тест P5 | Четыре шага | Дыры | Ужесточение |
+|---|---|---|---|---|---|
+| Русский | [docs/ru/PROOF.md](docs/ru/PROOF.md) | [docs/ru/P5_STRESS.md](docs/ru/P5_STRESS.md) | [docs/ru/FOUR_STEPS.md](docs/ru/FOUR_STEPS.md) | [docs/ru/CLOSE_GAPS.md](docs/ru/CLOSE_GAPS.md) | [docs/ru/MATH_TIGHTEN.md](docs/ru/MATH_TIGHTEN.md) |
+| English | [docs/en/PROOF.md](docs/en/PROOF.md) | [docs/en/P5_STRESS.md](docs/en/P5_STRESS.md) | [docs/en/FOUR_STEPS.md](docs/en/FOUR_STEPS.md) | [docs/en/CLOSE_GAPS.md](docs/en/CLOSE_GAPS.md) | [docs/en/MATH_TIGHTEN.md](docs/en/MATH_TIGHTEN.md) |
+| 中文 | [docs/zh/PROOF.md](docs/zh/PROOF.md) | [docs/zh/P5_STRESS.md](docs/zh/P5_STRESS.md) | [docs/zh/FOUR_STEPS.md](docs/zh/FOUR_STEPS.md) | [docs/zh/CLOSE_GAPS.md](docs/zh/CLOSE_GAPS.md) | [docs/zh/MATH_TIGHTEN.md](docs/zh/MATH_TIGHTEN.md) |
 
 Авторы: [AUTHORS.md](AUTHORS.md). Лицензия: [MIT](LICENSE).
 
@@ -32,10 +30,9 @@
 
 1. При функции Бартини $m(n)=\Gamma(\frac{n+1}{2})/(2\pi^{(n+1)/2})$ непрерывный минимум $n_*\approx 6.2569$; среди целых локальный минимум — $n=6$.
 2. Метрика сигнатуры $(3,3)$ математически допустима; $3+1$ есть её срез, не автоматическое следствие.
-3. Нелинейная урна $p_\alpha\propto n_\alpha^\theta$ при $\theta>1$ запирает одно наблюдаемое время ($d_T:3\to 1$).
+3. Нелинейная урна $p_\alpha\propto n_\alpha^\theta$ при $\theta>1$ запирает одно наблюдаемое время ($d_T:3\to 1$, точная сильная монополия по критерию Рубина при $\theta_c=1$, $\ln\tau_{\rm lock}\sim C/(\theta-1)$ в mean-field, разрушение точного lock при постоянном exploration-шуме $\mu>0$).
 4. Когерентное затухание $\Gamma\approx\frac12\mathrm{Var}(c)\,k^2\Delta t$ (ошибка относительно точной формулы: $2.9\%$).
 5. В клеточном автомате устойчивые структуры живут после запирания и только при «жизненном» правиле-победителе.
-
 6. Мера Бартини тождественна $1/\mathrm{Area}(S^n)$; $e^{-\pi x^2}$ — фурье-самодуальный гауссиан ($L^2$-ошибка $2\cdot10^{-15}$). При $n=6$ сигнатура $(3,3)$ максимизирует объём светового конуса ($16\pi^2$ против $4\pi^3$ у $2+4$). M1: $a=\pi$ из maxent + унитарного Фурье; самодуальность без maxent $n=6$ не даёт (Эрмит $4k$ сдвигает $n_*$).
 7. Поле $n:M\to S^2$ запирает случайные данные без урны (2D: $12/12$). Проекция $n\cdot\partial_t$ делает волновой оператор гиперболическим и снимает тахионный знак.
 
@@ -51,11 +48,11 @@
 
 ## What is proven, what is not
 
-**Proven (conditionally, inside the model).** The Bartini integral has a local integer minimum at $n=6$. A $(3,3)$ metric exists; $3+1$ is a slice, not an automatic consequence. A nonlinear urn with $\theta>1$ locks onto one observed time. Coherent decay matches $\Gamma\approx\frac12\mathrm{Var}(c)\,k^2\Delta t$ to $2.9\%$. Life-like structures survive after lock-in only under a life-supporting winning rule.
+**Proven (conditionally, inside the model).** The Bartini integral has a local integer minimum at $n=6$. A $(3,3)$ metric exists; $3+1$ is a slice, not an automatic consequence. A nonlinear urn with $\theta>1$ locks onto one observed time (exact strong monopoly by Rubin’s criterion at $\theta_c=1$, mean-field $\ln\tau_{\rm lock}\sim C/(\theta-1)$, exact monopoly destroyed by any persistent exploration floor $\mu>0$). Coherent decay matches $\Gamma\approx\frac12\mathrm{Var}(c)\,k^2\Delta t$ to $2.9\%$. Life-like structures survive after lock-in only under a life-supporting winning rule. M1: $a=\pi$ follows from maxent + unitary Fourier; self-duality alone does not fix $n=6$ (Hermite $4k$).
 
 **Not proven.** That the Universe is physically six-dimensional. That Bartini derived the constants. That one of $t_1,t_2,t_3$ is randomly chosen at every instant of the locked world.
 
-**Testability (T8–T9).** With nonzero time-axis stiffness Bartini+ maps onto Einstein-aether with a single coefficient $c_1=(E_{\mathrm{lock}}/M_{\mathrm{Pl}})^2$; GW170817 bounds $E_{\mathrm{lock}}\le9.7\cdot10^{10}$ GeV and excludes the Planck scale.
+**Testability (T8–T9, M2–M3).** With nonzero time-axis stiffness Bartini+ maps onto Einstein-aether with a single coefficient $c_1=(E_{\mathrm{lock}}/M_{\mathrm{Pl}})^2$ (M2); GW170817 bounds $E_{\mathrm{lock}}\le9.7\cdot10^{10}$ GeV and excludes the Planck scale. Physical spectral dimension on the slice is $d_s=4$, not 6 (M3).
 
 Full English text: [docs/en/PROOF.md](docs/en/PROOF.md).
 
@@ -63,11 +60,11 @@ Full English text: [docs/en/PROOF.md](docs/en/PROOF.md).
 
 ## 已证明与未证明
 
-**已证明（在模型内部、有条件）。** 巴尔蒂尼积分的整数局部极小在 $n=6$。$(3,3)$ 度量存在；$3+1$ 是切片，不是自动推论。$\theta>1$ 的非线性瓮会锁到单一可观测时间。相干衰减与 $\Gamma\approx\frac12\mathrm{Var}(c)\,k^2\Delta t$ 相对误差 $2.9\%$。类生命结构仅在锁定之后、且赢家规则支持生命时稳定。
+**已证明（在模型内部、有条件）。** 巴尔蒂尼积分的整数局部极小在 $n=6$。$(3,3)$ 度量存在；$3+1$ 是切片，不是自动推论。$\theta>1$ 的非线性瓮会锁到单一可观测时间（Rubin 判据给出精确临界值 $\theta_c=1$，平均场 $\ln\tau_{\rm lock}\sim C/(\theta-1)$，持续探索噪声 $\mu>0$ 破坏精确垄断）。相干衰减与 $\Gamma\approx\frac12\mathrm{Var}(c)\,k^2\Delta t$ 相对误差 $2.9\%$。类生命结构仅在锁定之后、且赢家规则支持生命时稳定。M1：maxent + 幺正傅里叶给出 $a=\pi$；单靠自对偶不能固定 $n=6$（厄米 $4k$）。
 
 **未证明。** 宇宙在物理上是六维的。巴尔蒂尼推出了基本常数。已锁定世界的每一个瞬间都在 $t_1,t_2,t_3$ 中随机选一个。
 
-**可检验性（T8–T9）。** 时间轴刚度非零时，巴尔蒂尼+ 映射为单系数 $c_1=(E_{\mathrm{lock}}/M_{\mathrm{Pl}})^2$ 的 Einstein-aether；GW170817 给出 $E_{\mathrm{lock}}\le9.7\cdot10^{10}$ GeV，排除普朗克尺度。
+**可检验性（T8–T9，M2–M3）。** 时间轴刚度非零时，巴尔蒂尼+ 映射为单系数 $c_1=(E_{\mathrm{lock}}/M_{\mathrm{Pl}})^2$ 的 Einstein-aether（M2）；GW170817 给出 $E_{\mathrm{lock}}\le9.7\cdot10^{10}$ GeV，排除普朗克尺度。切片上的物理谱维为 $d_s=4$，而非 6（M3）。
 
 全文：[docs/zh/PROOF.md](docs/zh/PROOF.md)。
 

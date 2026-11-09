@@ -253,7 +253,7 @@ $$
 
 
 
-The winner is random given a symmetric start. The condition $t_2=t_3=\mathrm{const}$ appears dynamically. Different runs lock on different axes: a tree of worlds as ensemble statistics.
+The winner is random given a symmetric start. The exact statement is strong monopoly by Rubin’s criterion $\sum_n n^{-\theta}<\infty$; the numerical criterion `max(p) >= 0.95` only marks first passage of the threshold (proof, critical asymptotics, and persistent-noise counterexample: [P5_STRESS.md](P5_STRESS.md)). The condition $t_2=t_3=\mathrm{const}$ appears dynamically. Different runs lock on different axes: a tree of worlds as ensemble statistics.
 
 $\theta=0$: uniform $p$, no lock. $\theta=1$: classical Pólya, convergence into the simplex interior.
 

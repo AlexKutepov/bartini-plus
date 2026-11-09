@@ -31,17 +31,18 @@
 2. 写出平坦 $(3,3)$。证明 $3+1$ 是切片而非推论。隐蔽时间给出超光速投影、$m_{\mathrm{eff}}^2\le 0$、超双曲柯西问题不适定。
 3. 巴尔蒂尼+公理。$\theta>1$ 时锁定；$\Gamma\approx\frac12\mathrm{Var}(c)\,k^2\Delta t$（修正了原先的因子 2）。
 4. 数值 **L0–L3**，十项预登记判定全部通过。切换 $c$ 时波的*能量*被泵浦；正确观测量是 $|\langle\psi\rangle|$。
-5. 用傅里叶自对偶与 $m(n)=1/\mathrm{Area}(S^n)$ 替换任意的 $e^{-\pi x^2}$。$a\neq\pi$ 得不到 6。在 6 的分裂中 $(3,3)$ 唯一极大化实光锥体积。
-6. 用 $n:M\to S^2$ 的 Dirichlet 能量替换瓮。拓扑允许时随机初值会锁定。
-7. **T1–T7**：Frobenius 下戈德斯通为规范；隐蔽时间 KK 质量被禁止；$\partial_\perp=0$ 是规范；$g_{\mathrm{phys}}$ 谱为 $(1,1,1,-1,0,0)$；投影后 $H>0$。没有不同于广义相对论且仍存活的数字。
-8. 可检验性 **T8–T9**（`aether_bounds.mjs`）：以刚度 $f=E_{\mathrm{lock}}$ 放松 Frobenius，巴尔蒂尼+ 映射为只有一个系数 $c_1=(E_{\mathrm{lock}}/M_{\mathrm{Pl}})^2$ 的 Einstein-aether。GW170817 给出 $E_{\mathrm{lock}}\le9.7\cdot10^{10}$ GeV；普朗克尺度锁定被排除。时间轴缺陷（T9）由 Planck 给出更弱的界 $\eta\lesssim10^{16}$ GeV。
-9. 收紧 **M1–M3**（`math_tighten.mjs`）：maxent + 幺正傅里叶固定 $a=\pi$；单靠自对偶会移动 $n_*$（厄米 $4k$）。切片上 Dirichlet 只有 $c_1$。物理 $d_s=4$；紫外六是未约化算子，不是切片的预言。
+5. **P5 压力测试**（`p5_stress.mjs`）：Rubin 判据给出精确临界界 $\theta_c=1$；平均场 $\ln\tau_{\rm lock}\sim C/(\theta-1)$；持续探索噪声消灭精确垄断。
+6. 用傅里叶自对偶与 $m(n)=1/\mathrm{Area}(S^n)$ 替换任意的 $e^{-\pi x^2}$。$a\neq\pi$ 得不到 6。在 6 的分裂中 $(3,3)$ 唯一极大化实光锥体积。
+7. 用 $n:M\to S^2$ 的 Dirichlet 能量替换瓮。拓扑允许时随机初值会锁定。
+8. **T1–T7**：Frobenius 下戈德斯通为规范；隐蔽时间 KK 质量被禁止；$\partial_\perp=0$ 是规范；$g_{\mathrm{phys}}$ 谱为 $(1,1,1,-1,0,0)$；投影后 $H>0$。没有不同于广义相对论且仍存活的数字。
+9. 可检验性 **T8–T9**（`aether_bounds.mjs`）：以刚度 $f=E_{\mathrm{lock}}$ 放松 Frobenius，巴尔蒂尼+ 映射为只有一个系数 $c_1=(E_{\mathrm{lock}}/M_{\mathrm{Pl}})^2$ 的 Einstein-aether。GW170817 给出 $E_{\mathrm{lock}}\le9.7\cdot10^{10}$ GeV；普朗克尺度锁定被排除。时间轴缺陷（T9）由 Planck 给出更弱的界 $\eta\lesssim10^{16}$ GeV。
+10. 收紧 **M1–M3**（`math_tighten.mjs`）：maxent + 幺正傅里叶固定 $a=\pi$；单靠自对偶会移动 $n_*$（厄米 $4k$）。切片上 Dirichlet 只有 $c_1$。物理 $d_s=4$；紫外六是未约化算子，不是切片的预言。
 
 ---
 
 ## 我们证明了什么 / 没有证明什么
 
-已证：上述积分与球面恒等式、$n=6$、$(3,3)$ 为光锥极大、$3+1$ 仅为切片、瓮的锁定与 $\Gamma$、Life 仅在 lock+生命规则下存活、T1–T6、T8 上界（$E_{\mathrm{lock}}\le9.7\cdot10^{10}$ GeV）、M1–M3（maxent+$\mathcal F$、$L_D=C_1$、物理 $d_s=4$）。
+已证：上述积分与球面恒等式、$n=6$、$(3,3)$ 为光锥极大、$3+1$ 仅为切片、瓮的锁定与 $\Gamma$、P5 垄断临界值 $\theta_c=1$ 与 $\ln\tau_{\rm lock}\sim C/(\theta-1)$、Life 仅在 lock+生命规则下存活、T1–T6、T8 上界（$E_{\mathrm{lock}}\le9.7\cdot10^{10}$ GeV）、M1–M3（maxent+$\mathcal F$、$L_D=C_1$、物理 $d_s=4$）。
 
 未证：宇宙在物理上是六维的；巴尔蒂尼推出了无量纲常数；已锁定世界的每一瞬间都在三只钟里抽签；maxent 是自然定律（M1 只命名了配对；无 maxent 的自对偶不能给出 $n=6$）；粒子质量来自额外时间（**T3 禁止**）；一个尚未被洛伦兹检验杀死的新实验室数字。
 
@@ -59,14 +60,30 @@ T2–T6 之后，切片就是普通 $3+1$ 广义相对论。这是自洽约化�
 node bartini_plus/experiments.mjs
 node bartini_plus/four_steps.mjs
 node bartini_plus/close_gaps.mjs
+node bartini_plus/p5_stress.mjs
 node bartini_plus/aether_bounds.mjs
+node bartini_plus/n_times.mjs
 node bartini_plus/math_tighten.mjs
 ```
 
-种子写在脚本里。判定为布尔值，打印到 stdout。若改 $c_\alpha$、$\theta$ 或傅里叶约定，$n_*$ 与 $\Gamma$ **必须**移动。
+种子写在脚本里。检查结果保存在 `results/*.json`，主要运行也会将判定打印到 stdout。若改 $c_\alpha$、$\theta$ 或傅里叶约定，$n_*$ 与 $\Gamma$ **必须**移动。
 
 不要靠把隐蔽时间的动能改成类空来「改进」质量。那就是 T3：它们就不再是时间。
 
-仍能改变科学地位的开口只有：从已接受物理推出维度权重的 maxent；一个能活过 $\sim 10^{-15}$ 的预言；巴尔蒂尼一手文献。全文见 `docs/ru/MATH_TIGHTEN.md`。
+仍能改变科学地位的开口只有：从已接受物理推出维度权重的 maxent；一个能活过 $\sim 10^{-15}$ 的预言；巴尔蒂尼一手文献。
+
+---
+
+## 文件地图
+
+| 文件 | 内容 |
+|---|---|
+| [PROOF](PROOF.md) | 从巴尔蒂尼到巴尔蒂尼+与 L0–L3 的完整链条 |
+| [P5_STRESS](P5_STRESS.md) | P5 垄断定理、临界锁定时间、噪声鲁棒性 |
+| [FOUR_STEPS](FOUR_STEPS.md) | 测度、签名、场 $n$、爱因斯坦约化 |
+| [CLOSE_GAPS](CLOSE_GAPS.md) | T1–T9 |
+| [MATH_TIGHTEN](MATH_TIGHTEN.md) | M1–M3 |
+| `bartini_plus/*.mjs` | 数值运行脚本 |
+| `results/*.json` | 原始数据 |
 
 俄文、英文全文见 `docs/ru/`、`docs/en/` 中的同名文件。
