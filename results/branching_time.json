@@ -1,0 +1,130 @@
+{
+  "verdicts": {
+    "B1_piecewise_frobenius_branches_disjoint_for_tau_gt_0_and_ghost_free": true,
+    "B2_thom_transversality_2D_time_collides_while_3D_time_is_collision_free": true,
+    "B3_saddle_duality_has_dT_2_at_decision_and_splits_into_dT_1_branches": true,
+    "B4_geodesic_switch_minimizes_action_and_decoheres_exponentially": true,
+    "B5_branched_wave_packet_conserves_total_probability_and_has_positive_energy": true
+  },
+  "B1": {
+    "branch_angle_rad": 1.5707963267948966,
+    "n1": [
+      1,
+      0,
+      0
+    ],
+    "n2": [
+      6.123233995736766e-17,
+      1,
+      0
+    ],
+    "intersection_at_tau_0": "Σ_* = ℝ³_space × {t_*} (dim = 3)",
+    "intersection_for_tau_gt_0": "∅ (пустое множество)",
+    "interior_branch_derivatives_dn": 0,
+    "interior_ghost_kinetic_energy": 0,
+    "interior_c_gw_over_c": 1,
+    "interior_PPN_alpha1": 0,
+    "interior_PPN_alpha2": 0,
+    "separation_profile": [
+      {
+        "tau": 0,
+        "euclidean_time_distance": 0,
+        "lorentz_6D_interval_sq": 0,
+        "disjoint_for_tau_gt_0": false
+      },
+      {
+        "tau": 0.5,
+        "euclidean_time_distance": 0.7071067811865475,
+        "lorentz_6D_interval_sq": -0.49999999999999994,
+        "disjoint_for_tau_gt_0": true
+      },
+      {
+        "tau": 1,
+        "euclidean_time_distance": 1.414213562373095,
+        "lorentz_6D_interval_sq": -1.9999999999999998,
+        "disjoint_for_tau_gt_0": true
+      },
+      {
+        "tau": 2,
+        "euclidean_time_distance": 2.82842712474619,
+        "lorentz_6D_interval_sq": -7.999999999999999,
+        "disjoint_for_tau_gt_0": true
+      },
+      {
+        "tau": 5,
+        "euclidean_time_distance": 7.071067811865475,
+        "lorentz_6D_interval_sq": -49.99999999999999,
+        "disjoint_for_tau_gt_0": true
+      }
+    ]
+  },
+  "B2": {
+    "transversality_condition": "dim(γ_a) + dim(γ_b) < q  ⇔  1 + 1 < q  ⇔  q ≥ 3",
+    "q_min_for_collision_free_branching": 3,
+    "n_trees_tested": 200,
+    "collision_rate_in_2D_time_q2": 0.945,
+    "collision_rate_in_3D_time_q3": 0,
+    "min_non_sibling_distance_in_3D_time": 0.001342303297865277
+  },
+  "B3": {
+    "saddle_state": "x_* = (1/2, 1/2, 0)",
+    "dT_at_decision_moment": 2.000066666111074,
+    "transverse_watershed_eigenvalue": 1,
+    "n_runs": 200,
+    "branch_1_fraction": 0.5,
+    "branch_2_fraction": 0.5,
+    "mean_single_branch_dT_after_split": 1.02641308702529,
+    "ensemble_two_worlds_dT_after_split": 1.9999980887708964
+  },
+  "B4": {
+    "switch_angle_rad": 1.5707963267948966,
+    "exact_geodesic_action_unit_stiffness": 1.2337005501361697,
+    "numerical_geodesic_action": 1.2337005501361709,
+    "perturbed_action_plus_025": 1.3879099480604211,
+    "perturbed_action_minus_025": 1.3879099480604218,
+    "geodesic_is_minimum": true,
+    "decoherence_time_over_ell_t": 1.4142135623730951,
+    "overlap_at_tau_6_ell_t": 1.5229979744712682e-8,
+    "decoherence_curve": [
+      {
+        "tau_over_ell_t": 0,
+        "overlap_D12": 1
+      },
+      {
+        "tau_over_ell_t": 0.5,
+        "overlap_D12": 0.8824969025845955
+      },
+      {
+        "tau_over_ell_t": 1,
+        "overlap_D12": 0.6065306597126335
+      },
+      {
+        "tau_over_ell_t": 2,
+        "overlap_D12": 0.13533528323661276
+      },
+      {
+        "tau_over_ell_t": 3,
+        "overlap_D12": 0.011108996538242316
+      },
+      {
+        "tau_over_ell_t": 5,
+        "overlap_D12": 0.0000037266531720786777
+      },
+      {
+        "tau_over_ell_t": 6,
+        "overlap_D12": 1.5229979744712682e-8
+      }
+    ]
+  },
+  "B5": {
+    "branch_weights": [
+      0.62,
+      0.38
+    ],
+    "max_total_norm_conservation_error": 4.440892098500626e-16,
+    "branch1_energy_positive": true,
+    "branch2_energy_positive": true,
+    "branch1_energy": 1.0333333333333334,
+    "branch2_energy": 1.0703333333333336
+  }
+}

@@ -2,11 +2,11 @@
 
 **Гипотезу формулировал и проверял Александр Кутепов ([@AlexKutepov](https://github.com/AlexKutepov)) совместно с языковыми моделями (LLM).**
 
-Открытое исследование шестимерной конструкции Р. О. ди Бартини ($3+3$) и стохастической надстройки: случайный выбор тикающего часа, запирание на одном времени, численная проверка L0–L3, редукция на срез $(3,1)$, ограничения Эйнштейна–эфира и аудит первоисточника 1965 года.
+Открытое исследование шестимерной конструкции Р. О. ди Бартини ($3+3$) и стохастической надстройки: случайный выбор тикающего часа, запирание на одном времени, численная проверка L0–L3, редукция на срез $(3,1)$, ограничения Эйнштейна–эфира, многомировое ветвление времени в точках бифуркации и аудит первоисточника 1965 года.
 
 Читать с формулами: открыть [`site/index.html`](site/index.html) (KaTeX). Пересборка: `node tools/docs_build.mjs`. В исходниках формулы в `$...$` / `$$...$$` — так их понимает GitHub.
 
-**Для исследователей / For researchers / 给研究者** — что сделано, что доказано, чего нет, как воспроизвести, что не цитировать:
+**Для исследователей / For researchers / 给研究者** — что сделано, что доказано, реестр ошибок в статье Бартини (1965) и вторичных перепечатках, как воспроизвести:
 
 - [Русский](docs/ru/FOR_RESEARCHERS.md)
 - [English](docs/en/FOR_RESEARCHERS.md)
@@ -14,13 +14,22 @@
 
 Полные доказательства и вся цепочка рассуждений:
 
-| Язык | Бартини / Бартини+ | Стресс-тест P5 | Четыре шага | Дыры | Ужесточение | Углублённое R1–R4 |
-|---|---|---|---|---|---|---|
-| Русский | [docs/ru/PROOF.md](docs/ru/PROOF.md) | [docs/ru/P5_STRESS.md](docs/ru/P5_STRESS.md) | [docs/ru/FOUR_STEPS.md](docs/ru/FOUR_STEPS.md) | [docs/ru/CLOSE_GAPS.md](docs/ru/CLOSE_GAPS.md) | [docs/ru/MATH_TIGHTEN.md](docs/ru/MATH_TIGHTEN.md) | [docs/ru/DEEP_RESEARCH.md](docs/ru/DEEP_RESEARCH.md) |
-| English | [docs/en/PROOF.md](docs/en/PROOF.md) | [docs/en/P5_STRESS.md](docs/en/P5_STRESS.md) | [docs/en/FOUR_STEPS.md](docs/en/FOUR_STEPS.md) | [docs/en/CLOSE_GAPS.md](docs/en/CLOSE_GAPS.md) | [docs/en/MATH_TIGHTEN.md](docs/en/MATH_TIGHTEN.md) | [docs/en/DEEP_RESEARCH.md](docs/en/DEEP_RESEARCH.md) |
-| 中文 | [docs/zh/PROOF.md](docs/zh/PROOF.md) | [docs/zh/P5_STRESS.md](docs/zh/P5_STRESS.md) | [docs/zh/FOUR_STEPS.md](docs/zh/FOUR_STEPS.md) | [docs/zh/CLOSE_GAPS.md](docs/zh/CLOSE_GAPS.md) | [docs/zh/MATH_TIGHTEN.md](docs/zh/MATH_TIGHTEN.md) | [docs/zh/DEEP_RESEARCH.md](docs/zh/DEEP_RESEARCH.md) |
+| Язык | Бартини / Бартини+ | Стресс-тест P5 | Четыре шага | Дыры | Ужесточение | Углублённое R1–R4 | Ветвление B1–B5 |
+|---|---|---|---|---|---|---|---|
+| Русский | [PROOF](docs/ru/PROOF.md) | [P5_STRESS](docs/ru/P5_STRESS.md) | [FOUR_STEPS](docs/ru/FOUR_STEPS.md) | [CLOSE_GAPS](docs/ru/CLOSE_GAPS.md) | [MATH_TIGHTEN](docs/ru/MATH_TIGHTEN.md) | [DEEP_RESEARCH](docs/ru/DEEP_RESEARCH.md) | [BRANCHING_TIME](docs/ru/BRANCHING_TIME.md) |
+| English | [PROOF](docs/en/PROOF.md) | [P5_STRESS](docs/en/P5_STRESS.md) | [FOUR_STEPS](docs/en/FOUR_STEPS.md) | [CLOSE_GAPS](docs/en/CLOSE_GAPS.md) | [MATH_TIGHTEN](docs/en/MATH_TIGHTEN.md) | [DEEP_RESEARCH](docs/en/DEEP_RESEARCH.md) | [BRANCHING_TIME](docs/en/BRANCHING_TIME.md) |
+| 中文 | [PROOF](docs/zh/PROOF.md) | [P5_STRESS](docs/zh/P5_STRESS.md) | [FOUR_STEPS](docs/zh/FOUR_STEPS.md) | [CLOSE_GAPS](docs/zh/CLOSE_GAPS.md) | [MATH_TIGHTEN](docs/zh/MATH_TIGHTEN.md) | [DEEP_RESEARCH](docs/zh/DEEP_RESEARCH.md) | [BRANCHING_TIME](docs/zh/BRANCHING_TIME.md) |
 
 Авторы: [AUTHORS.md](AUTHORS.md). Лицензия: [MIT](LICENSE).
+
+---
+
+## Вскрытые ошибки в статье Бартини (1965) и вторичных источниках (`H1`, `T3`, `T10`)
+
+1. **Ручная подгонка константы $E$ под $\alpha^{-1}$ 1965 года ($71\,373\,\sigma$ расхождения с CODATA-2022):** аналитическое отношение экстремумов сферы $S_{n+1}(z)=2\pi^z/\Gamma(z)$ между $n_+ = +6.2569464$ ($+33.161194485$) и зеркальной ветвью $k=3$ при $n_{-3} = -5.9912841 \approx -6$ ($-0.1209542108$) равно $\bar{E} = 274.1632083$ ($\bar{E}/2 = 137.081604$). Чтобы совпасть с экспериментальным значением середины 1960-х ($\alpha^{-1}_{1965}\approx 137.0375$), Бартини вручную заменил $\bar{E}$ на $E = 274.074996 \approx \frac{1}{4}e^{6.9996968}$ ($E/2 = 137.037498$). Современное значение CODATA-2022 ($137.035999177(21)$) отвергает эту константу на **$71\,373\,\sigma$**.
+2. **Эффект look-elsewhere в таблице констант:** решётка $2^a 3^b 5^e \pi^{c/2} E^d$ даёт $7\,761$ узел на $[100, 2000]$ с медианным шагом $1.10\cdot 10^{-4}$ (случайное число попадает в допуск $\le 3.33\cdot 10^{-4}$ с вероятностью $76\%$).
+3. **OCR-порча во вторичных перепечатках ($B = 2885.3453$):** популярная запись $\sqrt{6}\cdot E/\pi$ ($= 213.69$) — ошибка распознавания текста; истинная формула Бартини содержит объём 6-тора $V_6 = \frac{16\pi^3}{15}$: $B = V_6 E/\pi = \frac{16\pi^2}{15}E = 2885.3459$.
+4. **Запрет одновременной непрерывной динамики трёх времён в объёме (`T3`, `T10`):** в открытом 6D объёме скрытые времена дают тахионный знак $m^2 < 0$ (`T3`), а бусты $u^i$ и внутренние углы $\hat{n}^\alpha\in S^2$ имеют противоположные знаки кинетики (`No-Go T10`). Непротиворечивы либо калибровочно запертый срез $(3,1)$, либо **кусочно-фробениусово ветвление времени в дискретных точках бифуркации (`B1–B5`)**.
 
 ---
 
@@ -36,39 +45,27 @@
 6. Мера Бартини тождественна $1/\mathrm{Area}(S^n)$; $e^{-\pi x^2}$ — фурье-самодуальный гауссиан ($L^2$-ошибка $2\cdot10^{-15}$). При $n=6$ сигнатура $(3,3)$ максимизирует объём светового конуса ($16\pi^2$ против $4\pi^3$ у $2+4$). M1: $a=\pi$ из maxent + унитарного Фурье; самодуальность без maxent $n=6$ не даёт (Эрмит $4k$ сдвигает $n_*$).
 7. Поле $n:M\to S^2$ запирает случайные данные без урны (2D: $12/12$). Проекция $n\cdot\partial_t$ делает волновой оператор гиперболическим и снимает тахионный знак.
 8. Расслоение псевдосферы $H^{3,2}\cong\mathbb{R}^3_{\rm boost}\times S^2_{\rm time}$ даёт точное тождество $\eta^{\mu\nu}\eta_{AB}\partial_\mu U^A\partial_\nu U^B = C_1[u] - (1+\lvert\mathbf{u}\rvert^2)\eta^{\mu\nu}\delta_{\alpha\beta}\partial_\mu\hat{n}^\alpha\partial_\nu\hat{n}^\beta$ (исправлен дефект нормы в `M2`); бусты $u^i$ и внутренние углы $\hat{n}^\alpha$ имеют противоположные знаки кинетики (**No-Go T10**, `M4`).
-9. Аудит первоисточника Бартини (ДАН СССР, 1965, т. 163, № 4, с. 861–864, блок `H1`): Таблица 2 воспроизведена до 10 цифр ($+33.161194485$ при $n_+=+6.2569464$ и $-0.1209542108$ на зеркальной ветви $k=3$ при $n_{-3}=-5.9912841\approx -6$, отношение $\bar{E}=274.1632083$). Переход к $E=274.074996$ подогнан под $\alpha^{-1}_{1965}\approx 137.0375$ и расходится с CODATA-2022 на $71\,373\,\sigma$; вскрыта OCR-порча $V_6\to\sqrt{6}$ в формуле $B=2885.3453$.
+9. **Многомировое ветвление и дуальность времён в точке выбора (`B1–B5`):** если $\hat{\mathbf{n}}(\tau)$ кусочно-постоянно и меняется только на 3D гиперповерхности бифуркации $\Sigma_*$, внутри каждой ветви нет духов и выполнено $c_{\mathrm{gw}}=c$ (`B1`). По теореме трансверсальности Тома (`B2`) минимальная размерность времени для дерева ветвящихся мировых линий без взаимных столкновений равна $q_{\min}=3$ ($94.5\%$ столкновений в 2D времени против $0\%$ в 3D времени). В самой точке выбора на седле $n_1=n_2$ реализуется дуальность времён $d_T=2$, распадающаяся с $\lambda_\perp=\theta-1>0$ на две запертые ветви $d_T\to 1$ (`B3`) с гауссовой декогеренцией за время $\tau_{\mathrm{decoh}}=\ell_t/\sin(\vartheta_{12}/2)$ (`B4`) и точным сохранением нормы (`B5`).
 
 **Не доказано.**
 
-Вселенная физически шестимерна. Принцип меры — закон природы. Масса частиц из скрытых времён (T3: запрещено). Отличимый от ОТО и ещё живой числовой прогноз.
+Вселенная физически шестимерна. Принцип меры — закон природы. Масса частиц из скрытых времён (T3: запрещено). Отличимый от ОТО и ещё живой числовой прогноз внутри одной ветви.
 
-Доказана редукция: Фробениус съедает голдстоуны; $g_{\mathrm{phys}}$ имеет ранг 4 и сигнатуру $(3,1)$; $\partial_\perp$ — калибровка; духи лишнего времени снимаются. Цена — неотличимость среза от 4D ОТО.
-
-**Проверяемость (T8–T9, M2–M5).** При ненулевой жёсткости оси времени бустовый сектор отображается в Эйнштейн–эфир с $c_1=(E_{\mathrm{lock}}/M_{\mathrm{Pl}})^2$. GW170817 даёт $E_{\mathrm{lock}}\le9.7\cdot10^{10}$ ГэВ; даже при симметрийной защите $c_{13}=0$ через максвелловский член $F_{AB}F^{AB}=2(C_1-C_3)$ пульсарный предел на $\alpha_2$ ограничивает $E_{\mathrm{lock}}\le6.26\cdot10^{14}$ ГэВ (`M5`), исключая $M_{\mathrm{Pl}}$ и $M_{\mathrm{GUT}}$. M3: физический $d_s=4$, не 6.
+**Проверяемость (T8–T9, M2–M5).** При ненулевой непрерывной жёсткости оси времени бустовый сектор отображается в Эйнштейн–эфир с $c_1=(E_{\mathrm{lock}}/M_{\mathrm{Pl}})^2$. GW170817 даёт $E_{\mathrm{lock}}\le9.7\cdot10^{10}$ ГэВ; даже при симметрийной защите $c_{13}=0$ через максвелловский член $F_{AB}F^{AB}=2(C_1-C_3)$ пульсарный предел на $\alpha_2$ ограничивает $E_{\mathrm{lock}}\le6.26\cdot10^{14}$ ГэВ (`M5`), исключая $M_{\mathrm{Pl}}$ и $M_{\mathrm{GUT}}$. M3: физический $d_s=4$, не 6.
 
 ---
 
 ## What is proven, what is not
 
-**Proven (conditionally, inside the model).** The Bartini integral has a local integer minimum at $n=6$. A $(3,3)$ metric exists; $3+1$ is a slice, not an automatic consequence. A nonlinear urn with $\theta>1$ locks onto one observed time (exact strong monopoly by Rubin’s criterion at $\theta_c=1$, mean-field $\ln\tau_{\rm lock}\sim C/(\theta-1)$, exact monopoly destroyed by any persistent exploration floor $\mu>0$, fast logit noise attenuating the eigenvalue to $\lambda_{\rm eff}=\theta\chi(\sigma)-1$, and spatial coupling $J>0$ locking a global time axis across a 2D lattice, `P5+`). Coherent decay matches $\Gamma\approx\frac12\mathrm{Var}(c)\,k^2\Delta t$ to $2.9\%$. Life-like structures survive after lock-in only under a life-supporting winning rule. M1: $a=\pi$ follows from maxent + unitary Fourier; self-duality alone does not fix $n=6$ (Hermite $4k$). M4/T10: exact bundle decomposition of $H^{3,2}$ shows opposite kinetic signs between spacetime boosts $u^i$ and internal rotations $\hat{n}^\alpha$. H1: Bartini's 1965 Table 2 is reproduced to 10 digits on the mirror branch $k=3$ ($n_{-3}\approx -6$), while the shifted $E=274.074996$ is excluded by CODATA-2022 at $71\,373\,\sigma$.
+**Proven (conditionally, inside the model).** The Bartini integral has a local integer minimum at $n=6$. A $(3,3)$ metric exists; $3+1$ is a slice, not an automatic consequence. A nonlinear urn with $\theta>1$ locks onto one observed time (`P5_STRESS`, `P5+`). M1: $a=\pi$ follows from maxent + unitary Fourier. M4/T10: exact bundle decomposition of $H^{3,2}$ shows opposite kinetic signs between spacetime boosts $u^i$ and internal rotations $\hat{n}^\alpha$. H1: Bartini's 1965 Table 2 is reproduced to 10 digits on the mirror branch $k=3$ ($n_{-3}\approx -6$), while the shifted $E=274.074996$ is excluded by CODATA-2022 at $71\,373\,\sigma$, and the $V_6\to\sqrt{6}$ OCR corruption in secondary sources is exposed. B1–B5: piecewise-Frobenius branching at discrete 3D decision surfaces $\Sigma_*$ is ghost-free on every branch, realizes $d_T=2\to 1$ saddle duality at the bifurcation point, decoheres in $\tau_{\mathrm{decoh}}=\ell_t/\sin(\vartheta_{12}/2)$, and requires $q_{\min}=3$ time dimensions by Thom transversality to avoid branch collisions.
 
-**Not proven.** That the Universe is physically six-dimensional. That Bartini derived the constants. That one of $t_1,t_2,t_3$ is randomly chosen at every instant of the locked world.
-
-**Testability (T8–T9, M2–M5).** With nonzero time-axis stiffness the boost sector maps onto Einstein-aether with $c_1=(E_{\mathrm{lock}}/M_{\mathrm{Pl}})^2$; GW170817 bounds $E_{\mathrm{lock}}\le9.7\cdot10^{10}$ GeV, and even with symmetry-protected $c_{13}=0$ ($F_{AB}F^{AB}=2(C_1-C_3)$, `M5`), binary pulsars bound $E_{\mathrm{lock}}\le6.26\cdot10^{14}$ GeV, excluding the Planck and GUT scales. Physical spectral dimension on the slice is $d_s=4$, not 6 (M3).
-
-Full English text: [docs/en/PROOF.md](docs/en/PROOF.md) and [docs/en/DEEP_RESEARCH.md](docs/en/DEEP_RESEARCH.md).
+Full English text: [docs/en/FOR_RESEARCHERS.md](docs/en/FOR_RESEARCHERS.md), [docs/en/DEEP_RESEARCH.md](docs/en/DEEP_RESEARCH.md), [docs/en/BRANCHING_TIME.md](docs/en/BRANCHING_TIME.md).
 
 ---
 
 ## 已证明与未证明
 
-**已证明（在模型内部、有条件）。** 巴尔蒂尼积分的整数局部极小在 $n=6$。$(3,3)$ 度量存在；$3+1$ 是切片，不是自动推论。$\theta>1$ 的非线性瓮会锁到单一可观测时间（Rubin 判据给出精确临界值 $\theta_c=1$，平均场 $\ln\tau_{\rm lock}\sim C/(\theta-1)$，持续探索噪声 $\mu>0$ 破坏精确垄断，快速 logit 噪声给出 $\lambda_{\rm eff}=\theta\chi(\sigma)-1$，且空间耦合 $J>0$ 在 2D 晶格上锁定全局单一时间轴，`P5+`）。相干衰减与 $\Gamma\approx\frac12\mathrm{Var}(c)\,k^2\Delta t$ 相对误差 $2.9\%$。类生命结构仅在锁定之后、且赢家规则支持生命时稳定。M1：maxent + 幺正傅里叶给出 $a=\pi$；单靠自对偶不能固定 $n=6$（厄米 $4k$）。M4/T10：$H^{3,2}$ 纤维丛精确分解表明时空助推 $u^i$ 与内部旋转 $\hat{n}^\alpha$ 具有相反的动能符号。H1：巴尔蒂尼 1965 年表 2 在镜像分支 $k=3$（$n_{-3}\approx -6$）上精确复现至 10 位有效数字，而偏移常数 $E=274.074996$ 被 CODATA-2022 排除达 $71\,373\,\sigma$。
-
-**未证明。** 宇宙在物理上是六维的。巴尔蒂尼推出了基本常数。已锁定世界的每一个瞬间都在 $t_1,t_2,t_3$ 中随机选一个。
-
-**可检验性（T8–T9，M2–M5）。** 时间轴刚度非零时，助推扇区映射为 $c_1=(E_{\mathrm{lock}}/M_{\mathrm{Pl}})^2$ 的 Einstein-aether；GW170817 给出 $E_{\mathrm{lock}}\le9.7\cdot10^{10}$ GeV，即使通过麦克斯韦项 $F_{AB}F^{AB}=2(C_1-C_3)$ 保护 $c_{13}=0$（`M5`），脉冲星仍限制 $E_{\mathrm{lock}}\le6.26\cdot10^{14}$ GeV，排除普朗克与 GUT 尺度。切片上的物理谱维为 $d_s=4$，而非 6（M3）。
-
-全文：[docs/zh/PROOF.md](docs/zh/PROOF.md) 与 [docs/zh/DEEP_RESEARCH.md](docs/zh/DEEP_RESEARCH.md)。
+全文与巴尔蒂尼（1965）错误核查清单见：[docs/zh/FOR_RESEARCHERS.md](docs/zh/FOR_RESEARCHERS.md)、[docs/zh/DEEP_RESEARCH.md](docs/zh/DEEP_RESEARCH.md) 与 [docs/zh/BRANCHING_TIME.md](docs/zh/BRANCHING_TIME.md)。
 
 ---
 
@@ -83,9 +80,10 @@ node bartini_plus/aether_bounds.mjs
 node bartini_plus/n_times.mjs
 node bartini_plus/math_tighten.mjs
 node bartini_plus/deep_research.mjs
+node bartini_plus/branching_time.mjs
 ```
 
-Результаты: `results/bartini_plus.json`, `results/four_steps.json`, `results/close_gaps.json`, `results/p5_stress.json`, `results/aether_bounds.json`, `results/n_times.json`, `results/math_tighten.json`, `results/deep_research.json`. Python-модули в `bartini_plus/` — параллельная запись урны и Life; рабочий прогон — JavaScript (Node).
+Результаты: `results/bartini_plus.json`, `results/four_steps.json`, `results/close_gaps.json`, `results/p5_stress.json`, `results/aether_bounds.json`, `results/n_times.json`, `results/math_tighten.json`, `results/deep_research.json`, `results/branching_time.json`.
 
 ---
 
