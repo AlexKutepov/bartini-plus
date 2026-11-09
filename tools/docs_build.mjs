@@ -207,18 +207,21 @@ const PAGES = [
   { id: "ru-steps", file: "docs/ru/FOUR_STEPS.md", group: "ru" },
   { id: "ru-gaps", file: "docs/ru/CLOSE_GAPS.md", group: "ru" },
   { id: "ru-tighten", file: "docs/ru/MATH_TIGHTEN.md", group: "ru" },
+  { id: "ru-deep", file: "docs/ru/DEEP_RESEARCH.md", group: "ru" },
   { id: "en-researchers", file: "docs/en/FOR_RESEARCHERS.md", group: "en" },
   { id: "en-proof", file: "docs/en/PROOF.md", group: "en" },
   { id: "en-p5", file: "docs/en/P5_STRESS.md", group: "en" },
   { id: "en-steps", file: "docs/en/FOUR_STEPS.md", group: "en" },
   { id: "en-gaps", file: "docs/en/CLOSE_GAPS.md", group: "en" },
   { id: "en-tighten", file: "docs/en/MATH_TIGHTEN.md", group: "en" },
+  { id: "en-deep", file: "docs/en/DEEP_RESEARCH.md", group: "en" },
   { id: "zh-researchers", file: "docs/zh/FOR_RESEARCHERS.md", group: "zh" },
   { id: "zh-proof", file: "docs/zh/PROOF.md", group: "zh" },
   { id: "zh-p5", file: "docs/zh/P5_STRESS.md", group: "zh" },
   { id: "zh-steps", file: "docs/zh/FOUR_STEPS.md", group: "zh" },
   { id: "zh-gaps", file: "docs/zh/CLOSE_GAPS.md", group: "zh" },
   { id: "zh-tighten", file: "docs/zh/MATH_TIGHTEN.md", group: "zh" },
+  { id: "zh-deep", file: "docs/zh/DEEP_RESEARCH.md", group: "zh" },
 ];
 
 const CSS = `

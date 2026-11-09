@@ -1,7 +1,7 @@
 # 给研究者的说明
 
 **项目：** 巴尔蒂尼+ — 对 R. O. di Bartini 的 $3+3$ 纲领的复原、随机扩展、场约化，以及定理与禁令的显式清单。  
-**作者：** 亚历山大·库捷波夫（[@AlexKutepov](https://github.com/AlexKutepov)）与 2026 年 Cursor 研究链中的大语言模型。假说由库捷波夫提出，发表责任归他；复原、证明与代码与 LLM 共同完成。  
+**作者：** 亚历山大·库捷波夫（[@AlexKutepov](https://github.com/AlexKutepov)）与 2026 年 Cursor / Antigravity 研究链中的大语言模型。假说由库捷波夫提出，发表责任归他；复原、证明与代码与 LLM 共同完成。  
 **仓库：** https://github.com/AlexKutepov/bartini-plus  
 **许可：** MIT  
 **引用：** `CITATION.cff`
@@ -14,10 +14,10 @@
 
 一次公开、可复现的尝试，把常被混在一起的四层分开：
 
-1. **历史上的巴尔蒂尼** — 量纲表 $L^a T^b$、1965 年风格的积分（极小在 $n=6$ 附近）、公设 $M_6=M_3^{\mathrm{space}}\times M_3^{\mathrm{time}}$。
+1. **历史上的巴尔蒂尼** — 量纲表 $L^a T^b$、1965 年球面体积积分（极小在 $n=6$）、公设 $M_6=M_3^{\mathrm{space}}\times M_3^{\mathrm{time}}$。
 2. **签名 $(3,3)$ 的几何** — 平坦度量、测地线、向单一时间的投影、超双曲波、柯西问题、质量符号。
 3. **巴尔蒂尼+** — *新的*随机机制（非线性波利亚瓮），选择一只打勾的钟。巴尔蒂尼文本中没有这一层。
-4. **无瓮约化** — 时间 3-平面中的 $n\in S^2$，再加 Frobenius 与秩 4 的退化物理度量。
+4. **无瓮约化** — 伪球面丛 $H^{3,2}\cong\mathbb{R}^3_{\mathrm{boost}}\times S^2_{\mathrm{time}}$，再加 Frobenius 与秩 4 的退化物理度量。
 
 *数学上*闭合的链条是：自对偶高斯 $\to n=6\to$ 光锥体积极大 $\to(3,3)\to n$ 场/chronon $\to$ 切片上的爱因斯坦。
 
@@ -37,18 +37,15 @@
 8. **T1–T7**：Frobenius 下戈德斯通为规范；隐蔽时间 KK 质量被禁止；$\partial_\perp=0$ 是规范；$g_{\mathrm{phys}}$ 谱为 $(1,1,1,-1,0,0)$；投影后 $H>0$。没有不同于广义相对论且仍存活的数字。
 9. 可检验性 **T8–T9**（`aether_bounds.mjs`）：以刚度 $f=E_{\mathrm{lock}}$ 放松 Frobenius，巴尔蒂尼+ 映射为只有一个系数 $c_1=(E_{\mathrm{lock}}/M_{\mathrm{Pl}})^2$ 的 Einstein-aether。GW170817 给出 $E_{\mathrm{lock}}\le9.7\cdot10^{10}$ GeV；普朗克尺度锁定被排除。时间轴缺陷（T9）由 Planck 给出更弱的界 $\eta\lesssim10^{16}$ GeV。
 10. 收紧 **M1–M3**（`math_tighten.mjs`）：maxent + 幺正傅里叶固定 $a=\pi$；单靠自对偶会移动 $n_*$（厄米 $4k$）。切片上 Dirichlet 只有 $c_1$。物理 $d_s=4$；紫外六是未约化算子，不是切片的预言。
+11. 深度研究 **R1–R4 / M4–M5 / P5+ / H1**（`deep_research.mjs`）：$H^{3,2}$ 在 $(3,1)$ 切片上的精确纤维丛分解、修正 `M2` 中的洛伦兹模方缺陷、助推与内部角度相反动能符号定理（**No-Go T10**）；通过 $F_{AB}F^{AB}=2(C_1-C_3)$ 对称性保护 $c_{13}=0$ 及脉冲星上界 $E_{\mathrm{lock}}\le 6.26\cdot 10^{14}$ GeV；快速 logit 噪声下的精确特征值 $\lambda_{\mathrm{eff}}(\theta,\sigma)=\theta\chi(\sigma)-1$ 与 2D 耦合晶格全局时间轴锁定；巴尔蒂尼 1965 年论文表 2 的 10 位有效数字复现、证明 $E=274.074996$ 被 CODATA-2022 排除达 $>71\,000\,\sigma$，以及揭示 $V_6\to\sqrt{6}$ 的 OCR 识别错误。
 
 ---
 
 ## 我们证明了什么 / 没有证明什么
 
-已证：上述积分与球面恒等式、$n=6$、$(3,3)$ 为光锥极大、$3+1$ 仅为切片、瓮的锁定与 $\Gamma$、P5 垄断临界值 $\theta_c=1$ 与 $\ln\tau_{\rm lock}\sim C/(\theta-1)$、Life 仅在 lock+生命规则下存活、T1–T6、T8 上界（$E_{\mathrm{lock}}\le9.7\cdot10^{10}$ GeV）、M1–M3（maxent+$\mathcal F$、$L_D=C_1$、物理 $d_s=4$）。
+已证：上述积分与球面恒等式、$n=6$、$(3,3)$ 为光锥极大、$3+1$ 仅为切片、瓮的锁定与 $\Gamma$、P5 垄断临界值 $\theta_c=1$ 与 $\ln\tau_{\rm lock}\sim C/(\theta-1)$、Life 仅在 lock+生命规则下存活、T1–T6、T8 上界（$E_{\mathrm{lock}}\le9.7\cdot10^{10}$ GeV）、M1–M3（maxent+$\mathcal F$、$L_D=C_1$、物理 $d_s=4$）、M4/T10（$H^{3,2}$ 分解与相反动能符号）、M5（对称性保护 $c_{13}=0$ 下脉冲星界 $E_{\mathrm{lock}}\le 6.26\cdot 10^{14}$ GeV）、P5+（快速噪声特征值与 2D 晶格共识）、H1（1965 年表 2 精确复现及 $71\,373\,\sigma$ 排除）。
 
-未证：宇宙在物理上是六维的；巴尔蒂尼推出了无量纲常数；已锁定世界的每一瞬间都在三只钟里抽签；maxent 是自然定律（M1 只命名了配对；无 maxent 的自对偶不能给出 $n=6$）；粒子质量来自额外时间（**T3 禁止**）；一个尚未被洛伦兹检验杀死的新实验室数字。
-
-T2–T6 之后，切片就是普通 $3+1$ 广义相对论。这是自洽约化的代价。时间轴刚度非零时（T8），chronon 是物理的，且已被 GW170817 限制；得到的数字是否定的——上界，不是探测。
-
-「巴尔蒂尼算出了全部常数」在拿出原始公式、输入与自由参数个数之前，应视为未核实。我们在所用材料中没有找到这样的推导。
+未证：宇宙在物理上是六维的；巴尔蒂尼推出了无量纲常数（在 `H1` 中证明 $E=274.074996$ 系针对 1965 年 $\alpha^{-1}$ 的人工拟合，被 CODATA-2022 排除达 $>71\,000\,\sigma$）；已锁定世界的每一瞬间都在三只钟里抽签；maxent 是自然定律；粒子质量来自额外时间（**T3 禁止**）；一个尚未被洛伦兹检验杀死的新实验室数字。
 
 ---
 
@@ -64,13 +61,10 @@ node bartini_plus/p5_stress.mjs
 node bartini_plus/aether_bounds.mjs
 node bartini_plus/n_times.mjs
 node bartini_plus/math_tighten.mjs
+node bartini_plus/deep_research.mjs
 ```
 
-种子写在脚本里。检查结果保存在 `results/*.json`，主要运行也会将判定打印到 stdout。若改 $c_\alpha$、$\theta$ 或傅里叶约定，$n_*$ 与 $\Gamma$ **必须**移动。
-
-不要靠把隐蔽时间的动能改成类空来「改进」质量。那就是 T3：它们就不再是时间。
-
-仍能改变科学地位的开口只有：从已接受物理推出维度权重的 maxent；一个能活过 $\sim 10^{-15}$ 的预言；巴尔蒂尼一手文献。
+种子写在脚本里。检查结果保存在 `results/*.json`，主要运行也会将判定打印到 stdout。
 
 ---
 
@@ -83,6 +77,7 @@ node bartini_plus/math_tighten.mjs
 | [FOUR_STEPS](FOUR_STEPS.md) | 测度、签名、场 $n$、爱因斯坦约化 |
 | [CLOSE_GAPS](CLOSE_GAPS.md) | T1–T9 |
 | [MATH_TIGHTEN](MATH_TIGHTEN.md) | M1–M3 |
+| [DEEP_RESEARCH](DEEP_RESEARCH.md) | R1–R4：$H^{3,2}$ 纤维丛分解（`M4/T10`）、对称性 $c_{13}=0$（`M5`）、快速噪声与耦合晶格（`P5+`）、1965 年文献审计（`H1`） |
 | `bartini_plus/*.mjs` | 数值运行脚本 |
 | `results/*.json` | 原始数据 |
 

@@ -1,0 +1,276 @@
+{
+  "verdicts": {
+    "R1_exact_H32_decomposition_rel_error_below_1e_14": true,
+    "R1_boost_sector_LD_equals_C1_to_machine_precision": true,
+    "R1_old_M2_sphere_embedding_violates_lorentz_unit_norm": true,
+    "R1_internal_S2_and_boosts_have_opposite_kinetic_signs": true,
+    "R1_pure_internal_S2_leaves_cgw_equal_c": true,
+    "R2_maxwell_Fsq_equals_2_C1_minus_C3": true,
+    "R2_c13_zero_by_symmetry_gives_exact_s2_and_s1_unity": true,
+    "R2_even_with_c13_zero_pulsars_exclude_Planck_and_GUT": true,
+    "R3_logit_noise_stretches_exponent_above_2x_at_sigma2_and_stabilizes_above_sigma_c": true,
+    "R3_logit_noise_creates_bistable_kramers_barrier_above_sigma_c": true,
+    "R3_spatial_coupling_locks_global_time_axis_across_lattice": true,
+    "R4_bartini_table2_extrema_reproduced_to_10_digits_on_mirror_branch_k3": true,
+    "R4_bartini_shifted_E_matches_1965_alpha_but_fails_CODATA2022_by_70k_sigma": true,
+    "R4_bartini_B_is_V6_E_over_pi_not_sqrt6_ocr_corrupted": true,
+    "R4_look_elsewhere_grid_hits_random_numbers_to_1e_4": true
+  },
+  "R1": {
+    "exact_identity": "η^{μν}η_{AB}∂_μ U^A ∂_ν U^B = C_1[u] - (1+|u|²)η^{μν}δ_{αβ}∂_μ n̂^α ∂_ν n̂^β",
+    "max_norm6_error": 1.1102230246251565e-15,
+    "max_norm4_boost_error": 6.661338147750939e-16,
+    "old_M2_sphere_in_lorentz_norm_error_at_a03_b025": 0.30499999999999994,
+    "max_pointwise_identity_rel_error": 1.6865822960022744e-16,
+    "lattice_3D_boost_LD_over_C1": 1,
+    "pure_internal_S2_sector": {
+      "spacetime_aether_vector": "u^μ = (0,0,0,1) = const",
+      "aether_coefficients": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "c_gw_over_c": 1,
+      "constrained_by_GW170817": false,
+      "reason": "n̂^α ∈ S² ⊂ ℝ³_time преобразуется как (1,3) относительно SO(3)_space × SO(3)_time — триплет 4D лоренцевых скаляров, не пространственный вектор."
+    },
+    "opposite_kinetic_signs_theorem": {
+      "boost_time_kinetic_sign_at_kappa_gt_0": 1,
+      "internal_S2_time_kinetic_sign_at_kappa_gt_0": -1,
+      "opposite_signs": true,
+      "consequence": "Единый 6D член Дирихле на H^{3,2} даёт противоположные знаки кинетической энергии бустам u^i и внутренним вращениям n̂^α. Чтобы не было духов, один из секторов обязан быть калибровочно заморожен (либо u^i=0 и чистое S², либо Фробениус n̂=const и чистый эфир u^μ)."
+    }
+  },
+  "R2": {
+    "maxwell_identity": "F_{AB}F^{AB} = 2(∇_A U_B ∇^A U^B - ∇_A U_B ∇^B U^A) = 2(C_1 - C_3)",
+    "maxwell_identity_lattice_rel_error": 1.9518595849337515e-13,
+    "ricci_identity": "R_{AB}U^A U^B = ∇_A(U^B∇_B U^A - U^A∇_B U^B) + C_2 - C_3",
+    "symmetry_protecting_c13_zero": "Градиентная калибровочная инвариантность U_A ↦ U_A + ∂_A φ в линейном порядке выделяет F_{AB}=∂_A U_B - ∂_B U_A, давая c_3 = -c_1 ⇒ c_13 = 0 тождественно.",
+    "observables_at_eps_1e_6": {
+      "c13": 0,
+      "c14": 0.000001,
+      "c123": 0.0000020000000000000003,
+      "s2sq": 1,
+      "s1sq": 1,
+      "s0sq": 1.9999930000210009,
+      "alpha1": -0.000004,
+      "alpha2": -2.49999124999563e-7,
+      "gRatio": 0.9999965000105002
+    },
+    "exact_s2_sq": 1,
+    "exact_s1_sq": 1,
+    "alpha1_formula": "-4ε (при c_1=-c_3=ε, c_4=0)",
+    "alpha2_asymptotic": "-ε/2 (при c_2 ≫ ε)",
+    "eps_max_with_c13_zero_symmetry": 6.60693448007764e-8,
+    "E_lock_max_GeV_with_c13_zero_symmetry": 625891373104297.9,
+    "planck_and_GUT_still_excluded_by_pulsars": true
+  },
+  "R3": {
+    "fast_logit_noise_theory": {
+      "exact_eigenvalue_formula": "λ_eff(θ, σ) = θ χ(σ) - 1,  χ(σ) = (9/2) E[π_1(1-π_1)] = 1 - (9/2) Var(π_1)",
+      "small_sigma_expansion": "χ(σ) = 1 - σ²/9 + O(σ⁴)",
+      "vertex_asymptotic_drift": "q̄_1(1-2δ) - (1-2δ) ≃ 2δ [1 - δ^{θ-1} (sinh σ / σ)²]",
+      "critical_sigma_at_theta2": 3.553,
+      "sigma_scan": [
+        {
+          "sigma": 0,
+          "chi_sigma": 1,
+          "small_sigma_approx": 1,
+          "lambda_eff_theta2": 1,
+          "time_stretching_exponent_inv_lambda": 1,
+          "symmetric_point_locally_stable": false
+        },
+        {
+          "sigma": 0.5,
+          "chi_sigma": 0.9724250435578058,
+          "small_sigma_approx": 0.9722222222222222,
+          "lambda_eff_theta2": 0.9448500871156116,
+          "time_stretching_exponent_inv_lambda": 1.0583689557067695,
+          "symmetric_point_locally_stable": false
+        },
+        {
+          "sigma": 1,
+          "chi_sigma": 0.9013647996304388,
+          "small_sigma_approx": 0.8888888888888888,
+          "lambda_eff_theta2": 0.8027295992608776,
+          "time_stretching_exponent_inv_lambda": 1.2457495038438364,
+          "symmetric_point_locally_stable": false
+        },
+        {
+          "sigma": 1.5,
+          "chi_sigma": 0.8098774803674641,
+          "small_sigma_approx": 0.75,
+          "lambda_eff_theta2": 0.6197549607349282,
+          "time_stretching_exponent_inv_lambda": 1.6135409369118454,
+          "symmetric_point_locally_stable": false
+        },
+        {
+          "sigma": 2,
+          "chi_sigma": 0.7182193935760522,
+          "small_sigma_approx": 0.5555555555555556,
+          "lambda_eff_theta2": 0.4364387871521045,
+          "time_stretching_exponent_inv_lambda": 2.2912720625160365,
+          "symmetric_point_locally_stable": false
+        },
+        {
+          "sigma": 2.5,
+          "chi_sigma": 0.636402559838531,
+          "small_sigma_approx": 0.3055555555555556,
+          "lambda_eff_theta2": 0.272805119677062,
+          "time_stretching_exponent_inv_lambda": 3.665620356332638,
+          "symmetric_point_locally_stable": false
+        },
+        {
+          "sigma": 3,
+          "chi_sigma": 0.5668868024692248,
+          "small_sigma_approx": 0,
+          "lambda_eff_theta2": 0.1337736049384497,
+          "time_stretching_exponent_inv_lambda": 7.475316228938496,
+          "symmetric_point_locally_stable": false
+        },
+        {
+          "sigma": 3.553,
+          "chi_sigma": 0.5032356561575616,
+          "small_sigma_approx": -0.4026454444444445,
+          "lambda_eff_theta2": 0.006471312315123212,
+          "time_stretching_exponent_inv_lambda": 154.5281623424414,
+          "symmetric_point_locally_stable": false
+        },
+        {
+          "sigma": 4,
+          "chi_sigma": 0.46030785905849303,
+          "small_sigma_approx": -0.7777777777777777,
+          "lambda_eff_theta2": -0.07938428188301394,
+          "time_stretching_exponent_inv_lambda": null,
+          "symmetric_point_locally_stable": true
+        }
+      ],
+      "subcritical_slowdown_at_sigma2_theta2": {
+        "chi_at_sigma2": 0.7182193935760522,
+        "lambda_eff_at_sigma2": 0.4364387871521045,
+        "exponent_ratio_inv_lambda": 2.2912720625160365,
+        "explanation": "При σ = 2.0 показатель неустойчивости λ_eff падает с 1.000 до 0.4369, что увеличивает степенной показатель времени запирания 1/λ_eff с 1.000 до 2.289 и растягивает характерное число шагов от ~1.3×10³ до >3×10⁴."
+      },
+      "bistability_at_sigma4_theta2": {
+        "drift_at_a_0_60": -0.027433826977888875,
+        "drift_at_a_0_96": 0.00978326919135708,
+        "unstable_separatrix_share_a_sep": 0.9317584991455077,
+        "asymptotic_formula_prediction": 0.9570319601207469,
+        "explanation": "При σ > σ_c ≈ 3.553 (для θ=2) быстрый шум подавляет чувствительность к счётчикам вблизи (1/3,1/3,1/3) более чем вдвое (χ(σ) < 1/2, λ_eff < 0). Симметричная точка становится локально устойчивой в mean-field, тогда как вершины остаются поглощающими; между ними возникает барьер Крамерса a_sep ≈ 1 - 2(σ/sinh σ)² ≈ 0.933."
+      }
+    },
+    "coupled_lattice_urns": {
+      "grid": "6x6",
+      "runs": 12,
+      "J_0_uncoupled": {
+        "local_dT_mean": 1.0130291369189535,
+        "global_dT_mean": 2.9068768830093243,
+        "consensus_fraction_mean": 0.40046296296296285
+      },
+      "J_035_coupled": {
+        "local_dT_mean": 1.137341486561268,
+        "global_dT_mean": 1.137341475393761,
+        "consensus_fraction_mean": 1
+      }
+    }
+  },
+  "R4": {
+    "primary_source": "Р. О. ди Бартини, «Некоторые соотношения между физическими константами», Доклады АН СССР, 1965, т. 163, № 4, с. 861–864 (представлено акад. Б. М. Понтекорво).",
+    "extremum_branches": {
+      "z_pos": 3.628473202848011,
+      "n_plus_1_pos": 7.256946405696022,
+      "n_pos": 6.256946405696022,
+      "S_max_exact": 33.161194484962,
+      "V6_at_n6_exact": 33.07336179231976,
+      "negative_branches_k1_to_k5": [
+        {
+          "branch_k": 1,
+          "z_k": -0.38164488134941943,
+          "n_plus_1_k": -0.7632897626988389,
+          "n_k": -1.7632897626988389,
+          "S_k": -0.3404265284484554,
+          "abs_S_k": 0.3404265284484554
+        },
+        {
+          "branch_k": 2,
+          "z_k": -1.453249061914991,
+          "n_plus_1_k": -2.906498123829982,
+          "n_k": -3.906498123829982,
+          "S_k": 0.15356436089659872,
+          "abs_S_k": 0.15356436089659872
+        },
+        {
+          "branch_k": 3,
+          "z_k": -2.4956420472388388,
+          "n_plus_1_k": -4.9912840944776775,
+          "n_k": -5.9912840944776775,
+          "S_k": -0.12095421078547833,
+          "abs_S_k": 0.12095421078547833
+        },
+        {
+          "branch_k": 4,
+          "z_k": -3.525319206762961,
+          "n_plus_1_k": -7.050638413525922,
+          "n_k": -8.050638413525922,
+          "S_k": 0.13515857284468077,
+          "abs_S_k": 0.13515857284468077
+        },
+        {
+          "branch_k": 5,
+          "z_k": -4.547850644933934,
+          "n_plus_1_k": -9.095701289867868,
+          "n_k": -10.095701289867868,
+          "S_k": -0.19517632480603944,
+          "abs_S_k": 0.19517632480603944
+        }
+      ],
+      "mirror_branch_k3": {
+        "branch_k": 3,
+        "z_k": -2.4956420472388388,
+        "n_plus_1_k": -4.9912840944776775,
+        "n_k": -5.9912840944776775,
+        "S_k": -0.12095421078547833,
+        "abs_S_k": 0.12095421078547833
+      },
+      "exact_ratio_Smax_over_Smin_k3": 274.16320828859733,
+      "paper_table2_Smax": 33.161194485,
+      "paper_table2_Smin": -0.1209542108,
+      "paper_table2_ratio_Ebar": 274.1632082559957,
+      "rel_match_Smax_vs_table2": 1.145912446719579e-12,
+      "rel_match_Smin_k3_vs_table2": 1.2005928055489925e-10
+    },
+    "fine_structure_audit": {
+      "alpha_inv_from_exact_Ebar_half": 137.08160414429867,
+      "paper_shifted_E": 274.074996,
+      "formula_quarter_exp_6_9996968": 274.07517741415086,
+      "alpha_inv_from_shifted_E_half": 137.037498,
+      "alpha_inv_1965_experiment": 137.0375,
+      "alpha_inv_CODATA_2022": 137.035999177,
+      "rel_error_Ebar_half_vs_CODATA": 0.000332795525063113,
+      "rel_error_shifted_E_half_vs_CODATA": 0.000010937439862466812,
+      "rel_error_shifted_E_half_vs_1965": 1.4594545251850665e-8,
+      "sigma_discrepancy_vs_CODATA_2022": 71372.52380911855,
+      "verdict": "Переход от чистого аналитического отношения экстремумов Ē = 274.163208 (Ē/2 = 137.081604) к E = 274.074996 ≈ (1/4)e^{6.9996968} (E/2 = 137.037498) в статье 1965 года подогнан под экспериментальное значение α^{-1} ≈ 137.0375 середины 1960-х и расходится с современным CODATA-2022 (137.035999177(21)) на +10.9 ppm (> 71 000 σ)."
+    },
+    "ocr_corruption_audit": {
+      "paper_B": 2885.3453,
+      "V6_times_E_over_pi": 2885.345905866821,
+      "sqrt6_times_E_over_pi": 213.6953976793326,
+      "sqrt_6E_over_pi": 12.908044701229306,
+      "rel_match_V6_formula": 2.099806983009773e-7,
+      "verdict": "Во вторичных перепечатках (trinitas, krasnostup и др.) символ объёма 6-тора V_6 = 16π³/15 ≈ 33.07336 при распознавании текста превратился в √6, из-за чего формулу для B = 2885.3453 ошибочно пишут как √6·E/π (= 213.69). Истинная формула Бартини: B = V_6·E/π = (16π²/15)E."
+    },
+    "proton_electron_mass_ratio": {
+      "two_B_over_pi": 1836.8678680878709,
+      "lenz_6_pi_5_equals_90_V6_over_pi": 1836.1181087116884,
+      "codata_2022": 1836.15267343
+    },
+    "look_elsewhere_test": {
+      "ansatz": "2^a * 3^b * 5^e * π^{c/2} * E^d, a∈[-8,8], b∈[-4,4], e∈[-2,2], c∈[-10,10], d∈[-2,2]",
+      "n_grid_points_in_100_to_2000": 7761,
+      "median_random_rel_error": 0.0001097640537528477,
+      "prob_random_target_hits_within_3_3e_4": 0.927
+    }
+  }
+}
